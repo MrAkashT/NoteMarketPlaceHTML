@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 ,user-scalable=no">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/fontawesome/css/font-awesome.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Resposive CSS -->
+    <link rel="stylesheet" href="css/responsiveDemo.css">
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md fixed-top white-navbar">
+            <div class="container nav-wrapper">
+
+                <!-- Mobile Menu Open Button -->
+                <span id="mobile-nav-open-btn">&#9776;</span>
+
+                <div class="navbar-header">
+                    <a href="#" class="navbar-brand">
+                        <img id="logo" class="img-fluid" src="images/User-Profile/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="seacrh-page.html">Search Notes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Sell Your Notes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="buyer-requests.html">Buyer Request</a></li>
+                        <li class="nav-item"><a class="nav-link" href="faq-page.html">FAQ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contactUs-page.html">Contact Us</a></li>
+                        <li>
+                            <div class="dropdown">
+                                <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <img src="images/front/user-img.png" alt="">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">My Profile</a>
+                                    <a class="dropdown-item" href="my-downloads-page.html">My Download</a>
+                                    <a class="dropdown-item" href="my-sold-notes.html">My Sold Notes</a>
+                                    <a class="dropdown-item" href="my-rejected-notes.html">My Rejected Notes</a>
+                                    <a class="dropdown-item" href="#">Change Password</a>
+                                    <a class="dropdown-item logout" href="login-page.html">Logout</a>
+
+                                </div>
+                            </div>
+                        </li>
+                        <!-- <li class="nav-item"><a class="nav-link login-submit-btn" href="#">Login</a></li> -->
+                        <li class="nav-item"><a class="btn nav-link login-submit-btn" href="login-page.html">Logout</a>
+                        </li>
+
+                        <!-- <button type="button" class="login-submit-btn">Logout</button> -->
+                    </ul>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div id="mobile-nav">
+                    <!-- Mobile Menu Close Button -->
+                    <span id="mobile-nav-close-btn">&times;</span>
+                    <img class="logo" src="images/User-Profile/logo.png" alt="">
+                    <div id="mobile-nav-content">
+                        <ul class="nav">
+                            <li><a class="link" href="seacrh-page.html">Search Notes</a></li>
+                            <li><a class="link" href="#">Sell Your Notes</a></li>
+                            <li><a class="link" href="buyer-requests.html">Buyer Request</a></li>
+                            <li><a class="link" href="faq-page.html">FAQ</a></li>
+                            <li><a class="link" href="contactUs-page.html">Contact Us</a></li>
+                            <li>
+                                <div class="dropdown">
+                                    <button type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/front/user-img.png" alt="">
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">My Profile</a>
+                                        <a class="dropdown-item" href="my-downloads-page.html">My Download</a>
+                                        <a class="dropdown-item" href="my-sold-notes.html">My Sold Notes</a>
+                                        <a class="dropdown-item" href="my-rejected-notes.html">My Rejected Notes</a>
+                                        <a class="dropdown-item" href="#">Change Password</a>
+                                        <a class="dropdown-item logout" href="login-page.html">Logout</a>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="btn login-submit-btn link" href="login-page.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="buyer-req-page" class="for-footer-at-bottom">
+        <div class="content-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <h2 class="heading-md">Buyer Request</h2>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-inline relative" id="note-search">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <!-- <i class="fa fa-search"></i> -->
+                            <img class="search-icon" src="images/Dashboard/search.jpg" alt="">
+                            <a href="" class="btn login-submit-btn btn-height" role="button">Search</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SR NO.</th>
+                                <th scope="col">NOTE TITLE</th>
+                                <th scope="col">CATEGORY</th>
+                                <th scope="col">BUYER</th>
+                                <th scope="col">PHONE NO.</th>
+                                <th scope="col">SELL TYPE</th>
+                                <th scope="col">PRICE</th>
+                                <th scope="col">DOWNLOAD DATE/TIME</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td scope="row">1</td>
+                                <td>Data Science</td>
+                                <td>Science</td>
+                                <td>testing123@gmail.com</td>
+                                <td>+91 9874563527</td>
+                                <td>paid</td>
+                                <td>$250</td>
+                                <td>27 Nov 2020, 11:24:34</td>
+                                <td><img src="images/Dashboard/eye.png" alt="eye for view"></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/front/dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Allow Download</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row">2</td>
+                                <td>Account</td>
+                                <td>Commerce</td>
+                                <td>testing123@gmail.com</td>
+                                <td>+91 9874563527</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>27 Nov 2020, 11:24:34</td>
+                                <td><img src="images/Dashboard/eye.png" alt="eye for view"></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/front/dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Allow Download</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row">3</td>
+                                <td>Social Studies</td>
+                                <td>Social</td>
+                                <td>testing123@gmail.com</td>
+                                <td>+91 9874563527</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>27 Nov 2020, 11:24:34</td>
+                                <td><img src="images/Dashboard/eye.png" alt="eye for view"></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/front/dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Allow Download</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row">4</td>
+                                <td>AI</td>
+                                <td>IT</td>
+                                <td>testing123@gmail.com</td>
+                                <td>+91 9874563527</td>
+                                <td>paid</td>
+                                <td>$158</td>
+                                <td>27 Nov 2020, 11:24:34</td>
+                                <td><img src="images/Dashboard/eye.png" alt="eye for view"></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/front/dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Allow Download</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row">5</td>
+                                <td>Lorem ipsum</td>
+                                <td>Lorem</td>
+                                <td>testing123@gmail.com</td>
+                                <td>+91 9874563527</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>27 Nov 2020, 11:24:34</td>
+                                <td><img src="images/Dashboard/eye.png" alt="eye for view"></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/front/dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Allow Download</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row">1</td>
+                                <td>Data Science</td>
+                                <td>Science</td>
+                                <td>testing123@gmail.com</td>
+                                <td>+91 9874563527</td>
+                                <td>paid</td>
+                                <td>$250</td>
+                                <td>27 Nov 2020, 11:24:34</td>
+                                <td><img src="images/Dashboard/eye.png" alt="eye for view"></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/front/dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Allow Download</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row">2</td>
+                                <td>Account</td>
+                                <td>Commerce</td>
+                                <td>testing123@gmail.com</td>
+                                <td>+91 9874563527</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>27 Nov 2020, 11:24:34</td>
+                                <td><img src="images/Dashboard/eye.png" alt="eye for view"></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/front/dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Allow Download</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row">3</td>
+                                <td>Social Studies</td>
+                                <td>Social</td>
+                                <td>testing123@gmail.com</td>
+                                <td>+91 9874563527</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>27 Nov 2020, 11:24:34</td>
+                                <td><img src="images/Dashboard/eye.png" alt="eye for view"></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/front/dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Allow Download</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row">4</td>
+                                <td>AI</td>
+                                <td>IT</td>
+                                <td>testing123@gmail.com</td>
+                                <td>+91 9874563527</td>
+                                <td>paid</td>
+                                <td>$158</td>
+                                <td>27 Nov 2020, 11:24:34</td>
+                                <td><img src="images/Dashboard/eye.png" alt="eye for view"></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/front/dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Allow Download</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row">5</td>
+                                <td>Lorem ipsum</td>
+                                <td>Lorem</td>
+                                <td>testing123@gmail.com</td>
+                                <td>+91 9874563527</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>27 Nov 2020, 11:24:34</td>
+                                <td><img src="images/Dashboard/eye.png" alt="eye for view"></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/front/dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Allow Download</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true"><i class="fa fa-chevron-left"></i><span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link active" href="">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </section>
+   
+    <footer>
+        <div class="content-box-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 footer-elements">
+                        <p>Copyright &copy; Tatvasoft All rights reserved.</p>
+                        <ul class="social-icons text-center ml-auto">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Jquery -->
+    <script src="js/jquery.min.js"></script>
+
+    <!-- Popper Js -->
+    <script src="js/popper/popper.min.js"></script>
+
+    <!-- Bootstrape JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custome JS -->
+    <script src="js/custom.js"></script>
+
+</body>
+
+</html>

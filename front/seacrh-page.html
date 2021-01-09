@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <!-- Meta Tags -->
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 ,user-scalable=no">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/fontawesome/css/font-awesome.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Resposive CSS -->
+    <link rel="stylesheet" href="css/responsiveDemo.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-md fixed-top white-navbar">
+            <div class="container nav-wrapper">
+
+                    <!-- Mobile Menu Open Button -->
+                    <span id="mobile-nav-open-btn">&#9776;</span>
+
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand">
+                            <img id="logo" class="img-fluid" src="images/User-Profile/logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item"><a class="nav-link active" href="seacrh-page.html">Search Notes</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Sell Your Notes</a></li>
+                            <li class="nav-item"><a class="nav-link" href="faq-page.html">FAQ</a></li>
+                            <li class="nav-item"><a class="nav-link" href="contactUs-page.html">Contact Us</a></li>
+                            <li class="nav-item"><a class="btn nav-link login-submit-btn"  href="login-page.html">Logout</a></li>
+                        </ul>
+                    </div>
+
+                     <!-- Mobile Menu -->
+                    <div id="mobile-nav">
+                        <!-- Mobile Menu Close Button -->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <img class="logo" src="images/User-Profile/logo.png" alt="">
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+                                <li><a class="link active" href="seacrh-page.html">Search Notes</a></li>
+                                <li><a class="link" href="#">Sell Your Notes</a></li>
+                                <li><a class="link" href="faq-page.html">FAQ</a></li>
+                                <li><a class="link" href="contactUs-page.html">Contact Us</a></li>
+                                <li><a class="btn login-submit-btn link" href="login-page.html">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-banner">
+        <h2 class="page-banner-text">Search Notes</h2>
+    </div>
+
+    <section id="search-filter">
+        <div class="content-box">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="heading-sm">Search and Filter Notes</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="search">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group relative" id="input-search">
+                                    <input type="text" class="form-control" placeholder="Search notes here...">
+                                    <img class="search-icon" src="images/Dashboard/search.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+                                <div class="form-group">
+                                    <select class="form-control remove-arrow" id="type">
+                                        <option value="">Select Type</option>
+                                    </select>
+                                    <img src="images/User-Profile/down-arrow.png" class="down-arrow-filter" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+                                <div class="form-group">
+                                    <select class="form-control remove-arrow" id="type">
+                                        <option value="">Select Category</option>
+                                    </select>
+                                    <img src="images/User-Profile/down-arrow.png" class="down-arrow-filter" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+                                <div class="form-group">
+                                    <select class="form-control remove-arrow" id="type">
+                                        <option value="">Select University</option>
+                                    </select>
+                                    <img src="images/User-Profile/down-arrow.png" class="down-arrow-filter" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+                                <div class="form-group">
+                                    <select class="form-control remove-arrow" id="type">
+                                        <option value="">Select Course</option>
+                                    </select>
+                                    <img src="images/User-Profile/down-arrow.png" class="down-arrow-filter" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+                                <div class="form-group">
+                                    <select class="form-control remove-arrow" id="type">
+                                        <option value="">Select Country</option>
+                                    </select>
+                                    <img src="images/User-Profile/down-arrow.png" class="down-arrow-filter" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+                                <div class="form-group">
+                                    <select class="form-control remove-arrow" id="type">
+                                        <option value="">Select Rating </option>
+                                    </select>
+                                    <img src="images/User-Profile/down-arrow.png" class="down-arrow-filter" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="searched-notes">
+        <div class="content-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="heading-sm">Total 18 Notes</h2>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="note-wrapper">
+                            <img src="images/Search/1.jpg" class="img-fluid note-image" alt="">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="office">
+                                            <div class="heading">
+                                                <h3 class="heading-sm">Computer Operating System - Final Exam Book With
+                                                    Paper Solution.</h3>
+                                            </div>
+                                            <ul class="university-details">
+                                                <li>
+                                                    <span class="university-detail-img text-center"><img
+                                                            src="images/front/university.png" alt="">
+                                                    </span><span>University of California, US</span>
+                                                </li>
+                                                <li>
+                                                    <span class="university-detail-img text-center"><img
+                                                            src="images/front/pages.png" alt=""></span>
+                                                    <span>204 Pages</span>
+                                                </li>
+                                                <li>
+                                                    <span class="university-detail-img text-center"><img
+                                                            src="images/front/date.png" alt=""></span>
+                                                    <span>Thu, Nov 26 2020</span>
+                                                </li>
+                                                <li>
+                                                    <span class="university-detail-img text-center"><img
+                                                            src="images/front/flag.png" alt=""></span>
+                                                    <span>5 Users marked this note as inappropriate</span>
+                                                </li>
+                                                <li>
+                                                    <div class="rating rating2">
+
+                                                        <p>reviews</p>
+                                                        <!-- 
+                                                     -->
+                                                        <p>100</p>
+                                                        <!-- 
+                                                     --><a href="#5" title="Give 5 stars">★</a>
+                                                        <!--
+                                                     --><a href="#4" title="Give 4 stars">★</a>
+                                                        <!--
+                                                     --><a href="#3" title="Give 3 stars">★</a>
+                                                        <!--
+                                                     --><a href="#2" title="Give 2 stars">★</a>
+                                                        <!--
+                                                     --><a href="#1" title="Give 1 star">★</a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="note-wrapper">
+                            <img src="images/Search/2.jpg" class="img-fluid note-image" alt="">
+                            <div class="container">
+
+                                <div class="office">
+                                    <div class="heading">
+                                        <h3 class="heading-sm">Computer Science</h2>
+                                    </div>
+                                    <ul class="university-details">
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/university.png" alt="">
+                                            </span><span>University of California, US</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/pages.png" alt=""></span>
+                                            <span>204 Pages</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/date.png" alt=""></span>
+                                            <span>Thu, Nov 26 2020</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/flag.png" alt=""></span>
+                                            <span>5 Users marked this note as inappropriate</span>
+                                        </li>
+                                        <li>
+                                            <div class="rating rating2">
+
+                                                <p>reviews</p>
+                                                <!-- 
+                                             -->
+                                                <p>100</p>
+                                                <!-- 
+                                             --><a href="#5" title="Give 5 stars">★</a>
+                                                <!--
+                                             --><a href="#4" title="Give 4 stars">★</a>
+                                                <!--
+                                             --><a href="#3" title="Give 3 stars">★</a>
+                                                <!--
+                                             --><a href="#2" title="Give 2 stars">★</a>
+                                                <!--
+                                             --><a href="#1" title="Give 1 star">★</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="note-wrapper">
+                            <img src="images/Search/3.jpg" class="img-fluid note-image" alt="">
+                            <div class="container">
+
+                                <div class="office">
+                                    <div class="heading">
+                                        <h3 class="heading-sm">Basic Computer Engineering Tech India Publication Series
+                                            </h2>
+                                    </div>
+                                    <ul class="university-details">
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/university.png" alt="">
+                                            </span><span>University of California, US</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/pages.png" alt=""></span>
+                                            <span>204 Pages</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/date.png" alt=""></span>
+                                            <span>Thu, Nov 26 2020</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/flag.png" alt=""></span>
+                                            <span>5 Users marked this note as inappropriate</span>
+                                        </li>
+                                        <li>
+                                            <div class="rating rating2">
+
+                                                <p>reviews</p>
+                                                <!-- 
+                                             -->
+                                                <p>100</p>
+                                                <!-- 
+                                             --><a href="#5" title="Give 5 stars">★</a>
+                                                <!--
+                                             --><a href="#4" title="Give 4 stars">★</a>
+                                                <!--
+                                             --><a href="#3" title="Give 3 stars">★</a>
+                                                <!--
+                                             --><a href="#2" title="Give 2 stars">★</a>
+                                                <!--
+                                             --><a href="#1" title="Give 1 star">★</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="note-wrapper">
+                            <img src="images/Search/4.jpg" class="img-fluid note-image" alt="">
+                            <div class="container">
+
+                                <div class="office">
+                                    <div class="heading">
+                                        <h3 class="heading-sm">Computer Science</h2>
+                                    </div>
+                                    <ul class="university-details">
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/university.png" alt="">
+                                            </span><span>University of California, US</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/pages.png" alt=""></span>
+                                            <span>204 Pages</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/date.png" alt=""></span>
+                                            <span>Thu, Nov 26 2020</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/flag.png" alt=""></span>
+                                            <span>5 Users marked this note as inappropriate</span>
+                                        </li>
+                                        <li>
+                                            <div class="rating rating2">
+
+                                                <p>reviews</p>
+                                                <!-- 
+                                             -->
+                                                <p>100</p>
+                                                <!-- 
+                                             --><a href="#5" title="Give 5 stars">★</a>
+                                                <!--
+                                             --><a href="#4" title="Give 4 stars">★</a>
+                                                <!--
+                                             --><a href="#3" title="Give 3 stars">★</a>
+                                                <!--
+                                             --><a href="#2" title="Give 2 stars">★</a>
+                                                <!--
+                                             --><a href="#1" title="Give 1 star">★</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="note-wrapper">
+                            <img src="images/Search/5.jpg" class="img-fluid note-image" alt="">
+                            <div class="container">
+
+                                <div class="office">
+                                    <div class="heading">
+                                        <h3 class="heading-sm">Basic Computer Engineering Tech India Publication Series
+                                            </h2>
+                                    </div>
+                                    <ul class="university-details">
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/university.png" alt="">
+                                            </span><span>University of California, US</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/pages.png" alt=""></span>
+                                            <span>204 Pages</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/date.png" alt=""></span>
+                                            <span>Thu, Nov 26 2020</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/flag.png" alt=""></span>
+                                            <span>5 Users marked this note as inappropriate</span>
+                                        </li>
+                                        <li>
+                                            <div class="rating rating2">
+
+                                                <p>reviews</p>
+                                                <!-- 
+                                             -->
+                                                <p>100</p>
+                                                <!-- 
+                                             --><a href="#5" title="Give 5 stars">★</a>
+                                                <!--
+                                             --><a href="#4" title="Give 4 stars">★</a>
+                                                <!--
+                                             --><a href="#3" title="Give 3 stars">★</a>
+                                                <!--
+                                             --><a href="#2" title="Give 2 stars">★</a>
+                                                <!--
+                                             --><a href="#1" title="Give 1 star">★</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="note-wrapper">
+                            <img src="images/Search/6.jpg" class="img-fluid note-image" alt="">
+                            <div class="container">
+
+                                <div class="office">
+                                    <div class="heading">
+                                        <h3 class="heading-sm">Computer Science</h2>
+                                    </div>
+                                    <ul class="university-details">
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/university.png" alt="">
+                                            </span><span>University of California, US</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/pages.png" alt=""></span>
+                                            <span>204 Pages</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/date.png" alt=""></span>
+                                            <span>Thu, Nov 26 2020</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/flag.png" alt=""></span>
+                                            <span>5 Users marked this note as inappropriate</span>
+                                        </li>
+                                        <li>
+                                            <div class="rating rating2">
+
+                                                <p>reviews</p>
+                                                <!-- 
+                                             -->
+                                                <p>100</p>
+                                                <!-- 
+                                             --><a href="#5" title="Give 5 stars">★</a>
+                                                <!--
+                                             --><a href="#4" title="Give 4 stars">★</a>
+                                                <!--
+                                             --><a href="#3" title="Give 3 stars">★</a>
+                                                <!--
+                                             --><a href="#2" title="Give 2 stars">★</a>
+                                                <!--
+                                             --><a href="#1" title="Give 1 star">★</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="note-wrapper">
+                            <img src="images/Search/3.jpg" class="img-fluid note-image" alt="">
+                            <div class="container">
+
+                                <div class="office">
+                                    <div class="heading">
+                                        <h3 class="heading-sm">Basic Computer Engineering Tech India Publication Series
+                                            </h2>
+                                    </div>
+                                    <ul class="university-details">
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/university.png" alt="">
+                                            </span><span>University of California, US</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/pages.png" alt=""></span>
+                                            <span>204 Pages</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/date.png" alt=""></span>
+                                            <span>Thu, Nov 26 2020</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/flag.png" alt=""></span>
+                                            <span>5 Users marked this note as inappropriate</span>
+                                        </li>
+                                        <li>
+                                            <div class="rating rating2">
+
+                                                <p>reviews</p>
+                                                <!-- 
+                                             -->
+                                                <p>100</p>
+                                                <!-- 
+                                             --><a href="#5" title="Give 5 stars">★</a>
+                                                <!--
+                                             --><a href="#4" title="Give 4 stars">★</a>
+                                                <!--
+                                             --><a href="#3" title="Give 3 stars">★</a>
+                                                <!--
+                                             --><a href="#2" title="Give 2 stars">★</a>
+                                                <!--
+                                             --><a href="#1" title="Give 1 star">★</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="note-wrapper">
+                            <img src="images/Search/2.jpg" class="img-fluid note-image" alt="">
+                            <div class="container">
+
+                                <div class="office">
+                                    <div class="heading">
+                                        <h3 class="heading-sm">Computer Science</h2>
+                                    </div>
+                                    <ul class="university-details">
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/university.png" alt="">
+                                            </span><span>University of California, US</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/pages.png" alt=""></span>
+                                            <span>204 Pages</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/date.png" alt=""></span>
+                                            <span>Thu, Nov 26 2020</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/flag.png" alt=""></span>
+                                            <span>5 Users marked this note as inappropriate</span>
+                                        </li>
+                                        <li>
+                                            <div class="rating rating2">
+
+                                                <p>reviews</p>
+                                                <!-- 
+                                             -->
+                                                <p>100</p>
+                                                <!-- 
+                                             --><a href="#5" title="Give 5 stars">★</a>
+                                                <!--
+                                             --><a href="#4" title="Give 4 stars">★</a>
+                                                <!--
+                                             --><a href="#3" title="Give 3 stars">★</a>
+                                                <!--
+                                             --><a href="#2" title="Give 2 stars">★</a>
+                                                <!--
+                                             --><a href="#1" title="Give 1 star">★</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="note-wrapper">
+                            <img src="images/Search/3.jpg" class="img-fluid note-image" alt="">
+                            <div class="container">
+
+                                <div class="office">
+                                    <div class="heading">
+                                        <h3 class="heading-sm">Basic Computer Engineering Tech India Publication Series
+                                            </h2>
+                                    </div>
+                                    <ul class="university-details">
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/university.png" alt="">
+                                            </span><span>University of California, US</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/pages.png" alt=""></span>
+                                            <span>204 Pages</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/date.png" alt=""></span>
+                                            <span>Thu, Nov 26 2020</span>
+                                        </li>
+                                        <li>
+                                            <span class="university-detail-img text-center"><img
+                                                    src="images/front/flag.png" alt=""></span>
+                                            <span>5 Users marked this note as inappropriate</span>
+                                        </li>
+                                        <li>
+                                            <div class="rating rating2">
+
+                                                <p>reviews</p>
+                                                <!-- 
+                                             -->
+                                                <p>100</p>
+                                                <!-- 
+                                             --><a href="#5" title="Give 5 stars">★</a>
+                                                <!--
+                                             --><a href="#4" title="Give 4 stars">★</a>
+                                                <!--
+                                             --><a href="#3" title="Give 3 stars">★</a>
+                                                <!--
+                                             --><a href="#2" title="Give 2 stars">★</a>
+                                                <!--
+                                             --><a href="#1" title="Give 1 star">★</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <nav id="pagination" aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true"><i class="fa fa-chevron-left"></i><span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link active" href="">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <footer>
+        <div class="content-box-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 footer-elements">
+                        <p>Copyright &copy; Tatvasoft All rights reserved.</p>
+                        <ul class="social-icons text-center ml-auto">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Jquery -->
+    <script src="js/jquery.min.js"></script>
+
+    <!-- Bootstrape JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Jquery JS -->
+    <script src="js/custom.js"></script>
+
+</body>
+
+</html>

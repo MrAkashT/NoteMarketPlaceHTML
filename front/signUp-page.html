@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 ,user-scalable=no">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/fontawesome/css/font-awesome.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Resposive CSS -->
+    <link rel="stylesheet" href="css/responsiveDemo.css">
+</head>
+
+<body>
+    <section class="all-box">
+
+    <div class="box-wrapper container">
+
+                <div class="row justify-content-center">
+                    <div class="col-xl-5 col-lg-7  col-md-8 col-sm-9 col-11">
+
+                        <div class="logo text-center">
+                            <img src="images/login/top-logo.png" alt="logo">
+                        </div>
+
+                        <div class="box-form">
+                            <div class="text-center">
+                                <h2 class="form-heading">Create an Account</h2>
+                                <p class="form-text">Enter your details to signup</p>
+                                <p id="create-successfully"><i class="fa fa-check-circle"></i> Your account has been
+                                    successfully created.</p>
+                            </div>
+                            <form>
+                                <div class="form-group">
+                                    <label for="first-name">First Name*</label>
+                                    <input type="text" class="form-control input-box" id="first-name"
+                                        placeholder="Enter Your First Name" value="John">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="last-name">Last Name*</label>
+                                    <input type="text" class="form-control input-box" id="last-name"
+                                        placeholder="Enter Your Last Name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sign-upemail">Email*</label>
+                                    <input type="email" class="form-control input-box" id="signup-email"
+                                        placeholder="Enter Your Email">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="create-password">Password</label>
+                                    <input type="password" class="form-control input-box" id="create-password"
+                                        placeholder="Enter Your Password">
+                                    <i class="fa fa-eye-slash eye-btn" id="eye-create-password"></i>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="confirm-create-password">Confirm Password</label>
+                                    <input type="password" class="form-control input-box" id="confirm-create-password"
+                                        placeholder="Re-enter Your Password">
+                                    <i class="fa fa-eye-slash eye-btn" id="eye-confirm-create-password"></i>
+                                </div>
+
+                                <a href="#" class="btn login-submit-btn btn-height" role="button">Sign Up</a>
+                            </form>
+                            <div class="text-center">
+                                <p id="login-text">Already have an account? <span><a href="login-page.html">Login</a></span></p>
+                            </div>
+                        </div>
+            </div>
+        </div>
+    </div>
+
+    </section>
+    <!-- Jquery -->
+    <script src="js/jquery.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/custom.js"></script>
+</body>
+
+</html>

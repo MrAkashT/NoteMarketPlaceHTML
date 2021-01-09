@@ -1,0 +1,1953 @@
+/* ================================== 
+               Mobile Menu
+===================================== */
+.container.nav-wrapper {
+    position: relative;
+}
+
+#mobile-nav-open-btn {
+    font-size: 30px;
+    color: #6255a5;
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    right: 0;
+    top: 0;
+    /* Hide mobile Nav Open Btn */
+    display: none;
+}
+#mobile-nav #mobile-nav-content ul.nav {
+    display: block;
+}
+#mobile-nav {
+    /* By Default , Mobile Nav Will Be Hidden With Height 0% */
+    /* margin-top: 70px; */
+    height: 0%;
+    width: 100%;
+    overflow: scroll;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    background-color: rgba(255, 255, 255, 1);
+    -webkit-transition: all 300ms linear;
+    transition: all 300ms linear;
+    overflow-y: hidden;
+}
+#mobile-nav img.logo {
+    width: 200px;
+    height: 30px;
+    margin: 22px 0 0 16px;
+}
+#mobile-nav img.user {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+#mobile-nav-close-btn {
+    font-size: 65px;
+    color: #6255a5;
+    font-weight: 400;
+    cursor: pointer;
+    position: absolute;
+    top: -18px;
+    right: 10px;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+
+#mobile-nav-content {
+    overflow: scroll;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    top: 4%;
+    padding-left: 16px;
+}
+
+#mobile-nav ul li {
+    margin-bottom: 30px;
+}
+#mobile-nav button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+#mobile-nav a.link {
+    font-family: "Open Sans", sans-serif;
+    font-size: 18px;
+    color: #333333;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+#mobile-nav li:last-child a {
+    color: #fff;
+    text-transform: none;
+}
+
+#mobile-nav a:hover,
+#mobile-nav a:focus,
+#mobile-nav-close-btn:hover,
+#mobile-nav-close-btn:focus {
+    color: #6255a5;
+    background: none;
+}
+
+/* ================================== 
+               Media Query
+===================================== */
+
+@media (min-width: 1365) and (max-width: 1500px) {
+    .modal-dialog {
+        margin-top: 100px;
+    }
+}
+@media (min-width: 1200px) and (max-width: 1365px) {
+    /* .container {
+        max-width: 1320px;
+    } */
+    /* Thanks Popup */
+    .modal-dialog {
+        margin-top: 90px;
+    }
+    /* Home Page */
+    .navbar-expand-md .navbar-nav .nav-item {
+        padding-right: 20px;
+    }
+    #home-heading {
+        font-size: 42px;
+        line-height: 46px;
+    }
+    
+    #home-text {
+        font-size: 18px;
+        line-height: 30px;
+    }
+    
+    #home-btn {
+        padding: 4px 8px;
+    }
+    /* Note Details Page */
+    #note-description .heading-md {
+        font-size: 30px;
+        line-height: 34px;
+    }
+    #note-description h5 {
+        margin-bottom: 15px;
+    }
+    #note-description p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    #note-description a.btn {
+        padding: 10px 6px;
+        width: 170px;
+    }
+    #note-right-side ul li,
+    #note-right-side ul li span.value,
+    #note-right-side .rating p {
+        font-size: 17px;
+        line-height: 30px;
+    }
+    /* Dashboard */
+    #dashboard-stats p.para-text {
+        font-size: 15px;
+    }
+    /* for admin dash */
+    #note-search input {
+        width: 240px;
+    }
+    #note-search .login-submit-btn {
+        width: 100px;
+    }
+    #month {
+        width: 120px;
+    }
+
+    /* FAQ */
+    .page-banner-text.faq {
+        font-size: 44px;
+    }
+    /* ================================== 
+               Member Details
+    ===================================== */
+    #member-detail ul li {
+        font-size: 16px ;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.5px) {
+    
+    .container {
+        max-width: 1140px;
+    }
+    .top-margin {
+        margin-top: 80px;
+    }
+    .box-form .input-box {
+        height: 50px;
+    }
+    .box-form .input-box,
+    .box-form label {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .box-form .btn-height.btn{
+        padding: 13px 13px;
+        font-size: 18px;
+    }
+    
+    /* Thanks Popup */
+    .modal-dialog {
+        margin-top: 90px;
+    }
+    /* Home Page */
+
+    #home-heading {
+        font-size: 35px;
+        line-height: 39px;
+    }
+    
+    #home-text {
+        font-size: 16px;
+        line-height: 25px;
+    }
+    
+    #home-btn {
+        padding: 4px 8px;
+    }
+    #home-btn a {
+        width: 130px;
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .work-img {
+        height: 120px;
+        width: 120px;
+    }
+    .work-inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #work-left a.login-submit-btn {
+        width: 152px;
+    }
+    #work-right a.login-submit-btn {
+        width: 130px;
+    }
+    .btn-height.btn {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    #customer img {
+        height: 90px;
+    }
+    #customer .customer-name {
+        font-size: 22px;
+        line-height: 32px;
+    }
+    
+    #customer .customer-position {
+        font-size: 16px;
+        line-height: 28px;
+    }
+    
+    #customer .review-text {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    
+
+
+
+    /* Genral */
+    .input-box {
+        height: 40px;
+    }
+    .input-box,
+    label,
+    .box-wrapper a {
+        /* font-family: "Open Sans", sans-serif; */
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+
+    /* Navigation */
+    .navbar-expand-md .navbar-nav .nav-link {
+        padding: 8px 0;
+    }
+    ul.navbar-nav a,
+    ul.navbar-nav li .dropdown a.nav-link {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    ul.navbar-nav li:nth-child(2) a#dropdownMenuButton {
+        margin-right: 10px;
+    } 
+    ul.navbar-nav a#dropdownMenuButton {
+        margin-right: 15px;
+    }
+    a.login-submit-btn {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    ul.navbar-nav a.login-submit-btn {
+        width: 72px;
+        font-size: 14px;
+        line-height: 18px;
+    }
+    .navbar-expand-md .navbar-nav .nav-item {
+        padding-right: 20px;
+    }
+    .white-navbar {
+        height: 80px;
+    }
+    .white-navbar ul.navbar-nav a.login-submit-btn {
+        font-size: 14px;
+    }  
+    .white-navbar .navbar-nav img {
+        height: 38px;
+        width: 38px;
+        border-radius: 50%;
+        margin-right: 20px;
+    } 
+    .navbar-header img {
+        height: 37px;
+    }
+
+    /* Footer */
+    .content-box-sm {
+        padding: 25px 0;
+    }
+    /* Heading */
+    .heading-md {
+        font-size: 30px;
+        line-height: 34px;
+    }
+    .heading-sm {
+        font-size: 22px;
+        line-height: 26px;
+        /* margin-bottom: 18px; */
+    }
+    .para-text {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    
+    /* ===========================================
+                User Page , Add Note Page, 
+                    Contact Us Page
+    ============================================== */
+    .page-banner {
+        margin-top: 80px;
+    }
+    .page-banner-text {
+        font-size: 40px;
+        line-height: 44px;
+    }   
+    #calendar-img {
+        width: 24px;
+        height: 24px;
+    }
+    #profile-details .heading-md,
+    #basic-note-details .heading-md {
+        margin-bottom: 30px;
+    }   
+    #address-details .heading-md,
+    #university-clg-details .heading-md,
+    #institution-information .heading-md,
+    #course-details .headng-md,
+    #selling-information .heading-md {
+        margin-bottom: 20px;
+    }
+
+    #user-page-content a.login-submit-btn,
+    #add-note-page-content a.login-submit-btn,
+    #contact-us-page a.login-submit-btn {
+        width: 130px;
+    }
+    #contact-us-page h4.para-text {
+        /* font-size: 16px;
+        line-height: 20px; */
+        margin-bottom: 40px;
+    }
+    input[type="radio"] {
+        width: 32px;
+        height: 32px;
+    }
+    #note-preview {
+        height: 105px;
+    }
+    /* ===========================================
+                    Search Page
+    ============================================== */
+
+    /* Search Page */
+    .note-image {
+        margin-bottom: 20px;
+    }
+    
+    
+    #searched-notes .heading {
+        height: 80px;
+    }
+    
+    #searched-notes h3.heading-sm {
+        font-size: 16px;
+        line-height: 22px;
+        margin-bottom: 30px;
+    }
+    
+    ul.university-details li {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    
+    ul.university-details li:nth-child(4) span {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    
+    ul.university-details li i {
+        font-size: 20px;
+        width: 45px;
+        height: 20px;
+    }
+    .stars p {
+        font-size: 17px;
+    }
+    .stars p {
+        font-size: 14px;
+    }
+
+    /* ===========================================
+                    Note Detail Page
+    ============================================== */
+    /* Note Details Page */
+    #note-details {
+        margin-top: 80px;
+    }
+    #note-description {
+        padding-right: 40px;
+    }
+    #note-description .heading-md {
+        font-size: 30px;
+        line-height: 34px;
+    }
+    #note-details h2.heading-sm,
+    #note-details h3.heading-sm {
+        font-size: 28px;
+    }
+    #note-details h2.heading-sm {
+        text-align: center;
+    }
+    #note-description h5 {
+        margin-bottom: 15px;
+    }
+    #note-description p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    #note-description a.btn {
+        padding: 10px 6px;
+        width: 170px;
+    }
+    #note-right-side ul li,
+    #note-right-side ul li span.value,
+    #note-right-side .rating p  {
+        font-size: 17px;
+        line-height: 30px;
+    }
+    /* Iframe */
+    #Iframe-Master-CC-and-Rs {
+        max-width: 70%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    #customer-review-block {
+        max-width: 70%;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #customer-reviews {
+        height: auto;
+    }
+    #customer-reviews h4.heading-sm {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    #customer-reviews .ratings {
+        margin-bottom: 13px;
+    }
+    #customer-reviews p {
+        font-size: 14px;
+        line-height: 24px;
+    }
+     /* ===========================================
+                    Dashboard Page
+    ============================================== */
+    #dashboard {
+        margin-top: 80px;
+    }
+    /* #dashboard-stats {
+        margin-bottom: 40px;
+    } */
+    #dashboard .col-xl-5.col-lg-12 {
+        margin-bottom: 30px;
+    }
+    #dashboard .content-box {
+        padding-bottom: 0;
+    }
+    #add-note-btn {
+        width: 130px;
+        padding: 13px 10px;
+    }
+    #note-search input {
+        width: 322px;
+        padding: 0 8%
+    }
+    #note-search .login-submit-btn {
+        padding: 13px 13px;
+        /* width:117px; */
+    }
+    /* for admin dash */
+    #note-search input {
+        width: 220px;
+    }
+    #note-search .login-submit-btn {
+        width: 90px;
+    }
+    #month {
+        height: 50px;
+        width: 100px;
+    }
+
+    /*==============================================
+                    My download page
+    ================================================*/
+    #my-download-page,
+    #my-sold-notes-page,
+    #my-rejected-notes-page,
+    #buyer-req-page {
+        margin-top: 80px;
+    }
+    /* FAQ */
+    .page-banner-text.faq {
+        font-size: 36px;
+    }
+    /* ================================== 
+               Member Details
+    ===================================== */
+    #member-detail ul li {
+        font-size: 16px ;
+    }
+    /* ===========================================
+                    Manage Administrator
+    ============================================== */
+    .admin-add-btn.btn-height.btn {
+        padding-top: 13px;
+        padding-bottom: 13px;
+    }
+    
+}
+
+@media (min-width: 768px) and (max-width: 991.5px) {
+
+    .top-margin {
+        margin-top: 70px;
+    }
+    .box-form .input-box {
+        height: 50px;
+    }
+    .box-form .input-box,
+    .box-form label {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .box-form .btn-height.btn{
+        padding: 13px 13px;
+        font-size: 18px;
+    }
+    
+    /* Thanks Popup */
+    .modal-dialog {
+        margin-top: 90px;
+    }
+    #add-review .login-submit-btn {
+        width: 130px;
+    }
+    
+    /* Home */
+    #home-heading {
+        font-size: 33px;
+        line-height: 36px;
+    }
+    
+    #home-text {
+        font-size: 16px;
+        line-height: 25px;
+    }
+    
+    #home-btn {
+        padding: 2px 5px;
+    }
+    #home-btn a {
+        width: 130px;
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .work-img {
+        height: 100px;
+        width: 100px;
+    }
+    #about .para-text p:nth-child(1) {
+        margin-bottom: 40px;
+    }
+    #work-left a.login-submit-btn {
+        width: 142px;
+    }
+    
+    #work-right a.login-submit-btn {
+        width: 130px;
+    }
+    .btn-height.btn {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+    #customer .customer-wrapper {
+        padding: 30px;
+    }
+    #customer img {
+        height: 80px;
+    }
+    #customer .customer-name {
+        font-size: 20px;
+        line-height: 26px;
+    }
+    
+    #customer .customer-position {
+        font-size: 15px;
+        line-height: 28px;
+    }
+    
+    #customer .review-text {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    /* Footer */
+    .content-box-sm {
+        padding: 25px 0;
+    }
+    /* Heading */
+    .heading-md {
+        font-size: 26px;
+        line-height: 30px;
+    }
+    .heading-sm {
+        font-size: 20px;
+        line-height: 24px;
+        /* margin-bottom: 18px; */
+    }
+    .para-text {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    /* ===========================================
+                    Navigation
+    ============================================== */
+    /* Navigation */
+    .navbar-expand-md .navbar-nav .nav-link {
+        padding: 8px 0;
+    }
+    ul.navbar-nav a, 
+    ul.navbar-nav li .dropdown a.nav-link {
+        font-size: 13px;
+        line-height: 18px;
+    }
+    ul.navbar-nav .dropdown {
+        width: 40px;
+    }
+    ul.navbar-nav a#dropdownMenuButton {
+        margin-right: 10px;
+    }
+    ul.navbar-nav li:nth-child(2) a#dropdownMenuButton {
+        margin:0;
+    } 
+    a.login-submit-btn {
+        font-size: 15px;
+        line-height: 20px;
+    }
+    ul.navbar-nav a.login-submit-btn {
+        width: 50px;
+        font-size: 13px;
+        line-height: 18px;
+    }
+    ul.navbar-nav a.login-submit-btn.btn {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .navbar-expand-md .navbar-nav .nav-item {
+        padding-right: 15px;
+    }
+    .navbar-expand-md.white-navbar .nav-item {
+        padding-right: 10px;
+    }
+    .white-navbar {
+        height: 70px;
+    }
+    .white-navbar ul.navbar-nav a.login-submit-btn {
+        font-size: 13px;
+    }  
+    .white-navbar .navbar-nav img {
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+        margin-right: 10px;
+    } 
+    .navbar-header img {
+        height: 30px;
+        width: 185px;
+    }
+    
+    /* ===========================================
+                User Page , Add Note Page, 
+                    Contact Us Page
+    ============================================== */
+    .input-box {
+        height: 40px;
+    }
+    .input-box,
+    label,
+    .box-wrapper a {
+        /* font-family: "Open Sans", sans-serif; */
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    .page-banner {
+        margin-top: 70px;
+    }
+    .page-banner-text {
+        font-size: 38px;
+        line-height: 40px;
+    }
+    #calendar-img {
+        width: 22px;
+        height: 22px;
+        top: 57%;
+        right: 2%
+    }
+    #profile-details .heading-md,
+    #basic-note-details .heading-md {
+        margin-bottom: 20px;
+    } 
+    #address-details .heading-md,
+    #university-clg-details .heading-md,
+    #institution-information .heading-md,
+    #course-details .headng-md,
+    #selling-information .heading-md {
+        margin-bottom: 15px;
+    }
+    #user-page-content a.login-submit-btn,
+    #add-note-page-content a.login-submit-btn,
+    #contact-us-page a.login-submit-btn {
+        width: 120px;
+    }
+    #contact-us-page h4.para-text {
+        /* font-size: 16px;
+        line-height: 20px; */
+        margin-bottom: 30px;
+    }
+    input[type="radio"] {
+        width: 32px;
+        height: 32px;
+    }
+    #note-preview {
+        height: 105px;
+    }
+     /* ===========================================
+                    Search note Page
+    ============================================== */
+    /* Search Page */
+    .note-image {
+        margin-bottom: 20px;
+    }
+    #searched-notes .heading {
+        height: 80px;
+    }
+    
+    #searched-notes h3.heading-sm {
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 30px;
+    }
+    
+    ul.university-details li {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    
+    ul.university-details li:nth-child(4) span {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    
+    ul.university-details li i {
+        font-size: 20px;
+        width: 45px;
+        height: 20px;
+    }
+    .ratings {
+        font-size: 18px;
+    }
+    .stars p {
+        font-size: 17px;
+        margin-bottom: 15px;
+    }
+    #searched-notes .content-box {
+        padding: 40px 0;
+    }
+    #pagination {
+        height: 80px;
+    }
+    ul.pagination {
+        margin-bottom: 30px;
+    }
+
+    /* ===========================================
+                    Note Detail Page
+    ============================================== */
+    /* Note Details Page */
+    #note-details {
+        margin-top: 70px;
+    }
+    #note-description {
+        padding-right: 180px;
+    }
+    #note-pic img {
+        width: 180px;
+        height: 240px;
+    }
+    #note-description .heading-md {
+        font-size: 30px;
+        line-height: 34px;
+    }
+    #note-description h5 {
+        margin-bottom: 15px;
+    }
+    #note-description p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    #note-description a {
+        font-size: 14px;
+    }
+    #note-description a.btn {
+        padding: 7px 4px;
+        width: 140px;
+    }
+    #note-right-side ul{
+        padding: 0;
+    }
+    #note-right-side ul li,
+    #note-right-side ul li span.value,
+    #note-right-side .rating p {
+        font-size: 17px;
+        line-height: 30px;
+    }
+    /* Iframe */
+    #Iframe-Master-CC-and-Rs {
+        max-width: 70%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    #note-details h2.heading-sm {
+        text-align: center;
+    }
+    #customer-review-block {
+        max-width: 70%;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #customer-reviews h4.heading-sm {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    #customer-reviews .ratings {
+        margin-bottom: 11px;
+    }
+    #customer-reviews p {
+        font-size: 14px;
+        line-height: 19px;
+    }
+    #note-left-side {
+        margin-bottom: 30px;
+    }
+    /* ===========================================
+                    Dashboard Page
+    ============================================== */
+    #dashboard {
+        margin-top: 70px;
+    }
+    #add-note-btn {
+        width: 100px;
+        padding: 10px 10px;
+    }
+    #note-search input {
+        /* height: 40px; */
+        width: 250px;
+        padding: 0 9%
+    }
+    #note-search .login-submit-btn {
+        padding: 11px 12px;
+        width: 90px;
+    }
+    /* for admin dash */
+    #note-search input {
+        width: 180px;
+    }
+    #note-search .login-submit-btn {
+        width: 80px;
+    }   
+    #month {
+        height: 50px;
+        width: 70px;
+        font-size: 14px;
+    }
+    .admin-dash p{
+        font-size: 12px;
+    }
+    /*==============================================
+                    My Download Page
+    ================================================ */
+    #my-download-page,
+    #my-sold-notes-page,
+    #my-rejected-notes-page,
+    #buyer-req-page {
+        margin-top: 70px;
+    }
+    /* FAQ */
+    .page-banner-text.faq {
+        font-size: 28px;
+    }
+    /* ================================== 
+               Member Details
+    ===================================== */
+    #member-detail ul li {
+        font-size: 16px ;
+    }
+
+    #detail2 {
+        padding-left: 15px;
+    }
+    #detail1 ul#detail-value{
+        border-right: none;
+    }
+    #member-detail-wrapper #member-photo {
+        padding-left: 0;
+        margin-bottom: 30px;
+    }
+     /* ===========================================
+                    Manage Administrator
+    ============================================== */
+    .admin-add-btn.btn-height.btn {
+        padding: 13px 13px;
+    }
+}
+
+@media (max-width: 767.5px) {
+    .top-margin {
+        margin-top: 70px;
+    }
+    .box-form {
+        padding: 30px;
+    }
+    .box-form .btn-height.btn{
+        padding: 13px 13px;
+        font-size: 18px;
+    }
+    .box-form .input-box {
+        height: 50px;
+    }
+    .box-form .input-box,
+    .box-form label {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    /* Thanks Popup */
+    .modal-dialog {
+        margin-top: 70px;
+    }
+    #add-review .login-submit-btn {
+        width: 100px;
+    }
+    #thanks-content .heading-sm {
+        font-size: 24px;
+        line-height: 28px;
+    }
+    #thanks-content h6 {
+        font-size: 16px;
+        line-height: 20px;
+        margin-bottom: 10;
+    }
+    #thanks-content p {
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 30px;
+    }
+
+    /* Show mobile Nav Open Btn */
+    #mobile-nav-open-btn {
+        display: block;
+    }
+    /* Home Page */
+    #home-heading {
+        font-size: 33px;
+        line-height: 36px;
+    }
+    
+    #home-text {
+        font-size: 16px;
+        line-height: 25px;
+    }
+    
+    #home-btn {
+        padding: 2px 5px;
+    }
+    #home-btn a {
+        width: 130px;
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .work-img {
+        height: 100px;
+        width: 100px;
+    }
+    #about .para-text p:nth-child(1) {
+        margin-bottom: 40px;
+    }
+    #work-left a.login-submit-btn {
+        width: 142px;
+    }
+    
+    #work-right a.login-submit-btn {
+        width: 130px;
+    }
+    .btn-height.btn {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+    #customer .customer-wrapper {
+        padding: 30px;
+    }
+    #customer img {
+        height: 80px;
+        width: 80px;
+    }
+    #customer .customer-name {
+        font-size: 20px;
+        line-height: 24px;
+    }
+    
+    #customer .customer-position {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    
+    #customer .review-text {
+        font-size: 15px;
+        line-height: 20px;
+    }
+    /* Footer */
+    .content-box-sm {
+        padding: 25px 0;
+    }
+    /* Heading */
+    .heading-md {
+        font-size: 26px;
+        line-height: 30px;
+    }
+    .heading-sm {
+        font-size: 20px;
+        line-height: 24px;
+        /* margin-bottom: 18px; */
+    }
+    .para-text {
+        font-size: 14px;
+        line-height: 18px;
+    }
+/* ===========================================
+                    Navigation
+    ============================================== */
+    /* Navigation */
+    .navbar-expand-md .navbar-nav .nav-link {
+        padding: 8px 0;
+    }
+    ul.navbar-nav a,
+    ul.navbar-nav li .dropdown a.nav-link {
+        font-size: 13px;
+        line-height: 18px;
+    }
+    a.login-submit-btn {
+        font-size: 15px;
+        line-height: 20px;
+    }
+    ul.navbar-nav a.login-submit-btn {
+        width: 60px;
+        font-size: 13px;
+        line-height: 18px;
+    }
+    ul.navbar-nav a.login-submit-btn.btn {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .navbar-expand-md .navbar-nav .nav-item {
+        padding-right: 15px;
+    }
+    .white-navbar {
+        height: 70px;
+    }
+    .white-navbar ul.navbar-nav a.login-submit-btn {
+        font-size: 13px;
+    }  
+    .white-navbar .navbar-nav img {
+        height: 38px;
+        width: 38px;
+        border-radius: 50%;
+        margin-right: 20px;
+    } 
+    .navbar-header img {
+        height: 30px;
+    }
+   
+    /* ===========================================
+                    User Profile Page
+    ============================================== */
+    /* User */
+    .page-banner {
+        margin-top: 70px;
+    }
+    .input-box {
+        height: 40px;
+    }
+    .input-box,
+    label,
+    .box-wrapper a {
+        font-size: 14px;
+        line-height: 18px;
+        text-overflow: ellipsis;
+    }
+    
+    .page-banner-text {
+        font-size: 28px;
+        line-height: 35px;
+    }
+    #calendar-img {
+        width: 22px;
+        height: 22px;
+        top: 57%;
+        right: 2%
+    }
+    #profile-details .heading-md,
+    #basic-note-details .heading-md {
+        margin-bottom: 20px;
+    } 
+    #address-details .heading-md,
+    #university-clg-details .heading-md,
+    #institution-information .heading-md,
+    #course-details .headng-md,
+    #selling-information .heading-md {
+        margin-bottom: 20px;
+    }
+    #user-page-content a.login-submit-btn,
+    #add-note-page-content a.login-submit-btn,
+    #contact-us-page a.login-submit-btn {
+        width: 100px;
+    }
+    #select-country-code .down-arrow {
+        width: 14px;
+    }
+    .down-arrow {
+        right: 7%;
+    }
+    #contact-us-page h4.para-text {
+        margin-bottom: 30px;
+    }
+    input[type="radio"] {
+        width: 32px;
+        height: 32px;
+    }
+    #note-preview {
+        height: 105px;
+    }
+   /* ===========================================
+                    Search note Page
+    ============================================== */
+    /* Search Page */
+    #input-search input {
+        padding-left: 40px;
+    }
+    .note-image {
+        margin-bottom: 20px;
+    }
+    #searched-notes .heading {
+        height: 80px;
+    }
+    
+    #searched-notes h3.heading-sm {
+        font-size: 16px;
+        line-height: 22px;
+        margin-bottom: 30px;
+    }
+    
+    ul.university-details li {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    
+    ul.university-details li:nth-child(4) span {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    
+    ul.university-details li i {
+        font-size: 17px;
+        width: 45px;
+        height: 20px;
+    }   
+    .stars p {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    /* Iframe */
+    #Iframe-Master-CC-and-Rs {
+        max-width: 70%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    #note-details h2.heading-sm {
+        text-align: center;
+    }
+    #customer-review-block {
+        max-width: 70%;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #customer-reviews {
+        height: 100%;
+    }
+    #searched-notes .content-box {
+        padding: 30px 0;
+    }
+    #pagination {
+        height: 70px;
+    }
+    ul.pagination {
+        margin-bottom: 30px;
+    }
+
+/* ===========================================
+                    Note Detail Page
+    ============================================== */
+    /* Note details */
+    #note-details {
+        margin-top: 70px;
+    }
+    #customer-reviews {
+        height: auto;
+    }
+    #note-description {
+        padding-right: 120px;
+    }
+    #note-pic img {
+        width: 180px;
+        height: 230px;
+    }
+    #note-description .heading-md {
+        font-size: 25px;
+        line-height: 30px;
+    }
+    #note-description h5 {
+        margin-bottom: 14px;
+    }
+    #note-description p {
+        font-size: 13px;
+        line-height: 15px;
+    }
+    #note-description a {
+        font-size: 13px;
+    }
+    #note-description a.btn {
+        padding: 7px 4px;
+        width: 130px;
+    }
+    #note-right-side ul{
+        padding: 0;
+    }
+    #note-right-side ul li,
+    #note-right-side ul li span.value,
+    #note-right-side .rating p {
+        font-size: 15px;
+        line-height: 25px;
+    }
+    #customer-reviews h4.heading-sm {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    #customer-reviews .ratings {
+        margin-bottom: 11px;
+    }
+    #customer-reviews p {
+        font-size: 14px;
+        line-height: 19px;
+    }
+    #note-left-side {
+        margin-bottom: 30px;
+    }
+    #customer-review-block {
+        margin-top: 30px;
+    }
+    /* ===========================================
+                    Dashboard Page
+    ============================================== */
+    #dashboard {
+        margin-top: 70px;
+    }
+    #dashboard-stats h3.heading-sm {
+        font-size: 26px;
+    }
+    #dashboard-stats h3.heading-md {
+        font-size: 26px;
+        margin: 0;
+    }
+    #add-note-btn {
+        font-size: 14px;
+        width: 100px;
+        padding: 10px 10px;
+    }
+    #note-search input {
+        font-size: 14px;
+        height: 40px;
+        width: 180px;
+        padding: 0 10%
+    }
+    /* #note-search .btn-height.btn {
+        padding: 6px 3px;
+    } */
+    #note-search .login-submit-btn {
+        /* padding: 5px 10px; */
+        margin-left: 4px;
+        font-size: 13px;
+        width: 70px;
+    }
+    #note-search .search-icon {
+        height: 15px;
+        width: 15px;
+        left: 1.8%;
+    }
+    #admin-published-note #note-search {
+        margin-top: 15px;
+        float: left;
+    }
+    #admin-published-note #note-search input {
+        width: 200px;
+    }
+    #admin-published-note #note-search .login-submit-btn {
+        width: 90px;
+    }   
+    #month {
+        height: 40px;
+        width: 100px;
+        font-size: 14px;
+    }
+    /*==============================================
+                    My Download Page
+    ================================================ */
+    #my-download-page,
+    #my-sold-notes-page,
+    #my-rejected-notes-page,
+    #buyer-req-page {
+        margin-top: 70px;
+    }
+    /* FAQ */
+    .card-header {
+        padding: 10px 18px;
+    }
+    .card .card-header h2 .btn {
+        font-size: 15px;
+    }
+    .card-body {
+        font-size: 13px;
+    }
+    /* ================================== 
+               Member Details
+    ===================================== */
+    #member-detail .content-box {
+        padding-bottom: 0;;
+    }
+    #member-detail ul li {
+        font-size: 16px ;
+    }
+
+    #detail2 {
+        padding-left: 15px;
+    }
+    #detail1 ul#detail-value{
+        border-right: none;
+    }
+    #member-detail-wrapper #member-photo {
+        padding-left: 15px;
+        margin-bottom: 30px;
+    }
+     /* ===========================================
+                    Manage Administrator
+    ============================================== */
+    .admin-add-btn.btn-height.btn {
+        padding: 9px 9px;
+        margin-bottom: 0;
+    }
+}
+    
+
+@media (width: 768px) {
+    
+    #mobile-nav-open-btn {
+        display: block;
+    }
+    ul.navbar-nav {
+        display: none!important;
+    }
+}
+@media (max-width: 575.5px) {
+    #mobile-nav a {
+        font-size: 16px;
+    }
+    #home-heading {
+        font-size: 33px;
+        line-height: 36px;
+    }
+    /* Thanks Popup */
+    .modal-dialog {
+        margin-top: 70px;
+    }
+    /* Home */
+    #home-text {
+        font-size: 16px;
+        line-height: 25px;
+    }
+    #home-btn {
+        padding: 2px 5px;
+    }
+    #home-btn a {
+        width: 100px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+    #about .heading-md {
+        margin-bottom: 30px;
+    }
+    #work .heading-sm {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .work-img {
+        height: 80px;
+        width: 80px;
+    }
+    #work-left a.login-submit-btn {
+        width: 132px;
+        margin-bottom: 30px;
+    }
+    
+    #work-right a.login-submit-btn {
+        width: 120px;
+    }
+    .page-banner-text {
+        font-size: 25px;
+        line-height: 35px;
+    }
+    .btn-height.btn {
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+    #customer .customer-wrapper {
+        padding: 20px;
+    }
+    #customer img {
+        height: 70px;
+        width: 60px;
+    }
+    #customer img {
+        margin-bottom: 20px;
+    }
+    #customer .customer-name {
+        font-size: 18px;
+        line-height: 22px;
+    }
+    
+    #customer .customer-position {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    
+    #customer .review-text {
+        font-size: 14px;
+        line-height: 18px;
+    } 
+    footer p {
+        font-size: 12px;
+    }
+    ul.social-icons li {
+        display: inline-block;
+        padding: 0;
+    }
+    
+    .social-icons li a {
+        width: 28px;
+        height: 28px;
+        line-height: 30px;
+    }
+    .page-item {
+        padding: 0 1px;
+    }
+    /* Search Page */
+    .search-icon {
+        left: 2.5%;
+    }
+   
+    .note-image {
+        margin-bottom: 20px;
+    }
+    #searched-notes .heading {
+        height: 80px;
+    }
+    #searched-notes h3.heading-sm {
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 30px;
+    }
+    
+    ul.university-details li {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    
+    ul.university-details li:nth-child(4) span {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    
+    ul.university-details li i {
+        font-size: 18px;
+        width: 45px;
+        height: 20px;
+    }   
+    /* Note Deails page */
+    #note-description {
+        padding-right: 100px;
+    }
+    #note-pic img {
+        width: 160px;
+        height: 200px;
+        margin-bottom: 30px;
+    }
+    #note-description .heading-md {
+        font-size: 25px;
+        line-height: 28px;
+    }
+    #note-description h5 {
+        margin-bottom: 14px;
+    }
+    #note-description p {
+        font-size: 13px;
+        line-height: 15px;
+    }
+    #note-description a {
+        font-size: 12px;
+    }
+    #note-description a.btn {
+        padding: 4px 2px;
+        width: 120px;
+    }
+    #customer-reviews h4.heading-sm {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    #customer-reviews .ratings {
+        margin-bottom: 11px;
+    }
+    #customer-reviews p {
+        font-size: 13px;
+        line-height: 19px;
+    }
+    #note-description{
+        padding: 0;
+    }
+    #customer-review-block {
+        max-width: 100%;
+    }
+    #note-details h3.heading-sm,
+    #note-pic,
+    #note-description {
+        text-align: center;
+    }
+    /* ===========================================
+                    Dashboard Page
+    ============================================== */
+    #dashboard-stats h3.heading-sm {
+        font-size: 24px;
+    }
+    #dashboard-stats h3.heading-md {
+        font-size: 23px;
+    }
+    #dashboard-stats img {
+        height: 30px;
+        width: 30px;
+    } 
+    #note-search {
+        margin-top: 25px;
+        float: left;
+    }
+    #note-search input {
+        font-size: 14px;
+        height: 40px;
+        width: 200px;
+        padding: 0 10%
+    }
+    #note-search .btn-height.btn {
+        padding: 8px 8px;
+    }
+    #note-search .login-submit-btn {
+        margin-left: 10px;
+        font-size: 14px;
+        width: 90px;
+    }
+    .table th,
+    .table td {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    /* FAQ */
+    .card-header {
+        padding: 8px 16px;
+    }
+
+}
+@media (max-width: 480px) {
+    .box-form .input-box {
+        height: 30px;
+    }
+    .box-form {
+        padding: 20px;
+    }
+    .box-form .input-box,
+    .box-form label {
+        font-size: 12px;
+        line-height: 18px;
+    }
+    .box-form .btn-height.btn{
+        padding: 3px 10px;
+        font-size: 14px;
+    }
+    .box-wrapper .logo img {
+        width: 70%;
+    }
+    .box-wrapper .logo {
+        /* width: 50%; */
+        margin-bottom: 15px;
+    }
+    .form-heading {
+        font-size: 24px;
+        line-height: 30px;
+        margin-bottom: 15px;
+    }
+    .form-text {
+        font-family: "Open Sans", sans-serif;
+        font-size: 11px;
+        line-height: 16px;
+        margin-bottom: 20px;
+    }
+    #incorrect-pass-text {
+        font-size: 11px;
+    }
+    #signup-text, 
+    #signup-text a,
+    #login-text {
+        font-size: 12px;
+    }
+    #create-successfully {
+        font-size: 14px;
+    }
+    .box-form .eye-btn {
+        height: 20px;
+        width: 20px;
+        font-size: 20px;
+        top: 60%;
+    }
+    #remember-me {
+        margin-bottom: 10px;
+    }
+    
+    /* #remember-me-checkbox {
+        border: 1px solid #d1d1d1;
+        width: 20px;
+        height: 20px;
+        border-radius: 3px;
+    } */
+    .custom-control-label:after,
+    .custom-control-label:before {
+        width: 20px;
+        height: 20px;
+        top: -.2rem;
+        left: -1.4rem;
+    }
+    #remember-me-text {
+        margin: 0
+    }
+    /* Email Verifiaction */
+
+    #email-verification-page .logo img {
+        width: 200px;
+    }
+    #user-name-greet {
+        font-size: 16px;
+        line-height: 22px;
+       
+    }
+    #verification-text {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+    /* Thanks popup */
+    .modal-dialog {
+        margin-top: 70px;
+    }
+    .modal-body {
+        padding: 0 35px 0 20px;
+    }
+    #thanks-content .heading-sm {
+       
+        font-size: 20px;
+        line-height: 30px;
+    }
+    #thanks-content h6 {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    #thanks-content p {
+        font-family: "Open Sans", sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 18px;
+    }
+    #add-review .modal-body {
+        padding: 0 35px 30px 35px;
+    }
+    #add-review-content .rating {
+        font-size: 40px;
+    }
+
+    /* mobile */
+    #mobile-nav a {
+        font-size: 16px;
+    }
+    /* Home Page */
+    #home-heading {
+        font-size: 24px;
+        line-height: 30px;
+    }
+    #home-text {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    #home-btn {
+        padding: 1px 3px;
+    }
+    #customer .customer-wrapper {
+        padding: 10px;
+    }
+    #customer img {
+        height: 60px;
+        width: 50px;
+    }
+    #customer img {
+        margin-bottom: 20px;
+    }
+    #customer .customer-name {
+        font-size: 16px;
+        line-height: 18px;
+    }
+    
+    #customer .customer-position {
+        font-size: 12px;
+        line-height: 20px;
+    }
+    
+    #customer .review-text {
+        font-size: 12px;
+        line-height: 18px;
+    } 
+    footer ul {
+        float: left;
+        padding: 0;
+    }
+    footer p {
+        font-size: 10px;
+    }
+    .social-icons li a {
+        width: 20px;
+        height: 20px;
+        line-height: 23px;
+    }
+    .input-box {
+        height: 30px;
+        margin-bottom: 20px;
+    }
+    .input-box,
+    label,
+    .box-wrapper a {
+        font-size: 12px;
+        line-height: 18px;
+        text-overflow: ellipsis;
+    }
+    #calendar-img {
+        top: 59%;
+        width: 20px;
+        height: 20px;
+    }
+    #select-country-code .down-arrow{
+        top: 50%;
+    }
+    .down-arrow {
+        width: 14px;
+        top: 56%;
+    }
+    /* Search */
+    .search-icon {
+        left: 2.5%;
+    }
+   
+    #searched-notes h3.heading-sm {
+        font-size: 16px;
+        line-height: 22px;
+        margin-bottom: 30px;
+    }
+    
+    ul.university-details li {
+        font-size: 14px;
+    }
+    
+    ul.university-details li:nth-child(4) span {
+        font-size: 14px;
+    }
+    
+    ul.university-details li i {
+        font-size: 16px;
+        width: 45px;
+        height: 20px;
+    } 
+    /* Note Detail */
+    #note-description {
+        padding-right: 10px;
+    }
+    #note-right-side ul li,
+    #note-right-side ul li span.value,
+    #note-right-side .rating p {
+        font-size: 14px;
+        line-height: 25px;
+    }
+    #note-right-side .rating {
+        font-size: 25px;
+    }
+    /* Dashboeard */
+    #dashboard-stats h3.heading-md {
+        font-size: 16px;
+    }
+    #dashboard-stats h3.heading-sm {
+        font-size: 17px;
+        margin: 0;
+    }
+    #dashboard-stats img {
+        margin-bottom: 0;
+    }
+    #dashboard-stats p.para-text {
+        font-size: 12px;
+        line-height: 14px;
+    }
+    .dashboard-stats-box .row .col-xl-4:nth-child(1){
+        padding-right: 0;
+    }
+    .dashboard-stats-box .row .col-xl-4:nth-child(3){
+        padding-left: 0;
+    }
+    #dashboard #note-search input {
+        padding-right: 10px ;
+    }
+    #note-search input {
+        width: 180px;
+    }
+    #note-search .login-submit-btn {
+        width: 80px;
+    }
+    #admin-published-note .heading-sm,
+    #admin-published-note #note-search {
+        text-align: center;
+    }
+    #admin-published-note #note-search input {
+        width: 130px;
+    }
+    #admin-published-note #note-search .login-submit-btn {
+        width: 70px;
+    }   
+    #month {
+        height: 40px;
+        width: 70px;
+        font-size: 14px;
+    }
+    /* FAQ */
+    .card-header {
+        padding: 6px 14px;
+    }
+    /* ================================== 
+               Member Details
+    ===================================== */
+    #member-detail ul li {
+        font-size: 14px ;
+    }
+    #mobile-nav ul li {
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+    #mobile-nav a.link {
+        font-size: 15px;
+    }
+    #mobile-nav .dropdown a.dropdown-item {
+        padding-top: 0;
+        padding-bottom: 0;
+        font-size: 13px;
+        margin: 3px 0;
+    }
+   
+
+}
+/* @media (width: 320px) {
+    #dashboard-stats h3.heading-md {
+        font-size: 16px;
+    }
+    #dashboard-stats h3.heading-sm {
+        font-size: 17px;
+        margin: 0;
+    }
+} */
