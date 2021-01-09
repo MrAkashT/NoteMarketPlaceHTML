@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 ,user-scalable=no">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/fontawesome/css/font-awesome.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Resposive CSS -->
+    <link rel="stylesheet" href="css/responsiveDemo.css">
+</head>
+
+<body>
+
+    <section class="all-box" id="login-page">
+
+        <div class="box-wrapper container">
+
+            <div class="row justify-content-center">
+                <div class="col-xl-5 col-lg-6  col-md-8 col-sm-9 col-11">
+
+                    <div class="logo text-center">
+                        <img src="images/login/top-logo.png" class="img-fluid" alt="logo">
+                    </div>
+
+                    <div class="box-form ">
+
+                        <div class="text-center">
+                            <h2 class="form-heading">Login</h2>
+                            <p class="form-text">Enter your Email address & password to login</p>
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control input-box" id="email"
+                                    placeholder="Enter Your Email" value="notesmarketplace77@gmail.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <a href="forgotPassword-page.html">Forgot Password?</a>
+                                <input type="password" class="form-control input-box" id="password"
+                                    placeholder="Enter Your Password">
+                                <i class="fa fa-eye-slash eye-btn" id="eye-password"></i>
+                            </div>
+
+                            <p id="incorrect-pass-text">The password that you've entered is incorrect. <span>Forgot
+                                    Password?</span></p>
+
+                            <div class="form-check custom-checkbox" id="remember-me">
+                                <input type="checkbox" class="form-check-input custom-control-input"
+                                    id="remember-me-checkbox">
+                                <label class="form-check-label custom-control-label" for="remember-me-checkbox"
+                                    id="remember-me-text">
+                                    Remeber Me
+                                </label>
+                            </div>
+
+                            <a href="#" class="btn login-submit-btn btn-height" role="button">Login</a>
+                        </form>
+                        <div class="text-center">
+                            <p id="signup-text">Don't have an account? <span><a href=""> Sign Up</a></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- Jquery -->
+    <script src="js/jquery.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/custom.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,222 @@
+body {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100vh;
+}
+
+footer {
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 100%;
+    border-top: 1px solid #d1d1d1;
+    padding: 20px 0;
+}
+.for-footer-at-bottom {
+    flex-basis: auto; 
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+#admin-footer p {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #333333;
+    margin-bottom: 0;
+}
+#admin-footer .left p {
+    margin-left: 35%;
+}
+footer .right p{
+    float: right;
+}
+
+a.admin-submit {
+    margin-top: 20px;
+    width: 150px;
+    margin-bottom: 0;
+    outline: none;
+}
+/* ==========================================
+                Admin dashboard 
+============================================= */
+#month {
+    background-image: url("../images/User-Profile/down-arrow.png");
+    background-repeat: no-repeat;
+    background-position: 92%;
+    margin-left: 10px;
+    margin-bottom: 0;;
+    text-overflow: ellipsis;
+    padding-right: 30px;
+}
+#admin-published-note .table tbody tr td:nth-child(2),
+#admin-published-note .table tbody tr td:nth-child(9) {
+    color: #6255a5;
+}
+#admin-published-note .table tbody tr:nth-child(3) {
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+}
+.search-btn {
+    background-color: #6255a5;
+    color: #fff;
+    text-transform: uppercase;
+    width: 117px;
+    margin-left: 10px;
+    height: 50px;
+    border-radius: 3px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+}
+
+
+/* ==========================================
+                All Add Pages
+============================================= */
+.admin-add-btn, .submit-btn {
+    background-color: #6255a5;
+    color: #fff;
+    text-transform: uppercase;
+    width: 130px;
+    height: 50px;
+    border-radius: 3px;
+    font-family: "Open Sans", sans-serif;   
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+}
+/* MyProfile */
+#my-profile-details .heading-md,
+#add-administrator .heading-md,
+#add-category-page .heading-md,
+#add-country-page .heading-md,
+#add-type-page .heading-md {
+    margin-bottom: 20px;
+}
+.submit-btn {
+    margin-top: 10px;
+}
+
+/* ==========================================
+                Member Details
+============================================= */
+#member-detail .heading-md {
+    margin-bottom: 30px;
+}
+#member-detail ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#member-detail-wrapper {
+    padding-bottom: 30px;
+    border-bottom: 1px solid #d1d1d1;
+    margin-bottom: 50px;
+}
+#member-detail ul li {
+    font-family: "Open Sans", sans-serif;
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #333333;
+    margin-bottom: 17px;
+}
+#detail1 ul#detail-value{
+    border-right: 1px solid #d1d1d1;
+}
+#detail2 {
+    padding-left: 30px;
+}
+#member-detail ul#detail-value li {
+    font-weight: 600;
+    color: #6255a5;
+}
+#member-detail .table tbody tr td:nth-child(2),
+#member-detail .table tbody tr td:nth-child(5) {
+    color: #6255a5;
+}
+
+/* ===============================================
+               Manage Administrator,Category,
+               Country, SystemConfiguration,
+               Type.
+================================================== */
+
+.manage .content-box {
+    padding-bottom: 0;
+}
+.manage .heading-md {
+    margin-bottom: 30px;
+}
+#manage-administrator-page .admin-add-btn {
+    width: 250px;
+}
+#manage-category.manage .admin-add-btn {
+    width: 190px;
+}
+#manage-country.manage .admin-add-btn {
+    width: 180px;
+}
+#manage-type.manage .admin-add-btn {
+    width: 130px;
+}
+.manage .table tbody tr:nth-child(3) {
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+}
+/* ==========================================
+               Members Page, Spam report
+============================================= */
+#member-page.manage .heading-md,
+#spam-report-page.manage .heading-md  {
+    margin-bottom: 0;
+}
+#member-page .table tbody tr td:nth-child(6),
+#member-page .table tbody tr td:nth-child(7),
+#member-page .table tbody tr td:nth-child(8),
+#member-page .table tbody tr td:nth-child(9) {
+    color: #6255a5;
+}
+
+#spam-report-page .table tbody tr td:nth-child(3) {
+    color: #6255a5;
+}
+/* ==========================================
+               Notes Under review,
+               Published Notes,
+               Downloaded,rejected Notes
+============================================= */
+.admin-select {
+    height: 50px;
+    width: 174px;
+    text-overflow: ellipsis;
+    background-image: url("../images/User-Profile/down-arrow.png");
+    background-repeat: no-repeat;
+    background-position: 95%;
+    padding-right: 20px;
+}
+#notes-under-review .table tbody tr td:nth-child(2),
+#admin-published-notes .table tbody tr td:nth-child(2),
+#admin-published-notes .table tbody tr td:nth-child(10),
+#admin-downloaded-notes .table tbody tr td:nth-child(2),
+#admin-rejected-notes .table tbody tr td:nth-child(2) {
+    color: #6255a5;
+}
+#notes-under-review .note-search,
+#admin-published-notes .note-search,
+#admin-downloaded-notes .note-search,
+#admin-rejected-notes .note-search {
+    margin-top: 30px;
+}
+/* ==========================================
+               Published Notes
+============================================= */
+#admin-downloaded-notes .admin-select {
+    width: 90%;
+}
+.select-wrapper {
+    float: left;
+    width: 27%;
+}

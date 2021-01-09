@@ -1,0 +1,1316 @@
+/* ================================== 
+               Mobile Menu
+===================================== */
+.container.nav-wrapper {
+    position: relative;
+}
+
+#mobile-nav-open-btn {
+    font-size: 30px;
+    color: #6255a5;
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    right: 0;
+    top: 0;
+    /* Hide mobile Nav Open Btn */
+    display: none;
+}
+#mobile-nav #mobile-nav-content ul.nav {
+    display: block;
+}
+#mobile-nav {
+    /* By Default , Mobile Nav Will Be Hidden With Height 0% */
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    background-color: rgba(255, 255, 255, 1);
+    -webkit-transition: all 300ms linear;
+    transition: all 300ms linear;
+    overflow-y: hidden;
+}
+#mobile-nav img.logo {
+    width: 200px;
+    height: 30px;
+    margin: 22px 0 0 16px;
+}
+#mobile-nav img.user {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+#mobile-nav-close-btn {
+    font-size: 65px;
+    color: #6255a5;
+    font-weight: 400;
+    cursor: pointer;
+    position: absolute;
+    top: -18px;
+    right: 10px;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+
+#mobile-nav-content {
+    overflow: scroll;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    top: 4%;
+    padding-left: 16px;
+}
+
+#mobile-nav ul li {
+    margin-bottom: 20px;
+}
+#mobile-nav button {
+    outline: none;
+    border: none; 
+    background-color: transparent; 
+    height: 100%;
+    padding: 0;
+}
+
+#mobile-nav a.link, #mobile-nav button {
+    font-family: "Open Sans", sans-serif;
+    font-size: 18px;
+    color: #333333;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+#mobile-nav a.dropdown-item {
+    text-transform: none;
+}
+#mobile-nav li:last-child a {
+    color: #fff;
+    text-transform: none;
+}
+
+#mobile-nav a:hover,
+#mobile-nav a:focus,
+#mobile-nav-close-btn:hover,
+#mobile-nav-close-btn:focus {
+    color: #6255a5;
+    background: none;
+}
+#mobile-nav .dropdown a.dropdown-item {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+/* ================================== 
+               Media Query
+===================================== */
+@media (min-width: 1200px) and (max-width: 1365px) {
+    /* Thanks Popup */
+    .modal-dialog {
+        margin-top: 90px;
+    }
+    /* Home Page */
+    .navbar-expand-md .navbar-nav .nav-item {
+        padding-right: 20px;
+    }
+    
+    /* Note Details Page */
+    #note-description .heading-md {
+        font-size: 30px;
+        line-height: 34px;
+    }
+    #note-description h5 {
+        margin-bottom: 15px;
+    }
+    #note-description p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    #note-description a.btn {
+        padding: 10px 6px;
+        width: 170px;
+    }
+    #note-right-side ul li,
+    #note-right-side ul li span.value,
+    #note-right-side .rating p {
+        font-size: 17px;
+        line-height: 30px;
+    }
+    /* Dashboard */
+    #dashboard-stats p.para-text {
+        font-size: 15px;
+    }
+    /* for admin dash */
+    .note-search input {
+        width: 240px;
+    }
+    .note-search .search-btn {
+        width: 100px;
+    }
+    #month {
+        width: 120px;
+    }
+    /* ================================== 
+               Member Details
+    ===================================== */
+    #member-detail ul li {
+        font-size: 16px ;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.5px) {
+    
+    .container {
+        max-width: 1140px;
+    }
+    .top-margin {
+        margin-top: 80px;
+    }
+    .box-form .input-box {
+        height: 50px;
+    }
+    .box-form .input-box,
+    .box-form label {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .box-form .btn-height.btn{
+        padding: 13px 13px;
+        font-size: 18px;
+    }
+    /* Thanks Popup */
+    .modal-dialog {
+        margin-top: 90px;
+    }
+
+    /* ==============================================
+                        Navigation
+    =================================================*/
+    .navbar-expand-md .navbar-nav .nav-link {
+        padding: 8px 0;
+    }
+    ul.navbar-nav a,
+    ul.navbar-nav li .dropdown a.nav-link {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    ul.navbar-nav li:nth-child(2) a#dropdownMenuButton {
+        margin-right: 10px;
+    } 
+    ul.navbar-nav a#dropdownMenuButton {
+        margin-right: 15px;
+    }
+    a.login-submit-btn {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    ul.navbar-nav a.login-submit-btn {
+        width: 72px;
+        font-size: 14px;
+        line-height: 18px;
+    }
+    .navbar-expand-md .navbar-nav .nav-item {
+        padding-right: 20px;
+    }
+    .white-navbar {
+        height: 80px;
+    }
+    .white-navbar ul.navbar-nav a.login-submit-btn {
+        font-size: 14px;
+    }  
+    .white-navbar .navbar-nav img {
+        height: 38px;
+        width: 38px;
+        border-radius: 50%;
+        margin-right: 20px;
+    } 
+    .navbar-header img {
+        height: 37px;
+    }
+    /* Footer */
+    .content-box-sm {
+        padding: 25px 0;
+    }
+    /* Heading */
+    .heading-md {
+        font-size: 30px;
+        line-height: 34px;
+    }
+    .heading-sm {
+        font-size: 22px;
+        line-height: 26px;
+        /* margin-bottom: 18px; */
+    }
+    .para-text {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    /* ===========================================
+                    Search Page
+    ============================================== */
+ 
+    .stars p {
+        font-size: 17px;
+    }
+    .stars p {
+        font-size: 14px;
+    }
+
+    /* ===========================================
+                    Note Detail Page
+    ============================================== */
+    /* Note Details Page */
+    
+    #note-description {
+        padding-right: 40px;
+    }
+    #note-description .heading-md {
+        font-size: 30px;
+        line-height: 34px;
+    }
+    #note-description h5 {
+        margin-bottom: 15px;
+    }
+    #note-description p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    #note-description a.btn {
+        padding: 10px 6px;
+        width: 170px;
+    }
+    #note-right-side ul li,
+    #note-right-side ul li span.value,
+    #note-right-side .rating p  {
+        font-size: 17px;
+        line-height: 30px;
+    }
+    #note-details h2.heading-sm {
+        text-align: center;
+    }
+    /* Iframe */
+    #Iframe-Master-CC-and-Rs {
+        max-width: 70%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    #customer-review-block {
+        max-width: 70%;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+     /* ===========================================
+                    Dashboard Page
+    ============================================== */
+    
+    #dashboard .col-xl-5.col-lg-12 {
+        margin-bottom: 30px;
+    }
+    #dashboard .content-box {
+        padding-bottom: 0;
+    }
+    #add-note-btn {
+        width: 130px;
+        padding: 13px 10px;
+    }
+    #dashboard .note-search input {
+        padding: 0 8%;
+        padding-right: 0;
+    }
+    .note-search input {
+        padding: 0 0 0 10%;
+    }
+    /* for admin dash */
+    #dashboard .content-box {
+        padding-bottom: 30px;
+    }
+    .form-inline .form-control {
+        width: 220px;
+    }
+    .note-search .search-btn {
+        width: 90px;
+    }
+    #month {
+        height: 50px;
+        width: 100px;
+    }
+
+    /* ================================== 
+               Member Details
+    ===================================== */
+    #member-detail ul li {
+        font-size: 16px ;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.5px) {
+    ul.navbar-nav .dropdown a.dropdown-item {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .top-margin {
+        margin-top: 70px;
+    }
+    .box-form .input-box {
+        height: 50px;
+    }
+    .box-form .input-box,
+    .box-form label {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .box-form .btn-height.btn{
+        padding: 13px 13px;
+        font-size: 18px;
+    }
+    
+    /* Thanks Popup */
+    .modal-dialog {
+        margin-top: 90px;
+    }
+    
+    /* Footer */
+    .content-box-sm {
+        padding: 25px 0;
+    }
+    /* Heading */
+    .heading-md {
+        font-size: 26px;
+        line-height: 30px;
+    }
+    .heading-sm {
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .para-text {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    /* ===========================================
+                    Navigation
+    ============================================== */
+    /* Navigation */
+    .navbar-expand-md .navbar-nav .nav-link {
+        padding: 8px 0;
+    }
+    ul.navbar-nav a, 
+    ul.navbar-nav li .dropdown a.nav-link {
+        font-size: 13px;
+        line-height: 18px;
+    }
+    ul.navbar-nav a#dropdownMenuButton {
+        margin-right: 10px;
+    }
+    ul.navbar-nav li:nth-child(2) a#dropdownMenuButton {
+        margin:0;
+    } 
+    a.login-submit-btn {
+        font-size: 15px;
+        line-height: 20px;
+    }
+    ul.navbar-nav a.login-submit-btn {
+        width: 50px;
+        font-size: 13px;
+        line-height: 18px;
+    }
+    ul.navbar-nav a.login-submit-btn.btn {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .navbar-expand-md .navbar-nav .nav-item {
+        padding-right: 15px;
+    }
+    .navbar-expand-md.white-navbar .nav-item {
+        padding-right: 10px;
+    }
+    .white-navbar {
+        height: 70px;
+    }
+    .white-navbar ul.navbar-nav a.login-submit-btn {
+        font-size: 13px;
+    }  
+    .white-navbar .navbar-nav img {
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+        margin-right: 10px;
+    } 
+    .navbar-header img {
+        height: 30px;
+        width: 185px;
+    }
+
+    /* ===========================================
+                User Page , Add Note Page, 
+                    Contact Us Page
+    ============================================== */
+    .input-box {
+        height: 40px;
+    }
+    .input-box,
+    label,
+    .box-wrapper a {
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    .ratings {
+        font-size: 18px;
+    }
+    .stars p {
+        font-size: 17px;
+        margin-bottom: 15px;
+    }
+
+    #pagination {
+        height: 80px;
+    }
+    ul.pagination {
+        margin-bottom: 30px;
+    }
+
+    /* ===========================================
+                    Note Detail Page
+    ============================================== */
+    /* Note Details Page */
+    
+    #note-description {
+        padding-right: 180px;
+    }
+    #note-pic img {
+        width: 180px;
+        height: 240px;
+    }
+    #note-description .heading-md {
+        font-size: 30px;
+        line-height: 34px;
+    }
+    #note-description h5 {
+        margin-bottom: 15px;
+    }
+    #note-description p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    #note-description a {
+        font-size: 14px;
+    }
+    #note-description a.btn {
+        padding: 7px 4px;
+        width: 140px;
+    }
+    #note-right-side ul{
+        padding: 0;
+    }
+    #note-right-side ul li,
+    #note-right-side ul li span.value,
+    #note-right-side .rating p {
+        font-size: 17px;
+        line-height: 30px;
+    }
+    /* Iframe */
+    #Iframe-Master-CC-and-Rs {
+        max-width: 70%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    #note-details h2.heading-sm {
+        text-align: center;
+    }
+    #customer-review-block {
+        max-width: 70%;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #customer-reviews h4.heading-sm {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    #customer-reviews .ratings {
+        margin-bottom: 11px;
+    }
+    #customer-reviews p {
+        font-size: 14px;
+        line-height: 19px;
+    }
+    #note-left-side {
+        margin-bottom: 30px;
+    }
+    /* ===========================================
+                    Dashboard Page
+    ============================================== */
+
+    /* for admin dash */
+    #dashboard .content-box {
+        padding-bottom: 30px;
+    }
+    #dashboard .note-search {
+        float: left;
+        margin-top: 20px;
+    }
+    #manage-administrator-page .admin-add-btn {
+        width: 220px;
+        height: 40px;
+        font-size: 16px;
+    }
+    .note-search input {
+        height: 40px;
+        width: 180px;
+    }
+    .note-search .search-btn {
+        height: 40px;
+        font-size: 16px;
+        width: 90px;
+    }   
+    #month {
+        height: 40px;
+        width: 110px;
+        font-size: 16px;
+    }
+    .admin-dash p{
+        font-size: 12px;
+    }
+
+    /* MyProfile Page */
+    .submit-btn {
+        font-size: 17px;
+        height: 40px;
+    }
+    /* ===========================================
+                    Manage Administrator
+    ============================================== */
+    .admin-add-btn {
+        height: 40px;
+    }
+    
+    /* ================================== 
+               Member Details
+    ===================================== */
+    #member-detail ul li {
+        font-size: 16px ;
+    }
+
+    #detail2 {
+        padding-left: 15px;
+    }
+    #detail1 ul#detail-value{
+        border-right: none;
+    }
+    #member-detail-wrapper #member-photo {
+        padding-left: 0;
+        margin-bottom: 30px;
+    }
+    #member-detail .heading-sm {
+        text-align: center;
+        font-size: 24px;
+    }
+     /* ===========================================
+                    Manage Administrator
+    ============================================== */
+    .admin-add-btn.btn-height.btn {
+        padding: 13px 13px;
+    }
+    /* ===================================================
+                        Notes Under Review
+    ====================================================== */
+    #notes-under-review select,
+    #admin-published-notes select,
+    #admin-downloaded-notes select,
+    #admin-rejected-notes select {
+        height: 40px;
+        width: 160px;
+    }
+}
+
+@media (max-width: 767.5px) {
+    .top-margin {
+        margin-top: 70px;
+    }
+    .box-form {
+        padding: 30px;
+    }
+    .box-form .btn-height.btn{
+        padding: 13px 13px;
+        font-size: 18px;
+    }
+    .box-form .input-box {
+        height: 50px;
+    }
+    .box-form .input-box,
+    .box-form label {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    /* Thanks Popup */
+    .modal-dialog {
+        margin-top: 70px;
+    }
+    #add-review .login-submit-btn {
+        width: 100px;
+    }
+    #thanks-content .heading-sm {
+        font-size: 24px;
+        line-height: 28px;
+    }
+    #thanks-content h6 {
+        font-size: 16px;
+        line-height: 20px;
+        margin-bottom: 10;
+    }
+    #thanks-content p {
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 30px;
+    }
+
+    /* Show mobile Nav Open Btn */
+    #mobile-nav-open-btn {
+        display: block;
+    }
+    #admin-footer p {
+        font-size: 14px;
+    }
+   
+    /* Heading */
+    .heading-md {
+        font-size: 26px;
+        line-height: 30px;
+    }
+    .heading-sm {
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .para-text {
+        font-size: 14px;
+        line-height: 18px;
+    }
+/* ===========================================
+                    Navigation
+    ============================================== */
+    /* Navigation */
+    .navbar-expand-md .navbar-nav .nav-link {
+        padding: 8px 0;
+    }
+    ul.navbar-nav a,
+    ul.navbar-nav li .dropdown a.nav-link {
+        font-size: 13px;
+        line-height: 18px;
+    }
+    a.login-submit-btn {
+        font-size: 15px;
+        line-height: 20px;
+    }
+    ul.navbar-nav a.login-submit-btn {
+        width: 60px;
+        font-size: 13px;
+        line-height: 18px;
+    }
+    ul.navbar-nav a.login-submit-btn.btn {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .navbar-expand-md .navbar-nav .nav-item {
+        padding-right: 15px;
+    }
+    .white-navbar {
+        height: 70px;
+    }
+    .white-navbar ul.navbar-nav a.login-submit-btn {
+        font-size: 13px;
+    }  
+    .white-navbar .navbar-nav img {
+        height: 38px;
+        width: 38px;
+        border-radius: 50%;
+        margin-right: 20px;
+    } 
+    .navbar-header img {
+        height: 30px;
+    }
+    /* ===========================================
+                    User Profile Page
+    ============================================== */
+    .input-box {
+        height: 40px;
+    }
+    .input-box,
+    label,
+    .box-wrapper a {
+        font-size: 14px;
+        line-height: 18px;
+        text-overflow: ellipsis;
+    }
+    #select-country-code .down-arrow {
+        width: 14px;
+    }
+    .down-arrow {
+        right: 7%;
+    }
+
+    .stars p {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    /* Iframe */
+    #Iframe-Master-CC-and-Rs {
+        max-width: 70%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    #note-details h2.heading-sm {
+        text-align: center;
+    }
+    #customer-review-block {
+        max-width: 70%;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #customer-reviews {
+        height: 100%;
+    }
+    #searched-notes .content-box {
+        padding: 30px 0;
+    }
+    #pagination {
+        height: 70px;
+    }
+    ul.pagination {
+        margin-bottom: 30px;
+    }
+
+/* ===========================================
+                    Note Detail Page
+    ============================================== */
+    /* Note details */
+   
+    #customer-reviews {
+        height: auto;
+    }
+    #note-description {
+        padding-right: 120px;
+    }
+    #note-pic img {
+        width: 180px;
+        height: 230px;
+    }
+    #note-description .heading-md {
+        font-size: 25px;
+        line-height: 30px;
+    }
+    #note-description h5 {
+        margin-bottom: 14px;
+    }
+    #note-description p {
+        font-size: 13px;
+        line-height: 15px;
+    }
+    #note-description a {
+        font-size: 13px;
+    }
+    #note-description a.btn {
+        padding: 7px 4px;
+        width: 130px;
+    }
+    #note-right-side ul{
+        padding: 0;
+    }
+    #note-right-side ul li,
+    #note-right-side ul li span.value,
+    #note-right-side .rating p {
+        font-size: 15px;
+        line-height: 25px;
+    }
+    #customer-reviews h4.heading-sm {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    #customer-reviews .ratings {
+        margin-bottom: 11px;
+    }
+    #customer-reviews p {
+        font-size: 14px;
+        line-height: 19px;
+    }
+    #note-left-side {
+        margin-bottom: 30px;
+    }
+    #customer-review-block {
+        margin-top: 30px;
+    }
+    /* ===========================================
+                    Dashboard Page
+    ============================================== */
+    #dashboard-stats h3.heading-sm {
+        font-size: 26px;
+    }
+    #dashboard-stats h3.heading-md {
+        font-size: 26px;
+        margin: 0;
+    }
+    #add-note-btn {
+        font-size: 14px;
+        width: 100px;
+        padding: 10px 10px;
+    }
+    .note-search input {
+        font-size: 14px;
+        height: 40px;
+        width: 180px;
+        padding: 0 0 0 9%;
+    }
+
+    #dashboard .note-search .search-btn {
+        height: 40px;
+        font-size: 14px;
+        width: 70px;
+    }
+    .note-search .search-icon {
+        height: 15px;
+        width: 15px;
+        left: 1.8%;
+    }
+    #admin-published-note .note-search {
+        margin-top: 15px;
+        float: left;
+    }
+    #admin-published-note .note-search input {
+        width: 200px;
+    }
+    #admin-published-note .note-search .search-btn {
+        width: 90px;
+    }   
+    #month {
+        height: 40px;
+        width: 100px;
+        font-size: 14px;
+    }
+    /* ================================== 
+               Member Details
+    ===================================== */
+    #member-detail .content-box {
+        padding-bottom: 0;;
+    }
+    #member-detail ul li {
+        font-size: 16px ;
+    }
+
+    #detail2 {
+        padding-left: 15px;
+    }
+    #detail1 ul#detail-value{
+        border-right: none;
+    }
+    #member-detail-wrapper #member-photo {
+        padding-left: 15px;
+        margin-bottom: 30px;
+    }
+    #member-detail .heading-sm {
+        text-align: center;
+    }
+     /* ===========================================
+                    Manage Administrator
+    ============================================== */
+    .admin-add-btn {
+        font-size: 16px;
+        height: 40px;
+    }
+    .note-search {
+        margin-top: 10px;
+        float: left;
+    }
+    #manage-administrator-page .note-search input,
+    #manage-category .note-search input,
+    #manage-country .note-search input,
+    #notes-under-review .note-search input,
+    #admin-published-notes .note-search input,
+    #admin-downloaded-notes .note-search input,
+    #admin-rejected-notes .note-search input {
+        width: 250px;
+    }
+    .search-btn {
+        font-size: 16px;
+        height: 40px;
+        width: 100px;
+    }
+    .submit-btn {
+        height: 40px;
+    }
+    /* ===========================================
+                    notes under review
+    =============================================*/
+    #notes-under-review .note-search,
+    #admin-published-notes .note-search,
+    #admin-downloaded-notes .note-search,
+    #admin-rejected-notes .note-search {
+        margin-top: 10px;
+    }
+    
+}
+    
+
+@media (width: 768px) {
+    
+    #mobile-nav-open-btn {
+        display: block;
+    }
+    ul.navbar-nav {
+        display: none!important;
+    }
+}
+@media (max-width: 575.5px) {
+  
+   
+    /* Thanks Popup */
+    .modal-dialog {
+        margin-top: 70px;
+    }
+    /* Home */
+   
+    footer {
+        padding: 15px 0;
+    }
+    #admin-footer p {
+        font-size: 12px;
+    }
+    #admin-footer .left p {
+        margin-left: 20%;
+    }
+    footer .right p{
+        float: left;
+    }
+    /* Search Page */
+    .search-icon {
+        left: 2.5%;
+    }
+    /* Note Deails page */
+    #note-description {
+        padding-right: 100px;
+    }
+    #note-pic img {
+        width: 160px;
+        height: 200px;
+        margin-bottom: 30px;
+    }
+    #note-description .heading-md {
+        font-size: 25px;
+        line-height: 28px;
+    }
+    #note-description h5 {
+        margin-bottom: 14px;
+    }
+    #note-description p {
+        font-size: 13px;
+        line-height: 15px;
+    }
+    #note-description a {
+        font-size: 12px;
+    }
+    #note-description a.btn {
+        padding: 4px 2px;
+        width: 120px;
+    }
+    #customer-reviews h4.heading-sm {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    #customer-reviews .ratings {
+        margin-bottom: 11px;
+    }
+    #customer-reviews p {
+        font-size: 13px;
+        line-height: 19px;
+    }
+    #note-description{
+        padding: 0;
+    }
+    #customer-review-block {
+        max-width: 100%;
+    }
+    #note-details h3.heading-sm,
+    #note-pic,
+    #note-description {
+        text-align: center;
+    }
+    /* ===========================================
+                    Dashboard Page
+    ============================================== */
+    #dashboard-stats h3.heading-sm {
+        font-size: 24px;
+    }
+    #dashboard-stats h3.heading-md {
+        font-size: 23px;
+    }
+    .note-search input {
+        font-size: 14px;
+        height: 40px;
+        width: 200px;
+        padding: 0 0 0 9%;
+
+    }
+    #note-search .search-btn{
+        margin-left: 10px;
+        font-size: 14px;
+        width: 90px;
+    }
+    .table th,
+    .table td {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    .submit-btn {
+        width: 110px;
+        font-size: 15px;
+        height: 35px;
+    }
+
+}
+@media (max-width: 480px) {
+
+    .box-form .input-box {
+        height: 30px;
+    }
+    .box-form {
+        padding: 20px;
+    }
+    .box-form .input-box,
+    .box-form label {
+        font-size: 12px;
+        line-height: 18px;
+    }
+    .box-form .btn-height.btn{
+        padding: 3px 10px;
+        font-size: 14px;
+    }
+    .box-wrapper .logo img {
+        width: 70%;
+    }
+    .box-wrapper .logo {
+        /* width: 50%; */
+        margin-bottom: 15px;
+    }
+    .form-heading {
+        font-size: 24px;
+        line-height: 30px;
+        margin-bottom: 15px;
+    }
+    .form-text {
+        font-family: "Open Sans", sans-serif;
+        font-size: 11px;
+        line-height: 16px;
+        margin-bottom: 20px;
+    }
+    #incorrect-pass-text {
+        font-size: 11px;
+    }
+    #signup-text, 
+    #signup-text a,
+    #login-text {
+        font-size: 12px;
+    }
+    #create-successfully {
+        font-size: 14px;
+    }
+    .box-form .eye-btn {
+        height: 20px;
+        width: 20px;
+        font-size: 20px;
+        top: 60%;
+    }
+    #remember-me {
+        margin-bottom: 10px;
+    }
+    .custom-control-label:after,
+    .custom-control-label:before {
+        width: 20px;
+        height: 20px;
+        top: -.2rem;
+        left: -1.4rem;
+    }
+    #remember-me-checkbox {
+        border: 1px solid #d1d1d1;
+        width: 20px;
+        height: 20px;
+        border-radius: 3px;
+    }
+    #remember-me-text {
+        margin-left: 5px;
+        margin-top: 0;
+    }
+   
+    /* Thanks popup */
+    .modal-dialog {
+        margin-top: 70px;
+    }
+    .modal-body {
+        padding: 0 35px 0 20px;
+    }
+    #thanks-content .heading-sm {
+       
+        font-size: 20px;
+        line-height: 30px;
+    }
+    #thanks-content h6 {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    #thanks-content p {
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    
+    /* Home Page */
+    .input-box {
+        height: 30px;
+        margin-bottom: 20px;
+    }
+    .input-box,
+    label,
+    .box-wrapper a {
+        font-size: 12px;
+        line-height: 18px;
+        text-overflow: ellipsis;
+    }
+    
+    #select-country-code .down-arrow{
+        top: 50%;
+    }
+    .down-arrow {
+        width: 14px;
+        top: 56%;
+    }
+    /* Search */
+    .search-icon {
+        left: 2.5%;
+    }
+
+    /* Note Detail */
+    #note-description {
+        padding-right: 10px;
+    }
+    #note-right-side ul li,
+    #note-right-side ul li span.value,
+    #note-right-side .rating p {
+        font-size: 14px;
+        line-height: 25px;
+    }
+    /* Dashboard */
+    #dashboard-stats h3.heading-sm {
+        font-size: 20px;
+    }
+    #dashboard-stats h3.heading-md {
+        font-size: 18px;
+    }
+    #dashboard-stats p.para-text {
+        font-size: 12px;
+        line-height: 14px;
+    }
+    .dashboard-stats-box .row .col-xl-4:nth-child(1){
+        padding-right: 0;
+    }
+    .dashboard-stats-box .row .col-xl-4:nth-child(3){
+        padding-left: 0;
+    }
+    #dashboard .note-search input {
+        height: 35px;
+        padding-right: 10px ;
+    }
+    #dashboard .content-box {
+        padding-bottom: 30px;
+    }
+    
+    #month {
+        height: 35px;
+        width: 70px;
+        font-size: 13px;
+    }
+    #admin-published-note .heading-sm,
+    #admin-published-note .note-search {
+        text-align: center;
+    }
+    #admin-published-note .note-search input {
+        font-size: 13px;
+        width: 130px;
+    }
+    #admin-published-note .note-search .search-btn {
+        height: 35px;
+        font-size: 12px;
+        width: 70px;
+    }   
+    /* ===================================
+                Manage Administartor Page
+    ===================================== */
+    #manage-administrator-page .note-search input,
+    #manage-category .note-search input,
+    #manage-country .note-search input,
+    #manage-type .note-search input,
+    #member-page .note-search input,
+    #spam-report-page .note-search input,
+    #notes-under-review .note-search input,
+    #admin-published-notes .note-search input,
+    #admin-downloaded-notes .note-search input,
+    #admin-rejected-notes .note-search input {
+        font-size: 13px;
+        height: 35px;
+        width: 190px;
+    }
+    
+    .note-search .search-btn {
+        height: 35px;
+        font-size: 13px;
+        width: 80px;
+    }
+    #manage-administrator-page .admin-add-btn,
+    #manage-category .admin-add-btn,
+    #manage-country .admin-add-btn,
+    #manage-type .admin-add-btn {
+        width: 200px;
+        height: 35px;
+        font-size: 14px;
+    }
+    /* note under review */
+    #notes-under-review select,
+    #admin-published-notes select,
+    #admin-downloaded-notes select,
+    #admin-rejected-notes select {
+        height: 40px;
+        width: 110px;
+    }
+    #admin-downloaded-notes select {
+        height: 35px;
+    }
+    /* ================================== 
+               Member Details
+    ===================================== */
+    #member-detail ul li {
+        font-size: 14px ;
+    }
+    ul.social-icons li {
+        padding: 0;
+    }
+    .content-box-sm {
+        padding: 25px 0;
+    }
+    .social-icons li a {
+        width: 20px;
+        height: 20px;
+        line-height: 23px;
+    }
+    footer#user-footer ul {
+        float: left;
+        padding: 0;
+    }
+    footer#user-footer p {
+        font-size: 10px;
+    }
+
+}
