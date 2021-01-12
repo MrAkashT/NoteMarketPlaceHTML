@@ -301,6 +301,7 @@ a.login-submit-btn {
 }
 
 #home-content-inner {
+    height: 100%;
     font-family: "Open Sans", sans-serif;
     color: #fff;
     padding-top: 230px;
