@@ -588,7 +588,7 @@ footer {
     border-top: 1px solid #d1d1d1;
 }
 .for-footer-at-bottom {
-    flex-basis: auto; 
+    flex-basis: auto;
     flex-shrink: 0;
     flex-grow: 1;
 }
@@ -631,16 +631,16 @@ ul.social-icons li {
                     Contact Us Page
 ============================================== */
 .page-banner {
-    height: 250px;
+    min-height: 250px;
     width: 100%;
     background: url("../images/User-Profile/banner-with-overlay.jpg") no-repeat;
     background-size: cover;
     background-position: center;
-}
-
-.page-banner {
     margin-top: 100px;
     position: relative;
+    flex-basis: auto; 
+    flex-shrink: 0;
+    flex-grow: 1;
 }
 
 .page-banner-text {
