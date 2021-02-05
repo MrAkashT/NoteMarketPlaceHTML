@@ -128,9 +128,16 @@
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <label for="category">Category *</label>
+                                    <!-- <label for="category">Category *</label>
                                     <input class="form-control input-box" type="text" id="category"
-                                        placeholder="Enter Your Category">
+                                        placeholder="Enter Your Category"> -->
+                                    <label for="category">Category *</label>
+                                    <select class="form-control input-box relative remove-arrow" id="category">
+                                        <option value="" disabled selected>Select your Category</option>
+                                        <option value="">Category 1 </option>
+                                        <option value="">Category 2</option>
+                                    </select>
+                                    <img src="images/User-Profile/down-arrow.png" class="down-arrow" alt="">
                                 </div>
                             </div>
                         </div>
@@ -199,9 +206,17 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <label for="country">Country</label>
+                                    <!-- <label for="country">Country</label>
                                     <input class="form-control input-box" type="text" id="country"
-                                        placeholder="Enter Your Country">
+                                        placeholder="Enter Your Country"> -->
+
+                                    <label for="country">Country</label>
+                                    <select class="form-control input-box relative remove-arrow" id="country">
+                                        <option value="" disabled selected>Select Your Country</option>
+                                        <option value="india">India</option>
+                                        <option value="us">US</option>
+                                    </select>
+                                    <img src="images/User-Profile/down-arrow.png" class="down-arrow" alt="">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
@@ -253,6 +268,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
+                                <label for="sell for" style="margin: 0;">Sell For*</label>
                                 <div id="radio-input">
                                     <div class="form-check-inline">
                                         <input id="radio1" type="radio" class="form-check-input" name="optradio">
