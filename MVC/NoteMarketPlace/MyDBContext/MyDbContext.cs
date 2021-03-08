@@ -48,7 +48,7 @@ namespace NoteMarketPlace.DbContext
         }
         public IEnumerable<ReferenceData> GetGender()
         {
-            return Db.ReferenceDatas.Where(m => m.RefCategory.Equals("Gender")).Where(m => m.IsActive == true);
+            return Db.ReferenceDatas.Where(m => m.RefCategory.ToLower().Equals("gender")).Where(m => m.IsActive == true);
         }
 
         public User GetUser(int id)
@@ -95,7 +95,7 @@ namespace NoteMarketPlace.DbContext
         }
         public IEnumerable<ReferenceData> GetSellingModes()
         {
-            return Db.ReferenceDatas.Where(c => c.RefCategory.Equals("Selling Mode") && c.IsActive == true);
+            return Db.ReferenceDatas.Where(c => c.RefCategory.ToLower().Equals("selling mode") && c.IsActive == true);
         }
         public string GetSellingModeById(int id)
         {
@@ -109,12 +109,12 @@ namespace NoteMarketPlace.DbContext
         }
         public bool GetIsPaidStatus(int SellingModeId)
         {
-            var SellingMode =  Db.ReferenceDatas.Where(c => c.RefCategory.Equals("Selling Mode") && c.IsActive==true);
+            var SellingMode =  Db.ReferenceDatas.Where(c => c.RefCategory.ToLower().Equals("selling mode") && c.IsActive==true);
             foreach (var i in SellingMode)
             {
-                if (SellingModeId == i.ID && i.Value == "Paid" && i.IsActive == true)
+                if (SellingModeId == i.ID && i.Value.ToLower() == "paid" && i.IsActive == true)
                     return true;
-                else if (SellingModeId == i.ID && i.Value == "Free" && i.IsActive == true)
+                else if (SellingModeId == i.ID && i.Value.ToLower() == "free" && i.IsActive == true)
                     return false;
             }
             return false;
@@ -122,8 +122,8 @@ namespace NoteMarketPlace.DbContext
         
         public int GetStatusId(string name)
         {
-            var status = Db.ReferenceDatas.Where(c => c.RefCategory.Equals("Notes Status") && c.IsActive == true);
-            return status.SingleOrDefault(s => s.Value == name).ID;
+            var status = Db.ReferenceDatas.Where(c => c.RefCategory.ToLower().Equals("notes status") && c.IsActive == true);
+            return status.SingleOrDefault(s => s.Value.ToLower() == name).ID;
         }
         public int AddSellerNote(SellerNote Note)
         {
@@ -133,28 +133,31 @@ namespace NoteMarketPlace.DbContext
         }
         public List<DashBoard> GetSellerDraftNoteBySellerId(int SellerId)
         {
-            //return Db.SellerNotes.Where(s => s.SellerID == SellerId && s.IsActive == true);
-            return (from sellernote in Db.SellerNotes
-                   join category in Db.NoteCategories on sellernote.Category equals category.ID
-                   join status in Db.ReferenceDatas on sellernote.Status equals status.ID
-                   where sellernote.SellerID == SellerId && sellernote.Status != 9 && sellernote.Status != 10 && sellernote.IsActive == true
-                   && category.IsActive == true && status.IsActive == true orderby sellernote.CreatedDate
-                   descending
-                   select new DashBoard
-                   {
-                       NoteId = sellernote.ID,
-                       AddedDate =(DateTime) sellernote.CreatedDate,
-                       Title = sellernote.Title,
-                       Category = category.Name,
-                       Status = status.Value
-                   }).ToList();
-        }
-        public List<DashBoard> GetSellerPublishedNoteBySellerId(int SellerId)
-        {
+
             return (from sellernote in Db.SellerNotes
                     join category in Db.NoteCategories on sellernote.Category equals category.ID
                     join status in Db.ReferenceDatas on sellernote.Status equals status.ID
-                    where sellernote.SellerID == SellerId && sellernote.Status == 9 && sellernote.IsActive == true
+                    where sellernote.SellerID == SellerId && (status.Value.ToLower().Contains("draft") || 
+                    status.Value.ToLower().Contains("submitted for review") || status.Value.Contains("inreview")) 
+                    && sellernote.IsActive == true && category.IsActive == true && status.IsActive == true
+                    orderby sellernote.CreatedDate
+                    descending
+                    select new DashBoard
+                    {
+                        NoteId = sellernote.ID,
+                        AddedDate = (DateTime)sellernote.CreatedDate,
+                        Title = sellernote.Title,
+                        Category = category.Name,
+                        Status = status.Value
+                    }).ToList();
+        }
+        public List<DashBoard> GetSellerPublishedNoteBySellerId(int SellerId)
+        {
+            
+            return (from sellernote in Db.SellerNotes
+                    join category in Db.NoteCategories on sellernote.Category equals category.ID
+                    join status in Db.ReferenceDatas on sellernote.Status equals status.ID
+                    where sellernote.SellerID == SellerId && status.Value.ToLower().Contains("published") && sellernote.IsActive == true
                     && category.IsActive == true && status.IsActive == true
                     orderby sellernote.CreatedDate
                     descending
@@ -177,7 +180,7 @@ namespace NoteMarketPlace.DbContext
                         join category in Db.NoteCategories on sellernote.Category equals category.ID
                         join status in Db.ReferenceDatas on sellernote.Status equals status.ID
                         where (sellernote.Title.Contains(search) || status.Value.Contains(search) || category.Name.Contains(search)) &&
-                        sellernote.SellerID == SellerId && sellernote.Status == 9 && sellernote.IsActive == true
+                        sellernote.SellerID == SellerId && status.Value.ToLower().Contains("published") && sellernote.IsActive == true
                         && category.IsActive == true && status.IsActive == true
                         orderby sellernote.CreatedDate
                         descending
@@ -197,7 +200,7 @@ namespace NoteMarketPlace.DbContext
                 return (from sellernote in Db.SellerNotes
                         join category in Db.NoteCategories on sellernote.Category equals category.ID
                         join status in Db.ReferenceDatas on sellernote.Status equals status.ID
-                        where sellernote.SellerID == SellerId && sellernote.Status == 9 && sellernote.IsActive == true
+                        where sellernote.SellerID == SellerId && status.Value.ToLower().Contains("published") && sellernote.IsActive == true
                         && category.IsActive == true && status.IsActive == true
                         orderby sellernote.CreatedDate
                         descending
@@ -221,7 +224,9 @@ namespace NoteMarketPlace.DbContext
                         join category in Db.NoteCategories on sellernote.Category equals category.ID
                         join status in Db.ReferenceDatas on sellernote.Status equals status.ID
                         where (sellernote.Title.Contains(search) || status.Value.Contains(search) || category.Name.Contains(search)) &&
-                        sellernote.SellerID == SellerId && sellernote.Status != 9 && sellernote.Status != 10 && sellernote.IsActive == true
+                        sellernote.SellerID == SellerId && (status.Value.ToLower().Contains("draft") ||
+                        status.Value.ToLower().Contains("submitted for review") || status.Value.ToLower().Contains("inreview")) &&
+                        sellernote.IsActive == true
                         && category.IsActive == true && status.IsActive == true
                         orderby sellernote.CreatedDate
                         descending
@@ -239,7 +244,8 @@ namespace NoteMarketPlace.DbContext
                 return (from sellernote in Db.SellerNotes
                         join category in Db.NoteCategories on sellernote.Category equals category.ID
                         join status in Db.ReferenceDatas on sellernote.Status equals status.ID
-                        where sellernote.SellerID == SellerId && sellernote.Status != 9 && sellernote.Status != 10 && sellernote.IsActive == true
+                        where sellernote.SellerID == SellerId && (status.Value.ToLower().Contains("draft") ||
+                        status.Value.ToLower().Contains("submitted for review") || status.Value.ToLower().Contains("inreview")) && sellernote.IsActive == true
                         && category.IsActive == true && status.IsActive == true
                         orderby sellernote.CreatedDate
                         descending
@@ -282,13 +288,13 @@ namespace NoteMarketPlace.DbContext
         {
             if(note.IsPaid == true)
             {
-                var forId = Db.ReferenceDatas.Where(c => c.RefCategory.Equals("Selling Mode") && c.IsActive ==true);
-                return forId.SingleOrDefault(c => c.Value == "Paid").ID;
+                var forId = Db.ReferenceDatas.Where(c => c.RefCategory.ToLower().Equals("selling mode") && c.IsActive ==true);
+                return forId.SingleOrDefault(c => c.Value.ToLower() == "paid").ID;
             }
             else
             {
-                var forId = Db.ReferenceDatas.Where(c => c.RefCategory.Equals("Selling Mode") && c.IsActive == true);
-                return forId.SingleOrDefault(c => c.Value == "Free").ID;
+                var forId = Db.ReferenceDatas.Where(c => c.RefCategory.ToLower().Equals("selling mode") && c.IsActive == true);
+                return forId.SingleOrDefault(c => c.Value.ToLower() == "free").ID;
             }
         }
 
@@ -317,7 +323,13 @@ namespace NoteMarketPlace.DbContext
         public List<SellerNote> GetSellerNote()
         {
             Db.Configuration.ProxyCreationEnabled = false;
-            return Db.SellerNotes.Where(n => n.Status == 9 && n.IsActive == true).ToList();
+            //return Db.SellerNotes.Where(n => n.Status == 9 && n.IsActive == true).ToList();
+
+            return (from note in Db.SellerNotes
+                    join refer in Db.ReferenceDatas on note.Status equals refer.ID
+                    where refer.Value.ToLower().Contains("publish") && note.IsActive == true && refer.IsActive == true
+                    select note
+                    ).ToList();
         }
         public List<SellerNote> GetNotesByCategory(int id)
         {
@@ -337,33 +349,53 @@ namespace NoteMarketPlace.DbContext
         }
 
         public List<SellerNote> GetNotesByFilter(string search, int Category, int Type, string University, string Course, int Country)
-        {
+            {
+
             Db.Configuration.ProxyCreationEnabled = false;
             search = search.ToLower();
             Course = Course.ToLower();
             University = University.ToLower();
-            //return Db.SellerNotes.Where(c => c.Category == Category && c.NoteType == Type && c.Country == Country).ToList();
-            var notes = Db.SellerNotes.Where(n => n.Status == 9 && n.IsActive == true).ToList();
 
-            if(search != null)
-                notes = notes.Where(c => c.Title.ToLower().Contains(search) && c.Status == 9 && c.IsActive == true).ToList();
-            
-            if(Category != 0)
-                notes = notes.Where(c => c.Category == Category && c.Status == 9 && c.IsActive==true).ToList();
-            
+            var notes = (from note in Db.SellerNotes
+                         join refer in Db.ReferenceDatas on note.Status equals refer.ID
+                         where refer.Value.ToLower().Contains("published") && note.IsActive == true
+                         select note
+                         );
+
+            if (search != null)
+            {
+                notes = notes.Where(c => c.Title.ToLower().Contains(search));
+               
+            }
+
+            if (Category != 0)
+            {
+                notes = notes.Where(c => c.Category == Category);
+              
+            }
             if (Type != 0)
-                notes = notes.Where(c => c.NoteType == Type && c.Status == 9 && c.IsActive == true).ToList();
-            
+            {
+                notes = notes.Where(c => c.NoteType == Type);
+               
+            }
+
             if (University != "0")
-                notes = notes.Where(c => c.UniversityName.ToLower().Contains(University) && c.Status == 9 && c.IsActive == true).ToList();
+            {
+                notes = notes.Where(c => c.UniversityName.ToLower().Contains(University));
+            }
 
             if (Course != "0")
-                notes = notes.Where(c => c.Course.ToLower().Contains(Course) && c.Status == 9 && c.IsActive == true).ToList();
-           
-            if(Country != 0)
-                notes = notes.Where(c => c.Country == Country && c.Status == 9 && c.IsActive == true).ToList();
-            
-            return notes;
+            {
+                notes = notes.Where(c => c.Course.ToLower().Contains(Course));
+                
+            }
+
+            if (Country != 0)
+            {
+                notes = notes.Where(c => c.Country == Country);
+            }
+
+            return notes.ToList();
         }
 
         public List<string> GetUniversities()

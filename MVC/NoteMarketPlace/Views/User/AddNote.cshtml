@@ -297,7 +297,7 @@
 
                                     @foreach (var radio in Model.SellingMode)
                                     {<div class="form-check-inline">
-                                            @if (radio.ID == 5)
+                                            @if (radio.Value.ToLower() == "free")
                                             {
                                                 @Html.RadioButtonFor(m => m.NoteDetails.SellFor, radio.ID, new { @checked = "checked", @class = "form-check-input" }) @radio.Value
                                             }

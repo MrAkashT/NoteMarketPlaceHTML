@@ -88,7 +88,6 @@ namespace NoteMarketPlace.Controllers
                 Courses = _context.GetCourses(),
                 Countries = _context.GetCountries(),
                 
-
             };
             return View(model);
         }

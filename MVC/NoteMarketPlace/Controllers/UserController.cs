@@ -448,7 +448,7 @@ namespace NoteMarketPlace.Controllers
                 int id = (int)Session["userId"];
                 var SellerNote = userRepo.GetSellerNoteByNoteId(noteDetails.NoteId);
                 noteDetails.isPaid = userRepo.GetIsPaidStatus(noteDetails.SellFor);
-                noteDetails.Status = userRepo.GetStatusId("Draft");
+                noteDetails.Status = userRepo.GetStatusId("draft");
 
                 if (DisplayPic != null)
                 {
@@ -684,7 +684,7 @@ namespace NoteMarketPlace.Controllers
                 int id = (int)Session["userId"];
                 var SellerNote = userRepo.GetSellerNoteByNoteId(noteDetails.NoteId);
                 noteDetails.isPaid = userRepo.GetIsPaidStatus(noteDetails.SellFor);
-                noteDetails.Status = userRepo.GetStatusId("Submitted For Review");
+                noteDetails.Status = userRepo.GetStatusId("submitted for review");
 
                 if (DisplayPic != null)
                 {
@@ -825,7 +825,6 @@ namespace NoteMarketPlace.Controllers
 
                     return RedirectToAction("Dashboard", "User");
                 
-
             }
 
         }
