@@ -1,0 +1,50 @@
+﻿@model NoteMarketPlace.Models.UserModel
+@{
+    ViewBag.Title = "EmailVerify";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="all-box" id="email-verification-page">
+    <div class="box-wrapper container">
+
+        <div class="row inner-all-box">
+            <div class="col-xl-6 col-lg-7  col-md-9 col-sm-10 col-11">
+
+                <div class="box-form">
+                    <div class="logo">
+                        <img src="~/images/Homepage/logo.png" alt="logo">
+                    </div>
+
+                    <div>
+                        <h2 class="form-heading">Email Verification</h2>
+
+                        <h4 id="user-name-greet">Dear Smith,</h4>
+
+                        <p id="verification-text">
+                            Thanks for Signing Up! <br> Simplyclick below for email
+                            Verification.
+                        </p>
+                       
+                        @Html.ActionLink("Verify Email Address", "Verify", "Account", new { id = Model.Id }, new
+                        {
+                           @class = "btn login-submit-btn btn-height"
+                        })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("a.login-submit-btn").on("click", function () {
+                alert("Your Account Is Successfully Activated. Please Login.")
+            });
+        });
+    </script>
+} 
+

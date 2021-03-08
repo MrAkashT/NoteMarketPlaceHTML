@@ -1,0 +1,148 @@
+﻿@model NoteMarketPlace.Models.UserModel
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="all-box">
+
+    <div class="box-wrapper container">
+
+        <div class="row inner-all-box">
+            <div class="col-xl-5 col-lg-7  col-md-8 col-sm-9 col-11">
+
+                <div class="logo text-center">
+                    <img src="~/images/login/top-logo.png" alt="logo">
+                </div>
+
+                <div class="box-form">
+                    <div class="text-center">
+                        <h2 class="form-heading">Create an Account</h2>
+                        <p class="form-text">Enter your details to signup</p>
+                        @if (ViewBag.msg == "success")
+                        {
+                            <p id="create-successfully">
+                                <i class="fa fa-check-circle"></i> Your account has been
+                                successfully created.
+                            </p>
+                        }
+                    </div>
+                    @using (@Html.BeginForm("Save", "Account"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group box-grp">
+                            @Html.LabelFor(m => m.FirstName)
+                            @Html.TextBoxFor(m => m.FirstName, new
+                            {
+                                placeholder = "Enter Your First Name",
+                                @class = "form-control input-box"
+                            })
+                            @Html.ValidationMessageFor(m => m.FirstName,"", new { @class="validation-msg" })
+
+                        
+                        </div>
+
+                        <div class="form-group box-grp">
+                            @Html.LabelFor(m => m.LastName)
+                            @Html.TextBoxFor(m => m.LastName, new
+                            {
+                                placeholder = "Enter Your Last Name",
+                                @class = "form-control input-box"
+                            })
+                            @Html.ValidationMessageFor(m => m.LastName)
+                           
+                        </div>
+
+                        <div class="form-group box-grp">
+                            @Html.LabelFor(m => m.EmailID)
+                            @Html.TextBoxFor(m => m.EmailID, new
+                            {
+                                placeholder = "Enter Your Email",
+                                @class = "form-control input-box"
+                            })
+                            @Html.ValidationMessageFor(m => m.EmailID)
+                            @Html.ValidationMessage("Exist")
+                        </div>
+
+                        <div class="form-group box-grp">
+                            @Html.LabelFor(m => m.Password)
+                            @Html.TextBoxFor(m => m.Password, new
+                            {
+                                type="password",
+                                placeholder = "Enter Your Password",
+                                @class = "form-control input-box"
+                            })
+                            @Html.ValidationMessageFor(m => m.Password)
+                           
+                            <i class="fa fa-eye eye-btn" id="eye-password"></i>
+                        </div>
+
+                        <div class="form-group box-grp">
+                            @Html.LabelFor(m => m.confirmPassword)
+                            @Html.TextBoxFor(m => m.confirmPassword, new
+                            {
+                                type = "password",
+                                placeholder = "Enter Your Password",
+                                @class = "form-control input-box"
+                            })
+                            @Html.ValidationMessageFor(m => m.confirmPassword)
+
+                            <i class="fa fa-eye eye-btn" id="eye-c-password"></i>
+                        </div>
+
+                        <button type="submit" class="btn btn-general">Sign Up</button>
+                    }
+                    <input type = "hidden" id="msg" value="@ViewBag.msg" />
+                    <input type="hidden" id="err" value="@ViewBag.err"/>
+                    <div class="text-center">
+                        <p id="login-text">Already have an account? <span>@Html.ActionLink("Login", "Login", "Account")</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section scripts
+{
+    <script>
+        
+        $(document).ready(function () {
+
+            var msg = $("#msg").val();
+            if (msg == "success") {
+                alert("We send a link for email verification.Please check your email address.");
+            }
+            var err = $("#err").val();
+            if (err == "error") {
+                $(".eye-btn").css("top", "36%");
+            }
+
+            $("#eye-password").on("click", function () {
+
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var input = $("#Password");
+               
+                if (input.attr("type") == "password") {
+                    input.attr("type", "text");
+                } else {
+                    input.attr("type", "password")
+                }
+            });
+            $("#eye-c-password").on("click", function () {
+
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var input = $("#confirmPassword");
+
+                if (input.attr("type") == "password") {
+                    input.attr("type", "text");
+                } else {
+                    input.attr("type", "password")
+                }
+            });
+        })
+
+    </script>
+}
+

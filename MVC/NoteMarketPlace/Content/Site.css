@@ -1,0 +1,110 @@
+﻿
+
+/* Set padding to keep content from hitting the edges */
+
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+
+.field-validation-error {
+    transform: translateY(-20px);
+    color: red;
+}
+/*.box-form .box-grp .input-box {
+    margin-bottom: 10px;
+}*/
+/*Data Tables*/
+#Inprogress-notes_wrapper .row:first-child .col-sm-6
+{
+    display: none;
+}
+#Inprogress-notes_wrapper .row:nth-child(2) {
+    width: 100%;
+}
+#Inprogress-notes_wrapper .row:nth-child(3) {
+    justify-content:center;
+    width: 100%;
+    margin: 30px 0;
+}
+#Inprogress-notes_wrapper .row:nth-child(3) .col-sm-5 {
+    display: none;
+}
+#Inprogress-notes_previous a {
+    border: none;
+   
+}
+/*//second*/
+#published-notes_wrapper .row:first-child .col-sm-6
+{
+    display: none;
+}
+#published-notes_wrapper .row:nth-child(2) {
+    width: 100%;
+}
+#published-notes_wrapper .row:nth-child(3) {
+    justify-content:center;
+    width: 100%;
+    margin: 30px 0;
+}
+#published-notes_wrapper .row:nth-child(3) .col-sm-5 {
+    display: none;
+}
+#published-notes_previous a {
+    border: none;
+   
+}
+/***/
+div.dataTables_wrapper div.dataTables_paginate ul.pagination{
+    margin-bottom: 60px;
+}
+li.paginate_button {
+    padding: 0 1px;
+}
+
+.paginate_button a {
+    color: #333333;
+    box-shadow: none;
+    border: none;
+    padding: 8px 12px;
+    text-decoration: none;
+    outline:none;
+}
+.paginate_button.active a {
+    color: #fff;
+    border-radius: 50%;
+    background-color: #6255a5;
+}
+.paginate_button:hover a {
+    color: #fff;
+    border-radius: 50%;
+    background-color: #6255a5;
+}
+ul.pagination li:first-child:hover a,
+ul.pagination li:last-child:hover a {
+    color: #333333;
+    background: none;
+}
+
+table.dataTable thead th.sorting,
+table.dataTable thead th.sorting_asc,
+table.dataTable thead th.sorting_desc {
+    background: none;
+    /*padding: 4px 5px;*/
+}
+th.sorting::after,
+th.sorting_asc::after,
+th.sorting_desc::after {
+    content: "" !important;
+}
+/*#Inprogress-notes_length {
+    display: none;
+}
+#Inprogress-notes_filter{
+    float: right;
+}*/

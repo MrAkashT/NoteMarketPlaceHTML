@@ -1,0 +1,198 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@Html.Partial("_HomeNavbar")
+<section id="home-content">
+
+    <div id="home-content-inner">
+        <div class="container">
+            <div class="home-content-inner">
+                <h2 id="home-heading">Download Free/Paid Notes <br> or Sale your Book.</h2>
+                <p id="home-text">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing <br> Distinctio aspernatur
+                    minus animi et
+                    ipsam accusantium.
+                </p>
+                <div id="home-btn">
+                    <a class="btn" href="#" role="button">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="content-box">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6 col-sm-6">
+                    <h2 class="heading-md">About <br> NotesMarketPlace</h2>
+                </div>
+
+                <div class="col-md-6 col-sm-6">
+                    <div class="para-text">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, facilis maxime. Cumque
+                            nesciunt provident
+                            aspernatur error perspiciatis, corporis aperiam totam ut dicta quaerat excepturi
+                            corrupti illo atque dolores
+                            minus voluptatemaspernatur error perspiciatis, corporis aperiam totam ut dicta quaerat
+                            excepturi corrupti illo atque dolores
+                            minus voluptatem!!
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, facilis maxime. Cumque
+                            nesciunt provident
+                            aspernatur error perspiciatis, corporis aperiam totam ut dicta quaerat excepturi
+                            corrupti illo atque dolores
+                            minus voluptatemaspernatur error perspiciatis!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="work">
+    <div class="content-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 text-center">
+                    <h2 class="heading-md">How it Works</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+
+                    <div id="work-left" class="text-center">
+                        <div class="work-img">
+                            <div class="work-inner">
+                                <img src="images/Homepage/download.png" alt="Download">
+                            </div>
+                        </div>
+                        <h2 class="heading-sm">Download Free/Paid Notes</h2>
+                        <p class="para-text">Get Material for your <br> Course etc.</p>
+                       
+                        
+                        @Html.ActionLink("Download", "SearchNotes", "Home", new { area = "" }, new { @class = "btn login-submit-btn btn-height" })
+                        
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-sm-6">
+
+                    <div id="work-right" class="text-center">
+                        <div class="work-img">
+                            <div class="work-inner">
+                                <img src="images/home/seller.png" alt="Download">
+                            </div>
+                        </div>
+                        <h2 class="heading-sm">Seller</h2>
+                        <p class="para-text">Upload and Download Course <br> and Material etc.</p>
+                        @if (Session["userId"] != null)
+                        {
+                            @Html.ActionLink("Sell Book", "Dashboard", "User", new { area = "" }, new { @class = "btn login-submit-btn btn-height" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Sell Book", "Login", "Account", new { area = "" }, new { @class = "btn login-submit-btn btn-height" })
+                        }
+                       
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="customer">
+    <div class="content-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 text-center">
+                    <h2 class="heading-md">What Our Customers are Saying</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-12">
+                    <div class="customer-wrapper">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-3 text-center">
+                                <img class="img-fluid rounded-circle" src="images/home/customer-1.png" alt="">
+                            </div>
+                            <div class="col-md-9 col-sm-9 col-9">
+                                <h4 class="customer-name">Walter Meller</h4>
+                                <p class="customer-position">Founder & CEO, Matrix Group</p>
+                            </div>
+                        </div>
+                        <p class="review-text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
+                            molestias earum
+                            ipsam asperiores numquam! Odit quidem saepe.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-12">
+                    <div class="customer-wrapper">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-3 text-center">
+                                <img class="img-fluid rounded-circle" src="images/home/customer-2.png" alt="">
+                            </div>
+                            <div class="col-md-9 col-sm-9 col-9">
+                                <h4 class="customer-name">Walter Meller</h4>
+                                <p class="customer-position">Founder & CEO, Matrix Group</p>
+                            </div>
+                        </div>
+                        <p class="review-text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
+                            molestias earum
+                            ipsam asperiores numquam! Odit quidem saepe.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-12">
+                    <div class="customer-wrapper">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-3 text-center">
+                                <img class="img-fluid rounded-circle" src="images/home/customer-3.png" alt="">
+                            </div>
+                            <div class="col-md-9 col-sm-9 col-9">
+                                <h4 class="customer-name">Walter Meller</h4>
+                                <p class="customer-position">Founder & CEO, Matrix Group</p>
+                            </div>
+                        </div>
+                        <p class="review-text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
+                            molestias earum
+                            ipsam asperiores numquam! Odit quidem saepe.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-12">
+                    <div class="customer-wrapper">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-3 text-center">
+                                <img class="img-fluid rounded-circle" src="images/home/customer-4.png" alt="">
+                            </div>
+                            <div class="col-md-9 col-sm-9 col-9">
+                                <h4 class="customer-name">Walter Meller</h4>
+                                <p class="customer-position">Founder & CEO, Matrix Group</p>
+                            </div>
+                        </div>
+                        <p class="review-text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
+                            molestias earum
+                            ipsam asperiores numquam! Odit quidem saepe.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_Footer")

@@ -1,0 +1,96 @@
+﻿@model NoteMarketPlace.Models.Login
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="all-box" id="login-page">
+
+    <div class="box-wrapper container">
+
+        <div class="row inner-all-box">
+            <div class="col-xl-5 col-lg-6  col-md-8 col-sm-9 col-11">
+
+                <div class="logo text-center">
+                    <img src="~/images/login/top-logo.png" class="img-fluid" alt="logo">
+                </div>
+
+                <div class="box-form ">
+
+                    <div class="text-center">
+                        <h2 class="form-heading">Login</h2>
+                        <p class="form-text">Enter your Email address & password to login</p>
+                    </div>
+                    @using (Html.BeginForm("userLogin", "Account"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group box-grp">
+                            @Html.LabelFor(m => m.Email)
+                            @Html.TextBoxFor(m => m.Email, new
+                            {
+                                placeholder = "Enter Your Email Address",
+                                @class = "form-control input-box"
+                            })
+                            @Html.ValidationMessageFor(m => m.Email)
+                            @Html.ValidationMessage("EmailWrong")
+                            @Html.ValidationMessage("NotVerified")
+                           
+                        </div>
+
+                        <div class="form-group box-grp">
+                            @Html.LabelFor(m => m.Password)
+                            @Html.ActionLink("Forgot Password?", "ForgotPassword", "Account")
+                            @Html.TextBoxFor(m => m.Password, new
+                            {
+                                   type="password",
+                                   placeholder = "Enter Your Password",
+                                   @class = "form-control input-box"
+                            })
+                            @Html.ValidationMessageFor(m => m.Password)
+                            @Html.ValidationMessage("EmailWrong")
+                            
+                            <i class="fa fa-eye  eye-btn" id="eye-password"></i>
+                        </div>
+
+                        <div class="form-check custom-checkbox" id="remember-me">
+
+                            @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input custom-control-input" })
+                            @Html.LabelFor(m => m.RememberMe, new { @class = "form-check-label custom-control-label", id = "remember-me-text" })
+                           
+                        </div>
+                      
+                        <button type="submit" class="btn btn-general">Login</button>
+                    }
+                    <input type="hidden" id="err" value="@ViewBag.err" />
+                    <div class="text-center">
+                        <p id="signup-text">Don't have an account? <span>@Html.ActionLink("Sign Up", "SignUp", "Account")</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+
+            var err = $("#err").val();
+            if (err == "error") {
+                $(".eye-btn").css("top", "36%");
+            }
+
+            $("#eye-password").on("click", function () {
+                
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var input = $("#Password");
+
+                if (input.attr("type") == "password") {
+                    input.attr("type", "text");
+                } else {
+                    input.attr("type", "password")
+                }
+            });
+        })
+    </script>
+    }
