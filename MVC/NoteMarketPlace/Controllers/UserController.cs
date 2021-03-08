@@ -1,5 +1,4 @@
-﻿//using NoteMarketplace.Repository.Repository;
-//using NoteMarketPlace.Entities;
+﻿
 using Newtonsoft.Json;
 using NoteMarketPlace.DbContext;
 using NoteMarketPlace.Filter;
@@ -32,12 +31,7 @@ namespace NoteMarketPlace.Controllers
         [UserAuthFilter]
         public ActionResult UserProfile()
         {
-            //if(Session["userId"] == null)
-            //{
-            //    return View("../Account/Login");
-            //}
-            //else
-            //{
+         
             int id = (int)Session["userId"];
             var LoginUser = userRepo.GetUser(id);
 
@@ -95,7 +89,7 @@ namespace NoteMarketPlace.Controllers
                 return View(user);
             }
 
-            //}
+            
         }
 
 
@@ -127,24 +121,7 @@ namespace NoteMarketPlace.Controllers
             }
             if (getUserProfile == null)
             {
-                //try
-                //{
-                //    if (ProfilePic.ContentLength > 0)
-                //    {
-                //        string _filename = Path.GetFileName(ProfilePic.FileName);
-                //        string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _filename);
-                //        ProfilePic.SaveAs(_path);
-                //    }
-                //    ViewBag.Message = "success";
-                //    return View();
-                //}
-                //catch
-                //{
-                //    ViewBag.Message = "not"; return View();
-                //}
-
-                
-
+             
                 if(!Directory.Exists("~/Members/" + id))
                 {
                     Directory.CreateDirectory(Server.MapPath(string.Format("~/Members/" + id)));
@@ -262,7 +239,7 @@ namespace NoteMarketPlace.Controllers
                 getUserProfile.College = user.College;
                 userRepo.UpdateUserProfile();
                 return RedirectToAction("SearchNotes", "Home");
-                //update user
+               
             }
 
 
@@ -274,10 +251,7 @@ namespace NoteMarketPlace.Controllers
             int id = (int)Session["userId"];
             var sellerNotes = userRepo.GetSellerDraftNoteBySellerId(id);
             var publishednote = userRepo.GetSellerPublishedNoteBySellerId(id);
-            //DashBoard Notes = new DashBoard
-            //{
-            //    SellerNotes = sellerNotes
-            //};
+          
             BuyerReqViewModel model = new BuyerReqViewModel
             {
                 BuyerReq = userRepo.GetBuyerReqData(id)
@@ -409,8 +383,6 @@ namespace NoteMarketPlace.Controllers
         public ActionResult UpdateNote(int noteId)
         {
             SellerNote noteInDb = userRepo.GetSellerNoteByNoteId(noteId);
-            // SellerNotesAttachment attachmentInDb = userRepo.GetAttachmentByNoteId(noteId);
-            // FileInfo file = new FileInfo(attachmentInDb.FilePath);
 
             var noteSellForId = userRepo.GetIdSellFor(noteInDb);
 
@@ -421,7 +393,6 @@ namespace NoteMarketPlace.Controllers
                 Title = noteInDb.Title,
                 CategoryId = noteInDb.Category,
                 DisplayPicture = noteInDb.DisplayPicture,
-                //   NotePdf = attachmentInDb.FilePath,
                 NoteTypeId = noteInDb.NoteType,
                 NumberOfPages = noteInDb.NumberOfPages,
                 Description = noteInDb.Description,
@@ -448,18 +419,6 @@ namespace NoteMarketPlace.Controllers
 
             return View("Addnote", NoteDetails);
         }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[UserAuthFilter]
-        //public ActionResult UpdateNote(int noteId, NoteDetails noteDetails,)
-        //{
-        //    //int id = (int)Session["userId"];
-        //    var noteInDb = userRepo.GetSellerNote(noteId);
-        //    var NoteStatusId = userRepo.GetStatusId("Draft");
-
-        //    return View();
-        //}
 
 
         [HttpPost]
@@ -496,7 +455,6 @@ namespace NoteMarketPlace.Controllers
                     noteDetails.ForDisplay = "DP_" + Path.GetFileName(DisplayPic.FileName);
                 }
 
-                //  noteDetails.AttachmentPdf = "Attachment_"+ Path.GetFileName(NotePdf.FileName);
                 if (noteDetails.NotePdf != null)
                 {
                     noteDetails.AttachmentPdf = "Attachment_" + Path.GetFileName(noteDetails.NotePdf.FileName);
@@ -507,7 +465,6 @@ namespace NoteMarketPlace.Controllers
                     noteDetails.ForPreview = "Preview_" + Path.GetFileName(PreviewNote.FileName);
                 }
 
-                // string a = Server.MapPath("~/Members/" + id + "/" + SellerNote.ID + "/"+SellerNote.DisplayPicture);
                 if (SellerNote == null)
                 {
                     try
@@ -588,10 +545,9 @@ namespace NoteMarketPlace.Controllers
                         }
                         int noteIdd = noteDetails.NoteId;
                         ViewBag.Message = "success";
-                        // ViewBag.noteId = noteId;
+                        
                         return RedirectToAction("Dashboard", "User");
-                        //  return RedirectToAction("UpdateNote", new { noteId = noteIdd });
-                        //return View();
+                       
                     }
                     catch (Exception e)
                     {
@@ -719,7 +675,6 @@ namespace NoteMarketPlace.Controllers
                     userRepo.UpdateUp();
 
                     return RedirectToAction("Dashboard", "User");
-                    //   // return RedirectToAction("UpdateNote/", new { noteId = SellerNote.ID });
                 }
             }
             else
@@ -736,7 +691,6 @@ namespace NoteMarketPlace.Controllers
                     noteDetails.ForDisplay = "DP_" + Path.GetFileName(DisplayPic.FileName);
                 }
 
-                //  noteDetails.AttachmentPdf = "Attachment_"+ Path.GetFileName(NotePdf.FileName);
                 if (noteDetails.NotePdf != null)
                 {
                     noteDetails.AttachmentPdf = "Attachment_" + Path.GetFileName(noteDetails.NotePdf.FileName);
@@ -747,99 +701,7 @@ namespace NoteMarketPlace.Controllers
                     noteDetails.ForPreview = "Preview_" + Path.GetFileName(PreviewNote.FileName);
                 }
 
-                //if (SellerNote == null)
-                //{
-                //    try
-                //    {
-                //        //insert
-                //        SellerNote NoteDetails = new SellerNote
-                //        {
-                //            SellerID = id,
-                //            Status = noteDetails.Status,
-                //            Title = noteDetails.Title,
-                //            Category = noteDetails.CategoryId,
-                //            DisplayPicture = noteDetails.ForDisplay,
-                //            NoteType = noteDetails.NoteTypeId,
-                //            NumberOfPages = noteDetails.NumberOfPages,
-                //            Description = noteDetails.Description,
-                //            UniversityName = noteDetails.InstituteName,
-                //            Country = noteDetails.CountryId,
-                //            Course = noteDetails.CourseName,
-                //            CourseCode = noteDetails.CourseCode,
-                //            Professor = noteDetails.Professor,
-                //            IsPaid = noteDetails.isPaid,
-                //            SellingPrice = noteDetails.SellPrice,
-                //            NotesPreview = noteDetails.ForPreview,
-                //            CreatedDate = DateTime.Now,
-                //            CreatedBy = id,
-                //            ModifiedDate = DateTime.Now,
-                //            ModifiedBy = id,
-                //            IsActive = true
-                //        };
-
-                //        noteDetails.NoteId = userRepo.AddSellerNote(NoteDetails);
-
-                //        if (!Directory.Exists(Server.MapPath("~/Members/" + id + "/" + noteDetails.NoteId + "/Attachments")))
-                //        {
-                //            Directory.CreateDirectory(Server.MapPath(string.Format("~/Members/" + id + "/" + noteDetails.NoteId + "/Attachments")));
-
-                //            if (noteDetails.NotePdf != null && noteDetails.NotePdf.ContentLength > 0)
-                //            {
-
-                //                string attachment = Path.Combine(Server.MapPath("~/Members/" + id + "/" + noteDetails.NoteId + "/Attachments"), noteDetails.AttachmentPdf);
-
-                //                noteDetails.NotePdf.SaveAs(attachment);
-
-                //                SellerNotesAttachment sellerNotesAttachment = new SellerNotesAttachment
-                //                {
-                //                    NoteID = noteDetails.NoteId,
-                //                    FileName = noteDetails.AttachmentPdf,
-                //                    FilePath = attachment,
-                //                    CreatedDate = DateTime.Now,
-                //                    CreatedBy = id,
-                //                    ModifiedDate = DateTime.Now,
-                //                    ModifiedBy = id,
-                //                    IsActive = true
-                //                };
-                //                userRepo.AddSellerNoteAttachment(sellerNotesAttachment);
-
-                //            }
-
-                //            if (DisplayPic != null && DisplayPic.ContentLength > 0)
-                //            {
-
-
-                //                string dp = Path.Combine(Server.MapPath("~/Members/" + id + "/" + noteDetails.NoteId), noteDetails.ForDisplay);
-
-                //                DisplayPic.SaveAs(dp);
-
-
-                //            }
-
-                //            if (PreviewNote != null && PreviewNote.ContentLength > 0)
-                //            {
-
-                //                string preview = Path.Combine(Server.MapPath("~/Members/" + id + "/" + noteDetails.NoteId), noteDetails.ForPreview);
-
-                //                PreviewNote.SaveAs(preview);
-
-                //            }
-                //        }
-                //        int noteIdd = noteDetails.NoteId;
-                //        ViewBag.Message = "success";
-                        
-                //        return RedirectToAction("Dashboard", "User");
-                //        //  return RedirectToAction("UpdateNote", new { noteId = noteIdd });
-                //        //return View();
-                //    }
-                //    catch (Exception e)
-                //    {
-                //        ViewBag.Message = e;
-                //        return View("Save");
-                //    }
-                //}
-                //else
-                //{   // attachmnt and photos is store here
+                 // attachmnt and photos is store here
 
                     if (Directory.Exists(Server.MapPath("~/Members/" + id + "/" + SellerNote.ID + "/Attachments")))
                     {
@@ -938,7 +800,7 @@ namespace NoteMarketPlace.Controllers
                     }
 
                     //update note when publish calledd
-                    //var note = userRepo.GetSellerNoteByNoteId(noteDetails.NoteId);
+                   
                     SellerNote.Status = noteDetails.Status;
                     SellerNote.Title = noteDetails.Title;
                     SellerNote.Category = noteDetails.CategoryId;
@@ -961,157 +823,12 @@ namespace NoteMarketPlace.Controllers
 
                     userRepo.UpdateUp();
 
-                    //badhu badlvu pde ek thi na hale
-                    //note.Status = userRepo.GetStatusId("Submitted For Review");
-                   // userRepo.UpdateUp();
                     return RedirectToAction("Dashboard", "User");
-                //}
+                
 
             }
 
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [UserAuthFilter]
-        public ActionResult PublishNote(NoteDetails noteDetails, string publish, HttpPostedFileBase DisplayPic, HttpPostedFileBase NotePdf, HttpPostedFileBase PreviewNote)
-        {
-           
-            if (!ModelState.IsValid)
-            {
-                NoteDetailsViewModel model = new NoteDetailsViewModel
-                {
-                    NoteDetails = noteDetails,
-                    Categories = userRepo.GetCategories(),
-                    Countries = userRepo.GetCountries(),
-                    SellingMode = userRepo.GetSellingModes(),
-                    Types = userRepo.GetTypes()
-                };
-               
-                return View("AddNote", model);
-            }
-
-            //int id = (int)Session["userId"];
-            //var SellerNote = userRepo.GetSellerNoteByNoteId(noteDetails.NoteId);
-            //noteDetails.isPaid = userRepo.GetIsPaidStatus(noteDetails.SellFor);
-            //noteDetails.Status = userRepo.GetStatusId("Submitted For Review");
-
-            //if (DisplayPic != null)
-            //{
-            //    noteDetails.ForDisplay = "DP_" + Path.GetFileName(DisplayPic.FileName);
-            //}
-
-            ////  noteDetails.AttachmentPdf = "Attachment_"+ Path.GetFileName(NotePdf.FileName);
-            //if (noteDetails.NotePdf != null)
-            //{
-            //    noteDetails.AttachmentPdf = "Attachment_" + Path.GetFileName(noteDetails.NotePdf.FileName);
-            //}
-
-            //if (PreviewNote != null)
-            //{
-            //    noteDetails.ForPreview = "Preview_" + Path.GetFileName(PreviewNote.FileName);
-            //}
-
-            //if(SellerNote == null)
-            //{
-            //    try
-            //    {
-            //        //insert
-            //        SellerNote NoteDetails = new SellerNote
-            //        {
-            //            SellerID = id,
-            //            Status = noteDetails.Status,
-            //            Title = noteDetails.Title,
-            //            Category = noteDetails.CategoryId,
-            //            DisplayPicture = noteDetails.ForDisplay,
-            //            NoteType = noteDetails.NoteTypeId,
-            //            NumberOfPages = noteDetails.NumberOfPages,
-            //            Description = noteDetails.Description,
-            //            UniversityName = noteDetails.InstituteName,
-            //            Country = noteDetails.CountryId,
-            //            Course = noteDetails.CourseName,
-            //            CourseCode = noteDetails.CourseCode,
-            //            Professor = noteDetails.Professor,
-            //            IsPaid = noteDetails.isPaid,
-            //            SellingPrice = noteDetails.SellPrice,
-            //            NotesPreview = noteDetails.ForPreview,
-            //            CreatedDate = DateTime.Now,
-            //            CreatedBy = id,
-            //            ModifiedDate = DateTime.Now,
-            //            ModifiedBy = id,
-            //            IsActive = true
-            //        };
-
-            //        noteDetails.NoteId = userRepo.AddSellerNote(NoteDetails);
-
-            //        if (!Directory.Exists(Server.MapPath("~/Members/" + id + "/" + noteDetails.NoteId + "/Attachments")))
-            //        {
-            //            Directory.CreateDirectory(Server.MapPath(string.Format("~/Members/" + id + "/" + noteDetails.NoteId + "/Attachments")));
-
-            //            if (noteDetails.NotePdf != null && noteDetails.NotePdf.ContentLength > 0)
-            //            {
-
-            //                string attachment = Path.Combine(Server.MapPath("~/Members/" + id + "/" + noteDetails.NoteId + "/Attachments"), noteDetails.AttachmentPdf);
-
-            //                noteDetails.NotePdf.SaveAs(attachment);
-
-            //                SellerNotesAttachment sellerNotesAttachment = new SellerNotesAttachment
-            //                {
-            //                    NoteID = noteDetails.NoteId,
-            //                    FileName = noteDetails.AttachmentPdf,
-            //                    FilePath = attachment,
-            //                    CreatedDate = DateTime.Now,
-            //                    CreatedBy = id,
-            //                    ModifiedDate = DateTime.Now,
-            //                    ModifiedBy = id,
-            //                    IsActive = true
-            //                };
-            //                userRepo.AddSellerNoteAttachment(sellerNotesAttachment);
-
-            //            }
-
-            //            if (DisplayPic != null && DisplayPic.ContentLength > 0)
-            //            {
-
-
-            //                string dp = Path.Combine(Server.MapPath("~/Members/" + id + "/" + noteDetails.NoteId), noteDetails.ForDisplay);
-
-            //                DisplayPic.SaveAs(dp);
-
-
-            //            }
-
-            //            if (PreviewNote != null && PreviewNote.ContentLength > 0)
-            //            {
-
-            //                string preview = Path.Combine(Server.MapPath("~/Members/" + id + "/" + noteDetails.NoteId), noteDetails.ForPreview);
-
-            //                PreviewNote.SaveAs(preview);
-
-            //            }
-            //        }
-            //        int noteIdd = noteDetails.NoteId;
-            //        ViewBag.Message = "success";
-            //        // ViewBag.noteId = noteId;
-            //        return "success";
-            //        //  return RedirectToAction("UpdateNote", new { noteId = noteIdd });
-            //        //return View();
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        ViewBag.Message = e;
-            //        return "error";
-            //    }
-            //}
-            //else
-            //{
-            //    return "success";
-            //}
-
-
-            return RedirectToAction("Dashboard", "User");
-        }
-
 
         [UserAuthFilter]
         [HttpPost]
@@ -1146,7 +863,6 @@ namespace NoteMarketPlace.Controllers
             }
 
             userRepo.DeleteDraftNoteFromDb(id);
-            //return RedirectToAction("Dashboard", "User");
         }
 
         public ActionResult NoteDetails()
@@ -1249,23 +965,15 @@ namespace NoteMarketPlace.Controllers
             return View(model);
         }
 
-
-
-
-        /////////////
-        ///
+      
         public ActionResult DownloadFile(int id)
         {
             var note = userRepo.GetSellerNoteByNoteId(id);
             var attachment = userRepo.GetAttachmentByNoteId(id);
-            //string fullName = Server.MapPath(string.Format("~Members/"+note.SellerID+"/"+note.ID+"/Attachments/"+attachment.FileName));
             string fullName = attachment.FilePath;
-            //byte[] fileBytes = GetFile(fullName);
-
+           
             int downloaderId = (int)Session["userId"];
-           // var downloader = userRepo.GetUser(downloaderId);
-           // var note1 = userRepo.GetSellerNoteByNoteId(id);
-            //var seller = userRepo.GetUser(note.SellerID);
+           
             string categoryName = userRepo.GetCategoryNameById(note.Category);
             Download buyerReq = new Download
             {

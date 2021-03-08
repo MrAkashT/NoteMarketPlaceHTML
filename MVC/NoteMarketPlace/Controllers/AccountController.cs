@@ -128,8 +128,6 @@ namespace NoteMarketPlace.Controllers
             }
                
 
-            //userModel.Id = 1;
-
             var IsExist =userRepo.CheckUserIsExistOrNot(userModel.EmailID);
             if (IsExist)
             {
@@ -190,7 +188,6 @@ namespace NoteMarketPlace.Controllers
 
             ModelState.Clear();
 
-            //return View("EmailVerify", userModel);
             return View("SignUp");
         }
 

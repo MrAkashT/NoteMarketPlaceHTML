@@ -6,8 +6,6 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using NoteMarketPlace.DbContext;
-//using NoteMarketplace.Repository.IRepository;
-//using NoteMarketplace.Repository.Repository;
 using NoteMarketPlace.Models;
 
 
@@ -27,13 +25,6 @@ namespace NoteMarketPlace.Controllers
             return View();
         }
 
-        public ActionResult Demo()
-        {
-            //var names = demo.AllDemo();
-            //var namedemo = new demoModel(names);
-            //return View(namedemo);
-            return View();
-        }
         public ActionResult FAQ()
         {
             return View();
@@ -96,7 +87,7 @@ namespace NoteMarketPlace.Controllers
                 Universities = _context.GetUniversities(),
                 Courses = _context.GetCourses(),
                 Countries = _context.GetCountries(),
-                //Ratings = _context.GetAvgRatings()
+                
 
             };
             return View(model);
