@@ -138,7 +138,7 @@ namespace NoteMarketPlace.DbContext
                     join category in Db.NoteCategories on sellernote.Category equals category.ID
                     join status in Db.ReferenceDatas on sellernote.Status equals status.ID
                     where sellernote.SellerID == SellerId && (status.Value.ToLower().Contains("draft") || 
-                    status.Value.ToLower().Contains("submitted for review") || status.Value.Contains("inreview")) 
+                    status.Value.ToLower().Contains("submitted for review") || status.Value.ToLower().Contains("inreview")) 
                     && sellernote.IsActive == true && category.IsActive == true && status.IsActive == true
                     orderby sellernote.CreatedDate
                     descending
