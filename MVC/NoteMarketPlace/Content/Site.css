@@ -20,24 +20,28 @@
     margin-bottom: 10px;
 }*/
 /*Data Tables*/
-#Inprogress-notes_wrapper .row:first-child .col-sm-6
-{
+#Inprogress-notes_wrapper .row:first-child .col-sm-6,
+#buyerReq_wrapper .row:first-child .col-sm-6 {
     display: none;
 }
-#Inprogress-notes_wrapper .row:nth-child(2) {
+#Inprogress-notes_wrapper .row:nth-child(2),
+#buyerReq_wrapper .row:nth-child(2) {
     width: 100%;
 }
-#Inprogress-notes_wrapper .row:nth-child(3) {
-    justify-content:center;
+#Inprogress-notes_wrapper .row:nth-child(3),
+#buyerReq_wrapper .row:nth-child(3) {
+    justify-content: center;
     width: 100%;
     margin: 30px 0;
 }
-#Inprogress-notes_wrapper .row:nth-child(3) .col-sm-5 {
+#Inprogress-notes_wrapper .row:nth-child(3) .col-sm-5,
+#buyerReq_wrapper .row:nth-child(3) .col-sm-5
+{
     display: none;
 }
-#Inprogress-notes_previous a {
+#Inprogress-notes_previous a,
+#buyerReq_wrapper a {
     border: none;
-   
 }
 /*//second*/
 #published-notes_wrapper .row:first-child .col-sm-6
