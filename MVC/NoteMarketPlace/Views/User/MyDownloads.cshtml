@@ -1,0 +1,295 @@
+﻿@model NoteMarketPlace.ViewModel.MyDownloadsViewModel
+@{
+    ViewBag.Title = "MyDownloads";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_userHeader")
+<!-- Modal -->
+<div class="modal fade" id="add-review" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="~/images/Notes Details/close.png" alt=""></span>
+                </button>
+            </div>
+            <div class="modal-body" id="add-review-content">
+                <h2 class="heading-sm">Add Review</h2>
+
+
+                <div class="rate-wrapper">
+                    <fieldset class="rating">
+                        <input class="a" type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5" title="Awesome - 5 stars"></label>
+                        <input class="a" type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                        <input class="a" type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4" title="Pretty good - 4 stars"></label>
+                        <input class="a" type="radio" id="star3half" name="rating" value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                        <input class="a" type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3" title="Meh - 3 stars"></label>
+                        <input class="a" type="radio" id="star2half" name="rating" value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                        <input class="a" type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+                        <input class="a" type="radio" id="star1half" name="rating" value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                        <input class="a" type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1" title="Sucks big time - 1 star"></label>
+                        <input class="a" type="radio" id="starhalf" name="rating" value="0.5" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                    </fieldset>
+                </div>
+
+                <div class="form-group">
+                    <label for="comments">Comments *</label>
+                    <textarea id="comments" class="form-control" placeholder="Comments..."></textarea>
+                </div>
+                <a href="javascript:void(0)" id="add-review-btn" class="btn login-submit-btn btn-height" role="button">Submit</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<section id="my-download-page" class="for-footer-at-bottom">
+    <div class="content-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <h2 class="heading-md">My Downloads</h2>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    @using (@Html.BeginForm("MyDownloads", "User", FormMethod.Post, new { id = "my-downloads" }))
+                    {
+                        <div class="form-inline relative" id="note-search">
+                            @Html.TextBoxFor(m => m.search, new { @class = "form-control", placeholder = "Search" })
+                            <img class="search-icon" src="~/images/Dashboard/search.jpg" alt="">
+                            <a href="javascript:$('#my-downloads').submit();" class="btn login-submit-btn btn-height" role="button">Search</a>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table" id="my-download-notes-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">SR NO.</th>
+                            <th scope="col">NOTE TITLE</th>
+                            <th scope="col">CATEGORY</th>
+                            <th scope="col">BUYER</th>
+                            <th scope="col">SELL TYPE</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">DOWNLOAD DATE/TIME</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int i = 1; }
+                        @foreach (var note in Model.MyDownloads)
+                        {
+                            <tr style="min-height: 85px!important;">
+                                <td scope="row">@i</td>
+                                <td><a href="@Url.Action("ViewNote", "User", new { id = note.NoteId })">@note.Title</a></td>
+                                <td>@note.Category</td>
+                                <td>@note.Buyer</td>
+                                <td>@note.SellType</td>
+                                <td>$@note.Price</td>
+                                <td>@note.downloadDate.ToString("dd MMM yyyy, HH:mm:ss")</td>
+                                <td>
+                                    <a style="cursor:pointer;" href="@Url.Action("ViewNote", "User", new { id = note.NoteId })">
+                                        <img src="~/images/Dashboard/eye.png" alt="view">
+                                    </a>
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            <img src="~/images/front/dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                             aria-labelledby="dropdownMenuButton">
+                                            <input class="js-notes" type="hidden" id="@note.NoteId" value="@note.NoteId" />
+                                            <a class="dropdown-item js-note" href="" id="@note.NoteId">Download Note</a>
+                                            <a class="dropdown-item add-reviews" id="@note.DownloadId" href="javascript:void(0)" data-toggle="modal"
+                                               >Add Review / Feedback</a>
+                                            <a class="dropdown-item report" data-toggle="modal" data-name="@note.Title" id="@note.DownloadId" href="">Report as inappropriate</a>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+                <input type="hidden" id="sellerAllow" value="@ViewBag.download" />
+
+            </div>
+
+        </div>
+    </div>
+</section>
+@Html.Partial("_Footer")
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            //var msg = $("#sellerAllow").val();
+
+            //if (msg == "false") {
+            //    alert("Seller does not allow yet to download this book.")
+            //}
+            $("#my-download-notes-table").DataTable({
+                pagingtype: "simple_numbers",
+                columndefs: [
+                    {
+                        orderable: false, targets: 4
+                    },
+                    {
+                        type: "date", targets: 7
+                    }
+                ],
+                language: {
+                    paginate: {
+                        next: '<i class="fa fa-chevron-right"></i>',
+                        previous: '<i class="fa fa-chevron-left"></i>'
+                    }
+                },
+                order: [[7, "desc"]]
+            });
+            $(".a").on("click", function () {
+                $(this).addClass("selected").siblings().removeClass("selected");
+            });
+
+            $(".table").on("click",".js-note", function () {
+
+                var nid = $(this).attr("id");
+                $.ajax({
+                    method: "POST",
+                    url: "@Url.Action("AddDownloadEntry", "User")?id=" + nid,
+                    error: function () {
+                        alert("err")
+                    },
+                    success: function (data) {
+
+                        if (data == "Allow") {
+                            alert("download");
+                            window.location = "/User/DownloadFile?id=" + nid;
+                        }
+                        else {
+                            alert("Seller does not allow yet to download this note.");
+                        }
+
+                    }
+                });
+            });
+            $(".table").on("click", ".add-reviews", function () {
+
+                var id = $(this).attr("id");
+                $("#add-review").modal("show");
+                $("#add-review-btn").attr("data-id", id);
+            });
+            $("#add-review-btn").on("click", function () {
+                var did = $(this).attr("data-id");
+                var comment = $("#comments").val();
+                var rate = $(".a.selected").val();
+
+                if (!comment) {
+                    $("<p id='add- review-validation' style='color: red;'>Remarks is Required.</p>").insertAfter("#comments");
+                }
+                else {
+                    $.ajax({
+                        method: "Post",
+                        url: "@Url.Action("AddReview", "User")",
+                        data: { downloadId: did, comments: comment, rating: rate },
+                        success: function () {
+                            $("#comments").val("");
+                            $("#add-review").modal("hide");
+                            window.location.href = "/User/MyDownloads";
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+
+                    });
+                }
+
+                });
+
+            $("#my-download-page").on("click", ".report", function () {
+                var id = $(this).attr("id");
+                var name = $(this).attr("data-name");
+
+               // var m = $("#my-download-page");
+                var m = $("#my-download-page");
+                var modal = `<!-- Modal -->
+                        <div class="modal fade" id="inappropriate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                             aria-hidden="true">
+                            <div class="modal-dialog " role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button id="close-btn" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true"><img src="/images/Notes Details/close.png" alt=""></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" id="add-review-content">
+                                        <h2 class="heading-sm">${name}</h2>
+
+                                        <div class="form-group">
+                                            <label for="remark">Remarks *</label><br><br>
+                                            <textarea id="remark" class="form-control" placeholder="Remarks ..."></textarea>
+                                        </div>
+                                        <div style="margin-bottom:20px;">
+                                            <button class="btn btn-danger" data-id="${id}" id="issue-btn">Report an issue</button>
+                                            <button class="btn btn-primary" id="cancel-issue" style="border:none;background-color:grey";;>Cancel</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                m.append(modal);
+
+                $("#inappropriate").modal("show");
+
+
+            }).on("click", "#issue-btn", function () {
+                alert("isuuue foound")
+                    var id = $(this).attr("data-id");
+                    var remark = $("#remark").val();
+
+                if (!remark) {
+                    $("<p id='remark-validation' style='color: red;'>Remarks is Required.</p>").insertAfter("#remark")
+                }
+                else {
+                    if (confirm("Are you sure you want to mark this report as spam, you cannot update it later?")) {
+                        $.ajax({
+                            method: "POST",
+                            url: "@Url.Action("MarkAsInAppropriate", "User")?downloadId=" + id + "&remark=" + remark,
+                            error: function () {
+                                alert("err")
+                            },
+                            success: function () {
+                                alert("succcess");
+                                $("#remark").val("");
+                                $("#inappropriate").modal("hide");
+                            }
+                        });
+                    }
+                   
+
+                }
+
+            }).on("click", "#cancel-issue", function () {
+                alert("cancel")
+                $("#remark").val("");
+                $("#remark-validation").remove();
+                $("#inappropriate").modal("hide");
+
+            }).on("click","#close-btn", function () {
+                $("#remark").val("");
+                $("#remark-validation").remove();
+            });
+
+        });
+    </script>
+}

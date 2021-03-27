@@ -1,0 +1,199 @@
+﻿
+@{
+    ViewBag.Title = "Members";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("_adminHeader")
+<section id="member-page" class="top-margin manage for-footer-at-bottom">
+    <div class="content-box">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <h2 class="heading-md">Members</h2>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-inline relative note-search">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <img class="search-icon" src="images/Dashboard/search.jpg" alt="">
+                        <button class="btn search-btn">Search</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">SR NO.</th>
+                            <th scope="col">FIRST NAME</th>
+                            <th scope="col">LAST NAME</th>
+                            <th scope="col">EMAIL</th>
+                            <th scope="col">JOINING DATE</th>
+                            <th scope="col" class="text-center">UNDER REVIEW NOTES</th>
+                            <th scope="col" class="text-center">PUBLISHED NOTES</th>
+                            <th scope="col" class="text-center">DOWNLOADED NOTES</th>
+                            <th scope="col" class="text-center">TOTAL EXPENSES</th>
+                            <th scope="col" class="text-center">TOTAL EARNINGS</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row" class="text-center">1</td>
+                            <td>Khyati</td>
+                            <td>Patel</td>
+                            <td>khyatipatel@gmail.com</td>
+                            <td>09-10-2020, 10:10</td>
+                            <td class="text-center">19</td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">22</td>
+                            <td class="text-center">$220</td>
+                            <td class="text-center">$177</td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/admin/dots.png" alt="options">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">View More Details</a>
+                                        <a class="dropdown-item" href="#">Deactivate</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" scope="row">2</td>
+                            <td>Rahul</td>
+                            <td>Shah</td>
+                            <td>rahulshah@gmail.com</td>
+                            <td>10-10-2020, 11:25</td>
+                            <td class="text-center">4</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">4</td>
+                            <td class="text-center">$220</td>
+                            <td class="text-center">$177</td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/admin/dots.png" alt="options">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">View More Details</a>
+                                        <a class="dropdown-item" href="#">Deactivate</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" scope="row">3</td>
+                            <td>Suman</td>
+                            <td>Trivedi</td>
+                            <td>sumantrivedi@gmail.com</td>
+                            <td>11-10-2020, 01:00</td>
+                            <td class="text-center">12</td>
+                            <td class="text-center">11</td>
+                            <td class="text-center">17</td>
+                            <td class="text-center">$886</td>
+                            <td class="text-center">$978</td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/admin/dots.png" alt="options">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">View More Details</a>
+                                        <a class="dropdown-item" href="#">Deactivate</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" scope="row">4</td>
+                            <td>Raj</td>
+                            <td>Malhotra</td>
+                            <td>rajmalhotra77@gmail.com</td>
+                            <td>12-10-2020, 10:10</td>
+                            <td class="text-center">2</td>
+                            <td class="text-center">123</td>
+                            <td class="text-center">28</td>
+                            <td class="text-center">$1284</td>
+                            <td class="text-center">$15254</td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/admin/dots.png" alt="options">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">View More Details</a>
+                                        <a class="dropdown-item" href="#">Deactivate</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" scope="row">5</td>
+                            <td>Niya</td>
+                            <td>Patel</td>
+                            <td>niyapatel12@gmail.com</td>
+                            <td>13-10-2020, 11:25</td>
+                            <td class="text-center">20</td>
+                            <td class="text-center">1</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">$0</td>
+                            <td class="text-center">$69</td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/admin/dots.png" alt="options">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">View More Details</a>
+                                        <a class="dropdown-item" href="#">Deactivate</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true"><i class="fa fa-chevron-left"></i><span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link active" href="">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</section>

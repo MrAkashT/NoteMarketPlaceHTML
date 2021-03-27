@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("_adminHeader")
+<section id="spam-report-page" class="top-margin manage for-footer-at-bottom">
+    <div class="content-box">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <h2 class="heading-md">Spam Reports</h2>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-inline relative note-search">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <img class="search-icon" src="images/Dashboard/search.jpg" alt="">
+                        <button class="btn search-btn">Search</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">SR NO.</th>
+                            <th scope="col">REPORTED BY</th>
+                            <th scope="col">NOTE TITLE</th>
+                            <th scope="col">CATEGORY</th>
+                            <th scope="col">DATE EDITED</th>
+                            <th scope="col">REMARK</th>
+                            <th scope="col" class="text-center">ACTION</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row" class="text-center">1</td>
+                            <td>Khyati Patel</td>
+                            <td>Software Development</td>
+                            <td>IT</td>
+                            <td>09-10-2020, 10:10</td>
+                            <td>Lorem ipsum is simply dummy text</td>
+                            <td class="text-center"><img src="images/admin/delete.png" alt=""></td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/admin/dots.png" alt="options">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Download Notes</a>
+                                        <a class="dropdown-item" href="#">View More Details</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" scope="row">2</td>
+                            <td>Rahul Shah</td>
+                            <td>Computer Basics</td>
+                            <td>Computer</td>
+                            <td>10-10-2020, 11:25   </td>
+                            <td>Lorem ipsum is simply dummy text</td>
+                            <td class="text-center"><img src="images/admin/delete.png" alt=""></td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/admin/dots.png" alt="options">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Download Notes</a>
+                                        <a class="dropdown-item" href="#">View More Details</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" scope="row">3</td>
+                            <td>Suman Trivedi</td>
+                            <td>Human Body</td>
+                            <td>Science</td>
+                            <td>11-10-2020, 01:00</td>
+                            <td>Lorem ipsum is simply dummytext</td>
+                            <td class="text-center"><img src="images/admin/delete.png" alt=""></td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/admin/dots.png" alt="options">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Download Notes</a>
+                                        <a class="dropdown-item" href="#">View More Details</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" scope="row">4</td>
+                            <td>Raj Malhotra</td>
+                            <td>World War 2</td>
+                            <td>History</td>
+                            <td>12-10-2020, 10:10</td>
+                            <td>Lorem ipsum is simply dummy text</td>
+                            <td class="text-center"><img src="images/admin/delete.png" alt=""></td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/admin/dots.png" alt="options">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Download Notes</a>
+                                        <a class="dropdown-item" href="#">View More Details</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" scope="row">5</td>
+                            <td>Niya Patel</td>
+                            <td>Accounting</td>
+                            <td>Account</td>
+                            <td>13-10-2020, 11:25</td>
+                            <td>Lorem ipsum is simply dummy text</td>
+                            <td class="text-center"><img src="images/admin/delete.png" alt=""></td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/admin/dots.png" alt="options">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Download Notes</a>
+                                        <a class="dropdown-item" href="#">View More Details</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true"><i class="fa fa-chevron-left"></i><span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link active" href="">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</section>
+

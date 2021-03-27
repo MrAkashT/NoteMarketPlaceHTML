@@ -1,0 +1,126 @@
+﻿@model NoteMarketPlace.ViewModel.MyRejectedNotesViewModel  
+@{
+    ViewBag.Title = "MyRejectedNotes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_userHeader")
+<section id="my-rejected-notes-page" class="for-footer-at-bottom">
+    <div class="content-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <h2 class="heading-md">My Rejected Notes</h2>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    @using (@Html.BeginForm("MyRejectedNotes", "User", FormMethod.Post, new { id = "my-rejected-notes" }))
+                    {
+                        <div class="form-inline relative" id="note-search">
+                            @Html.TextBoxFor(m => m.search, new { @class = "form-control", placeholder = "Search" })
+                            <img class="search-icon" src="~/images/Dashboard/search.jpg" alt="">
+                            <a href="javascript:$('#my-rejected-notes').submit();" class="btn login-submit-btn btn-height" role="button">Search</a>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table" id="my-rejected-notes-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">SR NO.</th>
+                            <th scope="col">NOTE TITLE</th>
+                            <th scope="col">CATEGORY</th>
+                            <th scope="col">REMARKS</th>
+                            <th scope="col">DATE EDITED</th>
+                            <th scope="col">CLONE</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int i = 1; }
+                        @foreach (var note in Model.RejectedNotes)
+                        {
+                            <tr style="min-height: 85px!important;">
+                                <td scope="row">@i</td>
+                                <td><a href="@Url.Action("ViewNote", "User", new { id = note.NoteId })">@note.Title</a></td>
+                                <td>@note.Category</td>
+                                <td>@note.Remarks</td>
+                                <td>@note.DateEdited.ToString("dd MMM yyyy, HH:mm:ss")</td>
+                                <td class="clone" id="@note.NoteId" style = "cursor:pointer;">clone</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            <img src="~/images/front/dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                             aria-labelledby="dropdownMenuButton">
+                                           
+                                            <a class="dropdown-item js-rejected-note" href="" id="@note.NoteId">Download Note</a>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+@Html.Partial("_Footer")
+6354764374
+@section scripts 
+{
+    <script>
+        $(document).ready(function () {
+            $("#my-rejected-notes-table").DataTable({
+                pagingtype: "simple_numbers",
+                columndefs: [
+                    {
+                        orderable: false, targets: 5
+                    },
+                    {
+                        type: "date", targets: 4
+                    }
+                ],
+                language: {
+                    paginate: {
+                        next: '<i class="fa fa-chevron-right"></i>',
+                        previous: '<i class="fa fa-chevron-left"></i>'
+                    }
+                },
+                order: [[4, "desc"]]
+            });
+
+            $(".table").on("click", ".clone", function () {
+
+                var nid = $(this).attr("id");
+                $.ajax({
+                    method: "post",
+                    url: "@Url.Action("CloneNotes", "User")",
+                    data: { Noteid: nid },
+                    success: function () {
+                        alert("Check Your Inprogress Notes and do corretion and publish again.");
+                    }
+                });
+            });
+
+             $(".table").on("click", ".js-rejected-note", function () {
+
+                var nid = $(this).attr("id");
+               // window.location.href = "/User/DownloadFile?id=" + nid;
+                $.ajax({
+                    url: "@Url.Action("DownloadFile", "User")?id=" + nid,
+                    success: function () {
+                        window.location = "/User/DownloadFile?id=" + nid;
+                    }
+                });
+            });
+        })
+    </script>
+}

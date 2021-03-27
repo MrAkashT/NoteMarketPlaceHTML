@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "NotesUnderReview";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("_adminHeader")
+<section id="notes-under-review" class="top-margin manage for-footer-at-bottom">
+    <div class="content-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <h2 class="heading-md">Notes Under Review</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="seller">Seller</label>
+                        <select id="seller" class="form-control remove-arrow admin-select">
+                            <option value="">Khyati</option>
+                            <option value="">Rahil</option>
+                            <option value="">Suman</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-inline form-group relative note-search">
+                        <label for=""></label>
+                        <input type="text" class="form-control" placeholder="Search">
+                        <img class="search-icon" src="images/Dashboard/search.jpg" alt="">
+                        <button class="btn search-btn">Search</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">SR NO.</th>
+                            <th scope="col">NOTE TITLE</th>
+                            <th scope="col">CATEGORY</th>
+                            <th scope="col">SELLER</th>
+                            <th></th>
+                            <th scope="col">DATE ADDED</th>
+                            <th scope="col">STATUS</th>
+                            <th scope="col" class="text-center">ACTION</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row" class="text-center">1</td>
+                            <td>Software Engineer</td>
+                            <td>IT</td>
+                            <td>Khyati Patel</td>
+                            <td><img src="images/admin/eye.png" alt=""></td>
+                            <td>09-10-2020, 10:10</td>
+                            <td>inReview</td>
+                            <td class="text-center">
+                                <button class="btn btn-success">Approve</button>
+                                <button class="btn btn-danger">Reject</button>
+                                <button class="btn btn-secondary">inReview</button>
+                            </td>
+                            <td><img src="images/admin/dots.png" alt="dropdown-dots-menu"></td>
+                        </tr>
+                        <tr>
+                            <td scope="row" class="text-center">2</td>
+                            <td>Computer Basics</td>
+                            <td>Computer</td>
+                            <td>Khyati Patel</td>
+                            <td><img src="images/admin/eye.png" alt=""></td>
+                            <td>10-10-2020, 11:25</td>
+                            <td>Submitted for Review</td>
+                            <td class="text-center">
+                                <button class="btn btn-success">Approve</button>
+                                <button class="btn btn-danger">Reject</button>
+                                <button class="btn btn-secondary">inReview</button>
+                            </td>
+                            <td><img src="images/admin/dots.png" alt="dropdown-dots-menu"></td>
+                        </tr>
+                        <tr>
+                            <td scope="row" class="text-center">3</td>
+                            <td>Human Body</td>
+                            <td>Science</td>
+                            <td>Khyati Patel</td>
+                            <td><img src="images/admin/eye.png" alt=""></td>
+                            <td>11-10-2020, 01:00</td>
+                            <td>inReview</td>
+                            <td class="text-center">
+                                <button class="btn btn-success">Approve</button>
+                                <button class="btn btn-danger">Reject</button>
+                                <button class="btn btn-secondary">inReview</button>
+                            </td>
+                            <td><img src="images/admin/dots.png" alt="dropdown-dots-menu"></td>
+                        </tr>
+                        <tr>
+                            <td scope="row" class="text-center">4</td>
+                            <td>World War 2</td>
+                            <td>History</td>
+                            <td>Khyati Patel</td>
+                            <td><img src="images/admin/eye.png" alt=""></td>
+                            <td>12-10-2020, 10:10</td>
+                            <td>inReview</td>
+                            <td class="text-center">
+                                <button class="btn btn-success">Approve</button>
+                                <button class="btn btn-danger">Reject</button>
+                                <button class="btn btn-secondary">inReview</button>
+                            </td>
+                            <td><img src="images/admin/dots.png" alt="dropdown-dots-menu"></td>
+                        </tr>
+                        <tr>
+                            <td scope="row" class="text-center">5</td>
+                            <td>Accounting</td>
+                            <td>Account</td>
+                            <td>Khyati Patel</td>
+                            <td><img src="images/admin/eye.png" alt=""></td>
+                            <td>13-10-2020, 11:25</td>
+                            <td>inReview</td>
+                            <td class="text-center">
+                                <button class="btn btn-success">Approve</button>
+                                <button class="btn btn-danger">Reject</button>
+                                <button class="btn btn-secondary">inReview</button>
+                            </td>
+                            <td><img src="images/admin/dots.png" alt="dropdown-dots-menu"></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true"><i class="fa fa-chevron-left"></i><span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link active" href="">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,201 @@
+﻿@model NoteMarketPlace.ViewModel.AdminDashboardViewModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@Html.Partial("_adminHeader")
+
+<div id="dashboard" class="top-margin for-footer-at-bottom">
+    <div class="container">
+        <div class="content-box">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="heading-md">Dashboard</h2>
+                </div>
+            </div>
+
+            <div id="dashboard-stats" class="admin-dash">
+                <div class="row">
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                <div class="dashboard-stats-box">
+                                    <div class="row justify-content-center align-items-center">
+                                        <div class="text-center">
+                                            <h3 class="heading-sm">@Model.PublishedCount</h3>
+                                            <p class="para-text">Number of Notes in Review for Publish</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                <div class="dashboard-stats-box">
+                                    <div class="row justify-content-center align-items-center ">
+                                        <div class="text-center">
+                                            <h3 class="heading-sm">@Model.NumberOfDownload</h3>
+                                            <p class="para-text">Number of New Notes Downloaded<br>(last 7 days)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                <div class="dashboard-stats-box">
+                                    <div class="row justify-content-center align-items-center">
+                                        <div class="text-center">
+                                            <h3 class="heading-sm">@Model.NumberOfReg</h3>
+                                            <p class="para-text">Number of New Registrations<br>(Last 7 days)</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="admin-published-note">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <h2 class="heading-sm">Published Notes</h2>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    @using (Html.BeginForm("Dashboard", "Admin", FormMethod.Post))
+                    {
+                        <div class="form-inline relative note-search">
+                            @Html.TextBoxFor(m => m.searchNote, new { @class="form-control", placeholder="Search"})
+                            @*<input type="text" class="form-control" placeholder="Search notes here...">*@
+                            <img class="search-icon" src="~/images/Dashboard/search.jpg" alt="">
+
+                            <button type="submit" class="btn search-btn">Search</button>
+                            @Html.DropDownListFor(m => m.month, new SelectList(Model.LastSixMonth), Model.month, new { 
+                                @class="relative remove-arrow form-control input-box"
+                            } )
+                           
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">SR NO.</th>
+                            <th scope="col">TITLE</th>
+                            <th scope="col">CATEGORY</th>
+                            <th scope="col" class="text-center">ATTACHMENT SIZE</th>
+                            <th scope="col" class="text-center">SELL TYPE</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">PUBLISHER</th>
+                            <th scope="col">PUBLISHED DATE</th>
+                            <th scope="col" class="text-center">NUMBER OF DOWNLOADS</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var note in Model.PublishedNotes)
+                        {
+                            <tr>
+                                <td scope="row" class="text-center">1</td>
+                                <td>@note.Title</td>
+                                <td>@note.Category</td>
+                                <td class="text-center">@note.AttachmentSize</td>
+                                <td class="text-center">@note.SellType</td>
+                                <td>$@note.Price</td>
+                                <td>@note.Publisher</td>
+                                <td>@note.PublishedDate</td>
+                                <td class="text-center">10</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            <img src="~/images/admin/dots.png" alt="options">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                             aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Download Note</a>
+                                            <a href="#" class="dropdown-item">View More Details</a>
+                                            <a class="dropdown-item" href="#">Unpublish</a>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        <tr>
+                            <td scope="row" class="text-center">1</td>
+                            <td>Data Science</td>
+                            <td>Science</td>
+                            <td class="text-center">10 KB</td>
+                            <td class="text-center">Free</td>
+                            <td>$0</td>
+                            <td>Pritesh Panchal</td>
+                            <td>09-10-2020, 10:10</td>
+                            <td class="text-center">10</td>
+                            <td>
+                                <div class="dropdown">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        <img src="images/admin/dots.png" alt="options">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Download Note</a>
+                                        <a href="#" class="dropdown-item">View More Details</a>
+                                        <a class="dropdown-item" href="#">Unpublish</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true"><i class="fa fa-chevron-left"></i><span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link active" href="">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+
+    </div>
+</div>
+
+@Html.Partial("_adminFooter")
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            //var value = $("select").children("option:first-child").html();
+            
+            //$("select").children("option:first-child").val(value);
+
+            $("#month").on("change", function () {
+                var month = $(this).val();
+                alert(month);
+            })
+        })
+    </script>
+}

@@ -1,0 +1,123 @@
+﻿@model NoteMarketPlace.ViewModel.MySoldNotesViewModel
+@{
+    ViewBag.Title = "MySoldNotes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_userHeader")
+<section id="my-sold-notes-page" class="for-footer-at-bottom">
+    <div class="content-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <h2 class="heading-md">My Sold Notes</h2>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    @using (@Html.BeginForm("MySoldNotes", "User", FormMethod.Post, new { id = "my-sold-notes" }))
+                    {
+                        <div class="form-inline relative" id="note-search">
+                            @Html.TextBoxFor(m => m.search, new { @class = "form-control", placeholder = "Seach" })
+
+                            <img class="search-icon" src="~/images/Dashboard/search.jpg" alt="">
+                            <a href="javascript:$('#my-sold-notes').submit();" class="btn login-submit-btn btn-height" role="button">Search</a>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table" id="my-sold-notes-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">SR NO.</th>
+                            <th scope="col">NOTE TITLE</th>
+                            <th scope="col">CATEGORY</th>
+                            <th scope="col">BUYER</th>
+                            <th scope="col">SELL TYPE</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">DOWNLOAD DATE/TIME</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int i = 1; }
+                        @foreach (var note in Model.MySoldNotes)
+                        {
+                            <tr style="min-height: 85px!important;">
+                                <td scope="row">@i</td>
+                                <td><a href="@Url.Action("ViewNote", "User", new { id = note.NoteId })">@note.Title</a></td>
+                                <td>@note.Category</td>
+                                <td>@note.Buyer</td>
+                                <td>@note.SellType</td>
+                                <td>$@note.Price</td>
+                                <td>@note.downloadDate.ToString("dd MMM yyyy, HH:mm:ss")</td>
+                                <td>
+                                    <a style="cursor:pointer;" href="@Url.Action("ViewNote", "User", new { id = note.NoteId })">
+                                        <img src="~/images/Dashboard/eye.png" alt="view">
+                                    </a>
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            <img src="~/images/front/dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                             aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item js-sold-note" href="" id="@note.NoteId">Download Note</a>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+@Html.Partial("_Footer")
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#my-sold-notes-table").DataTable({
+                pagingtype: "simple_numbers",
+                columndefs: [
+                    {
+                        orderable: false, targets: 4
+                    },
+                    {
+                        type: "date", targets: 7
+                    }
+                ],
+                language: {
+                    paginate: {
+                        next: '<i class="fa fa-chevron-right"></i>',
+                        previous: '<i class="fa fa-chevron-left"></i>'
+                    }
+                },
+                order: [[7, "desc"]]
+            });
+
+
+            $(".table").on("click", ".js-sold-note", function () {
+               
+                var nid = $(this).attr("id");
+               // window.location.href = "/User/DownloadFile?id=" + nid;
+                $.ajax({
+                    url: "@Url.Action("DownloadFile", "User")?id=" + nid,
+                    success: function () {
+                        window.location = "/User/DownloadFile?id=" + nid;
+                    }
+                });
+            });
+        });
+    </script>
+}
