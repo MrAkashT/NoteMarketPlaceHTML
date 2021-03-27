@@ -369,10 +369,11 @@ namespace NoteMarketPlace.DbContext
             return Db.SellerNotes.Where(c => c.NoteType == type && c.Category == categoryId).ToList();
         }
 
-        public List<SearchNoteWrap> GetNotesByFilter(string search, int Category, int Type, string University, string Course, int Country)
-            {
+        public List<SearchNoteWrap> GetNotesByFilter(string search, int Category, int Type, string University, string Course, int Country, string rate)
+        {
 
             Db.Configuration.ProxyCreationEnabled = false;
+            
             search = search.ToLower();
             Course = Course.ToLower();
             University = University.ToLower();
@@ -394,42 +395,51 @@ namespace NoteMarketPlace.DbContext
                              Country = note.Country,
                              Course = note.Course
                          }
-                         );
-
-            if (search != null)
+                         ).ToList();
+            if(rate != "0")
             {
-                notes = notes.Where(c => c.Title.ToLower().Contains(search));
+                int rating = Convert.ToInt32(rate.Substring(0, 1));
+                foreach (var note in notes)
+                {
+                    note.avg = GetAvgRatingByNoteId(note.ID);
+                }
+                notes = notes.Where(n => n.avg > rating).ToList();
+
+            }
+            if (search != "")
+            {
+                notes = notes.Where(c => c.Title.ToLower().Contains(search)).ToList();
                
             }
 
             if (Category != 0)
             {
-                notes = notes.Where(c => c.Category == Category);
+                notes = notes.Where(c => c.Category == Category).ToList();
               
             }
             if (Type != 0)
             {
-                notes = notes.Where(c => c.NoteType == Type);
+                notes = notes.Where(c => c.NoteType == Type).ToList();
                
             }
 
             if (University != "0")
             {
-                notes = notes.Where(c => c.UniversityName.ToLower().Contains(University));
+                notes = notes.Where(c => c.UniversityName.ToLower().Contains(University)).ToList();
             }
 
             if (Course != "0")
             {
-                notes = notes.Where(c => c.Course.ToLower().Contains(Course));
+                notes = notes.Where(c => c.Course.ToLower().Contains(Course)).ToList();
                 
             }
 
             if (Country != 0)
             {
-                notes = notes.Where(c => c.Country == Country);
+                notes = notes.Where(c => c.Country == Country).ToList();
             }
 
-            return notes.ToList();
+            return notes;
         }
 
         public List<string> GetUniversities()

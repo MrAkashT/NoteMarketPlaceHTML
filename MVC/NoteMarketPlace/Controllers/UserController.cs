@@ -1070,9 +1070,9 @@ namespace NoteMarketPlace.Controllers
         }
 
         [HttpPost]
-        public ActionResult FilterNote(string searchVal, int CategoryId, int TypeId, string University, string Course, int CountryId)
+        public ActionResult FilterNote(string searchVal, int CategoryId, int TypeId, string University, string Course, int CountryId, string rate)
         {
-            var notes = userRepo.GetNotesByFilter(searchVal, CategoryId, TypeId, University, Course, CountryId);
+            var notes = userRepo.GetNotesByFilter(searchVal, CategoryId, TypeId, University, Course, CountryId, rate);
 
             SearchNotes model = new SearchNotes
             {
@@ -1091,9 +1091,9 @@ namespace NoteMarketPlace.Controllers
 
         }
         [HttpPost]//startcount
-        public ActionResult FilterNotePagination(string searchVal, int CategoryId, int TypeId, string University, string Course, int CountryId, int start, int count)
+        public ActionResult FilterNotePagination(string searchVal, int CategoryId, int TypeId, string University, string Course, int CountryId, string rate, int start, int count)
         {
-            var notes = userRepo.GetNotesByFilter(searchVal, CategoryId, TypeId, University, Course, CountryId);
+            var notes = userRepo.GetNotesByFilter(searchVal, CategoryId, TypeId, University, Course, CountryId, rate);
             
             SearchNotes model = new SearchNotes
             {

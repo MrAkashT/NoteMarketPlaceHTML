@@ -95,7 +95,8 @@ namespace NoteMarketPlace.Controllers
         {
         
             var notes = _context.GetSellerNote();
-           
+            string[] rating = { "1+", "2+", "3+", "4+","5" };
+            List<string> ratings = new List<string>(rating);
 
             SearchNotes model = new SearchNotes
             {
@@ -105,6 +106,7 @@ namespace NoteMarketPlace.Controllers
                 Universities = _context.GetUniversities(),
                 Courses = _context.GetCourses(),
                 Countries = _context.GetCountries(),
+                RatingList = ratings,
                 totalCount = notes.Count(),
                 perPageCount = 6
             };

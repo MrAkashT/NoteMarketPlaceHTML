@@ -13,12 +13,14 @@ namespace NoteMarketPlace.Models
         public IEnumerable<NoteType> Types { get; set; }
         public List<string> Universities { get; set; }
         public List<string> Courses { get; set; }
+        public List<string> RatingList{ get; set; }
         public IEnumerable<SellerNote> Ratings { get; set; }
         public int UniversityId { get; set; }
         public int CourseId { get; set; }
         public int TypeId { get; set; }
         public int CategoryId { get; set; }
         public int CountryId { get; set; }
+        public int rate { get; set; }
         public int totalCount { get; set; }
         public int perPageCount { get; set; }
 
