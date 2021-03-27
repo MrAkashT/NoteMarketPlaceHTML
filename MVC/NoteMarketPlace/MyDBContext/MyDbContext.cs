@@ -40,6 +40,15 @@ namespace NoteMarketPlace.DbContext
             else
                 return false;
         }
+
+        public string GetRoles(int id)
+        {
+            return Db.UserRoles.Where(r => r.ID == id && r.IsActive == true).FirstOrDefault().Role.ToLower();
+        }
+        public int GetRolesByName(string name)
+        {
+            return Db.UserRoles.Where(r => r.Role.ToLower() == name && r.IsActive == true).FirstOrDefault().ID;
+        }
         // User PRofile
 
         public IEnumerable<Country> GetCountries()
@@ -99,13 +108,13 @@ namespace NoteMarketPlace.DbContext
         }
         public string GetSellingModeById(int id)
         {
-            var sellMode = Db.ReferenceDatas.Where(c => c.RefCategory.Equals("Selling Mode") && c.IsActive == true);
-            return sellMode.SingleOrDefault(s => s.ID == id).Value;
+            var sellMode = Db.ReferenceDatas.Where(c => c.RefCategory.ToLower().Equals("selling mode") && c.IsActive == true);
+            return sellMode.SingleOrDefault(s => s.ID == id).Value.ToLower();
         }
         public string GetNoteStatusById(int id)
         {
-            var ReferenceInDB = Db.ReferenceDatas.Where(c => c.RefCategory.Equals("Notes Status") && c.IsActive == true);
-            return ReferenceInDB.SingleOrDefault(c => c.ID == id).Value;
+            var ReferenceInDB = Db.ReferenceDatas.Where(c => c.RefCategory.ToLower().Equals("notes status") && c.IsActive == true);
+            return ReferenceInDB.SingleOrDefault(c => c.ID == id).Value.ToLower();
         }
         public bool GetIsPaidStatus(int SellingModeId)
         {
@@ -138,7 +147,7 @@ namespace NoteMarketPlace.DbContext
                     join category in Db.NoteCategories on sellernote.Category equals category.ID
                     join status in Db.ReferenceDatas on sellernote.Status equals status.ID
                     where sellernote.SellerID == SellerId && (status.Value.ToLower().Contains("draft") || 
-                    status.Value.ToLower().Contains("submitted for review") || status.Value.ToLower().Contains("inreview")) 
+                    status.Value.ToLower().Contains("submitted for review") || status.Value.Contains("inreview")) 
                     && sellernote.IsActive == true && category.IsActive == true && status.IsActive == true
                     orderby sellernote.CreatedDate
                     descending
@@ -271,8 +280,9 @@ namespace NoteMarketPlace.DbContext
                     where note.ID == NoteId && note.IsActive == true
                     select new SingleNoteDetail
                     {
-                        sellerNote = note,
-                       // Country = country.Name,
+                        Id = note.ID,
+                        SellerId = note.SellerID,
+                        sellerNote = note,  
                         Category = category.Name
                     }).SingleOrDefault();
         }
@@ -320,15 +330,26 @@ namespace NoteMarketPlace.DbContext
             Db.SaveChanges();
         }
 
-        public List<SellerNote> GetSellerNote()
+        public List<SearchNoteWrap> GetSellerNote()
         {
             Db.Configuration.ProxyCreationEnabled = false;
             //return Db.SellerNotes.Where(n => n.Status == 9 && n.IsActive == true).ToList();
 
             return (from note in Db.SellerNotes
+                   // join review in Db.SellerNotesReviews on note.ID equals review.NoteID
                     join refer in Db.ReferenceDatas on note.Status equals refer.ID
                     where refer.Value.ToLower().Contains("publish") && note.IsActive == true && refer.IsActive == true
-                    select note
+                    
+                    select new SearchNoteWrap
+                    {
+                        ID = note.ID,
+                        SellerID = note.SellerID,
+                        CreatedDate = note.CreatedDate,
+                        DisplayPicture = note.DisplayPicture,
+                        NumberOfPages = note.NumberOfPages,
+                        Title = note.Title,
+                        UniversityName = note.UniversityName
+                    }
                     ).ToList();
         }
         public List<SellerNote> GetNotesByCategory(int id)
@@ -348,7 +369,7 @@ namespace NoteMarketPlace.DbContext
             return Db.SellerNotes.Where(c => c.NoteType == type && c.Category == categoryId).ToList();
         }
 
-        public List<SellerNote> GetNotesByFilter(string search, int Category, int Type, string University, string Course, int Country)
+        public List<SearchNoteWrap> GetNotesByFilter(string search, int Category, int Type, string University, string Course, int Country)
             {
 
             Db.Configuration.ProxyCreationEnabled = false;
@@ -359,7 +380,20 @@ namespace NoteMarketPlace.DbContext
             var notes = (from note in Db.SellerNotes
                          join refer in Db.ReferenceDatas on note.Status equals refer.ID
                          where refer.Value.ToLower().Contains("published") && note.IsActive == true
-                         select note
+                         select new SearchNoteWrap
+                         {
+                             ID = note.ID,
+                             SellerID = note.SellerID,
+                             CreatedDate = note.CreatedDate,
+                             DisplayPicture = note.DisplayPicture,
+                             NumberOfPages = note.NumberOfPages,
+                             Title = note.Title,
+                             UniversityName = note.UniversityName,
+                             Category = note.Category,
+                             NoteType = note.NoteType,
+                             Country = note.Country,
+                             Course = note.Course
+                         }
                          );
 
             if (search != null)
@@ -407,23 +441,26 @@ namespace NoteMarketPlace.DbContext
             return Db.SellerNotes.Where(n => n.Course != null && n.Status == 9 && n.IsActive ==true).Select(n => n.Course).Distinct().ToList();
         }
 
-        public void AddDownload(Download obj)
+        public int AddDownload(Download obj)
         {
             Db.Downloads.Add(obj);
             Db.SaveChanges();
+            return obj.ID;
         } 
 
-        public IEnumerable<BuyerReq> GetBuyerReqData(int sellerId)
+        public IEnumerable<MyTable> GetBuyerReqData(int sellerId)
         {
             return (from download in Db.Downloads
                     join note in Db.SellerNotes on download.NoteID equals note.ID
                     join category in Db.NoteCategories on note.Category equals category.ID
                     join downloader in Db.Users on download.Downloader equals downloader.ID
                     join downloaderEmail in Db.UserProfiles on download.Downloader equals downloaderEmail.UserID
-                    where download.Seller == sellerId && note.IsActive == true && downloader.IsActive == true
+                    where download.Seller == sellerId && note.IsPaid == true && download.IsSellerasAllowedDownload == false
+                    && note.IsActive == true && downloader.IsActive == true
                     orderby download.CreatedDate descending
-                    select new BuyerReq
+                    select new MyTable
                     {
+                        DownloadId = download.ID,
                         NoteId = note.ID,
                         Title = note.Title,
                         Category = category.Name,
@@ -436,5 +473,426 @@ namespace NoteMarketPlace.DbContext
                     }).ToList();
 
         }
+
+        public IEnumerable<MyTable> GetBuyerReqSearchData(int sellerId, string search)
+        {
+           if(search != null)
+            {
+                search = search.ToLower();
+
+                return (from download in Db.Downloads
+                        join note in Db.SellerNotes on download.NoteID equals note.ID
+                        join category in Db.NoteCategories on note.Category equals category.ID
+                        join downloader in Db.Users on download.Downloader equals downloader.ID
+                        join userDetail in Db.UserProfiles on download.Downloader equals userDetail.UserID
+                        where (note.Title.ToLower().Contains(search) || category.Name.ToLower().Contains(search)
+                        || userDetail.PhoneNumber.Contains(search) || note.SellingPrice.ToString().Contains(search)) &&
+                        download.Seller == sellerId && note.IsPaid == true && download.IsSellerasAllowedDownload == false
+                        && note.IsActive == true && downloader.IsActive == true
+                        orderby download.CreatedDate descending
+                        select new MyTable
+                        {
+                            DownloadId = download.ID,
+                            NoteId = note.ID,
+                            Title = note.Title,
+                            Category = category.Name,
+                            Buyer = downloader.EmailID,
+                            code = userDetail.PhoneNumberCounrtyCode,
+                            PhoneNo = userDetail.PhoneNumber,
+                            isPaid = note.IsPaid,
+                            Price = note.SellingPrice,
+                            downloadDate = (DateTime)download.CreatedDate
+                        }).ToList();
+            }
+            else
+            {
+                return (from download in Db.Downloads
+                        join note in Db.SellerNotes on download.NoteID equals note.ID
+                        join category in Db.NoteCategories on note.Category equals category.ID
+                        join downloader in Db.Users on download.Downloader equals downloader.ID
+                        join downloaderEmail in Db.UserProfiles on download.Downloader equals downloaderEmail.UserID
+                        where download.Seller == sellerId && note.IsActive == true && downloader.IsActive == true
+                        orderby download.CreatedDate descending
+                        select new MyTable
+                        {
+                            DownloadId = download.ID,
+                            NoteId = note.ID,
+                            Title = note.Title,
+                            Category = category.Name,
+                            Buyer = downloader.EmailID,
+                            code = downloaderEmail.PhoneNumberCounrtyCode,
+                            PhoneNo = downloaderEmail.PhoneNumber,
+                            isPaid = note.IsPaid,
+                            Price = note.SellingPrice,
+                            downloadDate = (DateTime)download.CreatedDate
+                        }).ToList();
+            }
+
+        }
+
+        public Download GetFromDownload(int id)
+        {
+            return Db.Downloads.SingleOrDefault(d => d.ID == id);
+        }
+
+        public IEnumerable<MyTable> GetMyDownloadsNotes(int downloaderId)
+        {
+            return (from download in Db.Downloads
+                    join note in Db.SellerNotes on download.NoteID equals note.ID
+                    join category in Db.NoteCategories on note.Category equals category.ID
+                    join downloader in Db.Users on download.Downloader equals downloader.ID
+                    join downloaderEmail in Db.UserProfiles on download.Downloader equals downloaderEmail.UserID
+                    where download.Downloader == downloaderId && note.IsActive == true && downloader.IsActive == true
+                    orderby download.CreatedDate descending
+                    select new MyTable
+                    {
+                        DownloadId = download.ID,
+                        NoteId = note.ID,
+                        Title = note.Title,
+                        Category = category.Name,
+                        Buyer = downloader.EmailID,
+                        code = downloaderEmail.PhoneNumberCounrtyCode,
+                        isPaid = note.IsPaid,
+                        Price = note.SellingPrice,
+                        downloadDate = (DateTime)download.CreatedDate
+                    }).ToList();
+        }
+
+        public IEnumerable<MyTable> GetMyDownloadsSearchedNotes(int downloaderId, string search)
+        {
+            if (search != null)
+            {
+                search = search.ToLower();
+
+                return (from download in Db.Downloads
+                        join note in Db.SellerNotes on download.NoteID equals note.ID
+                        join category in Db.NoteCategories on note.Category equals category.ID
+                        join downloader in Db.Users on download.Downloader equals downloader.ID
+                        join userDetail in Db.UserProfiles on download.Downloader equals userDetail.UserID
+                        where (note.Title.ToLower().Contains(search) || category.Name.ToLower().Contains(search)
+                        || userDetail.PhoneNumber.Contains(search) || note.SellingPrice.ToString().Contains(search)) &&
+                        download.Seller == downloaderId && note.IsActive == true && downloader.IsActive == true
+                        orderby download.CreatedDate descending
+                        select new MyTable
+                        {
+                            DownloadId = download.ID,
+                            NoteId = note.ID,
+                            Title = note.Title,
+                            Category = category.Name,
+                            Buyer = downloader.EmailID,
+                            code = userDetail.PhoneNumberCounrtyCode,
+                            PhoneNo = userDetail.PhoneNumber,
+                            isPaid = note.IsPaid,
+                            Price = note.SellingPrice,
+                            downloadDate = (DateTime)download.CreatedDate
+                        }).ToList();
+            }
+            else
+            {
+                return (from download in Db.Downloads
+                        join note in Db.SellerNotes on download.NoteID equals note.ID
+                        join category in Db.NoteCategories on note.Category equals category.ID
+                        join downloader in Db.Users on download.Downloader equals downloader.ID
+                        join downloaderEmail in Db.UserProfiles on download.Downloader equals downloaderEmail.UserID
+                        where download.Seller == downloaderId && note.IsActive == true && downloader.IsActive == true
+                        orderby download.CreatedDate descending
+                        select new MyTable
+                        {
+                            DownloadId = download.ID,
+                            NoteId = note.ID,
+                            Title = note.Title,
+                            Category = category.Name,
+                            Buyer = downloader.EmailID,
+                            code = downloaderEmail.PhoneNumberCounrtyCode,
+                            PhoneNo = downloaderEmail.PhoneNumber,
+                            isPaid = note.IsPaid,
+                            Price = note.SellingPrice,
+                            downloadDate = (DateTime)download.CreatedDate
+                        }).ToList();
+            }
+        }
+
+        public void AddReview(SellerNotesReview obj)
+        {
+            Db.SellerNotesReviews.Add(obj);
+            Db.SaveChanges();
+        }
+
+        public void addReportedIsuue(SellerNotesReportedIssue obj)
+        {
+            Db.SellerNotesReportedIssues.Add(obj);
+            Db.SaveChanges();
+        }
+
+        public Download CheckDownloadEntry(int noteId, int sellerId, int downloaderId)
+        {
+            return Db.Downloads.Where(d => d.NoteID == noteId && d.Seller == sellerId && d.Downloader == downloaderId).FirstOrDefault();
+        }
+
+        public IEnumerable<MyTable> GetMySoldNotes(int sellerId)
+        {
+            return (from download in Db.Downloads
+                    join note in Db.SellerNotes on download.NoteID equals note.ID
+                    join category in Db.NoteCategories on note.Category equals category.ID
+                    join downloader in Db.Users on download.Downloader equals downloader.ID
+                    join downloaderEmail in Db.UserProfiles on download.Downloader equals downloaderEmail.UserID
+                    where download.Seller == sellerId && download.IsAttachmentDownload==true && download.IsSellerasAllowedDownload==true 
+                    && note.IsActive == true && downloader.IsActive == true
+                    orderby download.CreatedDate descending
+                    select new MyTable
+                    {
+                        DownloadId = download.ID,
+                        NoteId = note.ID,
+                        Title = note.Title,
+                        Category = category.Name,
+                        Buyer = downloader.EmailID,
+                        code = downloaderEmail.PhoneNumberCounrtyCode,
+                        isPaid = note.IsPaid,
+                        Price = note.SellingPrice,
+                        downloadDate = (DateTime)download.CreatedDate
+                    }).ToList();
+        }
+
+        public IEnumerable<MyTable> GetMySoldSearchedNotes(int sellerId, string search)
+        {
+            if (search != null)
+            {
+                search = search.ToLower();
+
+                return (from download in Db.Downloads
+                        join note in Db.SellerNotes on download.NoteID equals note.ID
+                        join category in Db.NoteCategories on note.Category equals category.ID
+                        join downloader in Db.Users on download.Downloader equals downloader.ID
+                        join userDetail in Db.UserProfiles on download.Downloader equals userDetail.UserID
+                        where (note.Title.ToLower().Contains(search) || category.Name.ToLower().Contains(search)
+                        || userDetail.PhoneNumber.Contains(search) || note.SellingPrice.ToString().Contains(search)) &&
+                        download.Seller == sellerId && note.IsActive == true && downloader.IsActive == true
+                        orderby download.CreatedDate descending
+                        select new MyTable
+                        {
+                            DownloadId = download.ID,
+                            NoteId = note.ID,
+                            Title = note.Title,
+                            Category = category.Name,
+                            Buyer = downloader.EmailID,
+                            code = userDetail.PhoneNumberCounrtyCode,
+                            PhoneNo = userDetail.PhoneNumber,
+                            isPaid = note.IsPaid,
+                            Price = note.SellingPrice,
+                            downloadDate = (DateTime)download.CreatedDate
+                        }).ToList();
+            }
+            else
+            {
+                return (from download in Db.Downloads
+                        join note in Db.SellerNotes on download.NoteID equals note.ID
+                        join category in Db.NoteCategories on note.Category equals category.ID
+                        join downloader in Db.Users on download.Downloader equals downloader.ID
+                        join downloaderEmail in Db.UserProfiles on download.Downloader equals downloaderEmail.UserID
+                        where download.Seller == sellerId && note.IsActive == true && downloader.IsActive == true
+                        orderby download.CreatedDate descending
+                        select new MyTable
+                        {
+                            DownloadId = download.ID,
+                            NoteId = note.ID,
+                            Title = note.Title,
+                            Category = category.Name,
+                            Buyer = downloader.EmailID,
+                            code = downloaderEmail.PhoneNumberCounrtyCode,
+                            PhoneNo = downloaderEmail.PhoneNumber,
+                            isPaid = note.IsPaid,
+                            Price = note.SellingPrice,
+                            downloadDate = (DateTime)download.CreatedDate
+                        }).ToList();
+            }
+        }
+
+        public IEnumerable<MyTable> GetRejectedNotes(int id)
+        {
+            return (from note in Db.SellerNotes
+                    join category in Db.NoteCategories on note.Category equals category.ID
+                    join refer in Db.ReferenceDatas on note.Status equals refer.ID
+                    where refer.Value.ToLower().Contains("rejected") && note.SellerID == id &&
+                    note.IsActive == true && refer.IsActive == true
+                    orderby note.ModifiedDate descending
+                    select new MyTable
+                    {
+                        NoteId = note.ID,
+                        Title = note.Title,
+                        Category = category.Name,
+                        Remarks = note.AdminRemarks,
+                        DateEdited = (DateTime)note.ModifiedDate
+                    }).ToList();
+        }
+        public IEnumerable<MyTable> GetRejectedSearchedNotes(int id, string search)
+        {
+            if(search != null)
+            {
+                search = search.ToLower();
+
+                return (from note in Db.SellerNotes
+                        join category in Db.NoteCategories on note.Category equals category.ID
+                        join refer in Db.ReferenceDatas on note.Status equals refer.ID
+                        where note.SellerID == id && ( note.Title.ToLower().Contains(search) || note.AdminRemarks.ToLower().Contains(search) || category.Name.ToLower().Contains(search) ) && 
+                        refer.Value.ToLower().Contains("rejected") && note.IsActive == true
+                        && refer.IsActive == true
+                        orderby note.ModifiedDate descending
+                        select new MyTable
+                        {
+                            NoteId = note.ID,
+                            Title = note.Title,
+                            Category = category.Name,
+                            Remarks = note.AdminRemarks,
+                            DateEdited = (DateTime)note.ModifiedDate
+                        }).ToList();
+            }
+            else
+            {
+                return (from note in Db.SellerNotes
+                        join category in Db.NoteCategories on note.Category equals category.ID
+                        join refer in Db.ReferenceDatas on note.Status equals refer.ID
+                        where note.SellerID == id && refer.Value.ToLower().Contains("rejected") && 
+                        note.IsActive == true && refer.IsActive == true
+                        orderby note.ModifiedDate descending
+                        select new MyTable
+                        {
+                            NoteId = note.ID,
+                            Title = note.Title,
+                            Category = category.Name,
+                            Remarks = note.AdminRemarks,
+                            DateEdited = (DateTime)note.ModifiedDate
+                        }).ToList();
+            }
+        }
+
+        public decimal GetAvgRatingByNoteId(int id)
+        {
+            List<SellerNotesReview> a = Db.SellerNotesReviews.Where(n => n.NoteID == id && n.IsActive == true).ToList();
+            if (a.Count() != 0)
+            {
+                var sum = a.Sum(n => n.Ratings);
+                var count = a.Count();
+                return (sum / count);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public int GetRatingCount(int id)
+        {
+            return Db.SellerNotesReviews.Where(n => n.NoteID == id && n.IsActive == true).Count();
+        }
+
+        public List<SingleReview> GetNotesReview(int id)
+        {
+            return (from review in Db.SellerNotesReviews
+                    join user in Db.Users on review.ReviewedByID equals user.ID
+                    join userPic in Db.UserProfiles on user.ID equals userPic.UserID
+                    join note in Db.SellerNotes on review.NoteID equals note.ID
+                    where review.NoteID == id && review.IsActive == true
+                    select new SingleReview
+                    {
+                        pic = userPic.ProfilePicture,
+                        SellerId = note.SellerID,
+                        Name = user.FirstName + " " + user.LastName,
+                        comments = review.Comments,
+                        rating = review.Ratings
+                    }
+                    ).ToList();
+            //return Db.SellerNotesReviews.Where(n => n.NoteID == id && n.IsActive == true).ToList();
+        }
+        public int GetNotesReportedIssueCount(int id)
+        {
+            return Db.SellerNotesReportedIssues.Where(n => n.NoteID == id).Count();
+        }
+
+        // Admin
+        public int GetPublishedNotesCount()
+        {
+            return (from note in Db.SellerNotes
+                    join refer in Db.ReferenceDatas on note.Status equals refer.ID
+                    where note.IsActive == true && ( refer.Value.ToLower().Equals("submitted for review") || refer.Value.ToLower().Equals("inreview") )&& 
+                    refer.IsActive == true
+                    select note).ToList().Count();
+        }
+
+        public int GetLastSevenDaysDownload()
+        {
+            var date = DateTime.Now.AddDays(-7);
+            return (from note in Db.Downloads
+                    where note.AttachmentDownloadedDate > date
+                    select note).ToList().Count();
+        }
+
+        public int GetLastSevenDaysNewRegistration()
+        {
+            var date = DateTime.Now.AddDays(-7);
+            return (from user in Db.Users
+                    where user.CreatedDate > date
+                    select user).ToList().Count();
+        }
+
+        public IEnumerable<AdminPublishedNotes> GetPublishedNotes()
+        {
+            return (from note in Db.SellerNotes
+                    join category in Db.NoteCategories on note.Category equals category.ID
+                    join attachment in Db.SellerNotesAttachments on note.ID equals attachment.NoteID
+                    join refer in Db.ReferenceDatas on note.Status equals refer.ID
+                    join user in Db.Users on note.ActionedBy equals user.ID
+                    where note.IsActive == true && refer.Value.ToLower().Equals("published")
+                    orderby note.PublishedDate descending
+                    select new AdminPublishedNotes
+                    {
+                        Title = note.Title,
+                        Category = category.Name,
+                        AttachmentPath = attachment.FilePath,
+                        SellType = refer.Value,
+                        IsPaid = note.IsPaid,
+                        Price = (decimal)note.SellingPrice,
+                        Publisher = user.FirstName + " " +user.LastName,
+                        PublishedDate = (DateTime)note.PublishedDate
+                    }
+                    ).ToList();
+        }
+
+        public IEnumerable<AdminPublishedNotes> GetAdminSearchedPublishedNotes(string search, int month)
+        {
+
+            var notes = (from note in Db.SellerNotes
+                         join category in Db.NoteCategories on note.Category equals category.ID
+                         join attachment in Db.SellerNotesAttachments on note.ID equals attachment.NoteID
+                         join refer in Db.ReferenceDatas on note.Status equals refer.ID
+                         join user in Db.Users on note.ActionedBy equals user.ID
+                         where note.IsActive == true && refer.Value.ToLower().Equals("published")
+                         && note.PublishedDate.Value.Month == month && note.PublishedDate.Value.Year == DateTime.Now.Year
+                         orderby note.PublishedDate descending
+                         select new AdminPublishedNotes
+                         {
+                             Title = note.Title,
+                             Category = category.Name,
+                             AttachmentPath = attachment.FilePath,
+                             SellType = refer.Value,
+                             IsPaid = note.IsPaid,
+                             Price = (decimal)note.SellingPrice,
+                             Publisher = user.FirstName + " " + user.LastName,
+                             PublishedDate = (DateTime)note.PublishedDate
+                         }
+                    ).ToList();
+
+            if (search != null)
+            {
+                search = search.ToLower();
+                notes = notes.Where(n => (n.Title.ToLower().Contains(search) || n.Category.ToLower().Contains(search)) 
+                        && n.PublishedDate.Month == month && n.PublishedDate.Year == DateTime.Now.Year ).ToList();
+                
+            }
+            return notes;
+            
+        }
+
+        
+
     }
 }

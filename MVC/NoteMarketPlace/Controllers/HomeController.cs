@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 using NoteMarketPlace.DbContext;
 using NoteMarketPlace.Models;
 
@@ -32,6 +34,19 @@ namespace NoteMarketPlace.Controllers
 
         public ActionResult Contact()
         {
+            
+            if(Session["userId"] != null)
+            {
+                int id = (int)Session["userId"];
+                var user = _context.GetUser(id);
+                ContactUs model = new ContactUs
+                {
+                    FirstName = user.FirstName,
+                    Email = user.EmailID
+                };
+                ViewBag.contact = "UserContact";
+                return View(model);
+            }
             return View();
         }
         [HttpPost]
@@ -78,18 +93,48 @@ namespace NoteMarketPlace.Controllers
 
         public ActionResult SearchNotes()
         {
+        
             var notes = _context.GetSellerNote();
+           
+
             SearchNotes model = new SearchNotes
             {
-                sellerNotes = notes,
+                sellerNotes = notes.Skip(0).Take(6),
                 Categories = _context.GetCategories(),
                 Types = _context.GetTypes(),
                 Universities = _context.GetUniversities(),
                 Courses = _context.GetCourses(),
                 Countries = _context.GetCountries(),
-                
+                totalCount = notes.Count(),
+                perPageCount = 6
             };
+            foreach (var note in model.sellerNotes)
+            {
+                note.avg = _context.GetAvgRatingByNoteId(note.ID);
+                note.count = _context.GetRatingCount(note.ID);
+                note.inappropriateCount = _context.GetNotesReportedIssueCount(note.ID);
+            }
+
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult SearchNotesPagination(int start = 0, int count = 6)
+        {
+            var notes = _context.GetSellerNote();
+           
+            SearchNotes model = new SearchNotes
+            {
+                sellerNotes = notes.Skip(start).Take(count)
+            };
+            foreach (var note in model.sellerNotes)
+            {
+                note.avg = _context.GetAvgRatingByNoteId(note.ID);
+                note.count = _context.GetRatingCount(note.ID);
+                note.inappropriateCount = _context.GetNotesReportedIssueCount(note.ID);
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
 }

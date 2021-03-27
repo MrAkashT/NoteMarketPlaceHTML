@@ -38,7 +38,15 @@ namespace NoteMarketPlace.Controllers
         
         public ActionResult Logout()
         {
+            Session.Clear();
             Session.Abandon();
+            Session.RemoveAll();
+           
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetNoServerCaching();
+            Response.Cache.SetNoStore();
+            TempData["a"] = "logout";
+            ViewBag.logout = "logout";
             return RedirectToAction("Login", "Account");
         }
         [HttpPost]
@@ -68,6 +76,7 @@ namespace NoteMarketPlace.Controllers
                     Session["userId"] = userInDb.ID;
                     Session["Email"] = userInDb.EmailID;
 
+
                     if (user.RememberMe)
                     {
                         HttpCookie cookie = new HttpCookie("Login");
@@ -86,15 +95,32 @@ namespace NoteMarketPlace.Controllers
                             Response.Cookies.Add(cookie);
                         }
                     }
-                    
 
-                    var userFeelProfileDetails = userRepo.GetUserProfileInfo(userInDb.ID);
-
-                    if (userFeelProfileDetails == null)
-                        return RedirectToAction("UserProfile", "User");
+                    var role = userRepo.GetRoles(userInDb.RoleID);
+                    if(role == "admin")
+                    {
+                        Session["admin"] = userInDb.ID;
+                        return RedirectToAction("Dashboard", "Admin");
+                    }
+                    else if(role == "super admin")
+                    {  
+                        Session["admin"] = userInDb.ID;
+                        return RedirectToAction("Dashboard", "Admin");
+                    }
                     else
-                        return RedirectToAction("../Home/SearchNotes", "Home");
+                    {
+                        var userFeelProfileDetails = userRepo.GetUserProfileInfo(userInDb.ID);
 
+                        if (userFeelProfileDetails == null)
+                            return RedirectToAction("UserProfile", "User");
+                        else
+                        {
+                            Session["img"] = userFeelProfileDetails.ProfilePicture;
+                            return RedirectToAction("SearchNotes", "Home");
+                        }
+                    }
+
+                    
                 }
                 else
                 {
@@ -128,16 +154,16 @@ namespace NoteMarketPlace.Controllers
             }
                
 
-            var IsExist =userRepo.CheckUserIsExistOrNot(userModel.EmailID);
+            var IsExist = userRepo.CheckUserIsExistOrNot(userModel.EmailID);
             if (IsExist)
             {
                 ModelState.AddModelError("Exist", "Email is Already Exists.");
                 return View("SignUp", userModel);
             }
-
+            var roleId = userRepo.GetRolesByName("member");
             var createuser = new User
             {
-                RoleID = 1,
+                RoleID = roleId,
                 FirstName = userModel.FirstName,
                 LastName = userModel.LastName,
                 EmailID = userModel.EmailID,
@@ -265,6 +291,40 @@ namespace NoteMarketPlace.Controllers
                 return View();
             }
                 
+        }
+
+        public ActionResult ChangeUserPassword()
+        {
+            return View();
+        }
+
+        [UserAuthFilter]
+        [HttpPost]
+        public ActionResult ChangeUserPassword(ChangePassword model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.err = "error";
+                return View(model);
+            }
+
+            int id = (int)Session["userId"];
+            var userInDb = userRepo.GetUser(id);
+
+            if(userInDb.Password == model.OldPassword)
+            {
+                userInDb.Password = model.NewPassword;
+                userRepo.UpdateUp();
+            }
+            else
+            {
+                ModelState.AddModelError("incorrect", "Password is incorrect.");
+                return View(model);
+            }
+            Session.Clear();
+            Session.Abandon();
+            Session.RemoveAll();
+            return RedirectToAction("Login", "Account");
         }
     }
 }

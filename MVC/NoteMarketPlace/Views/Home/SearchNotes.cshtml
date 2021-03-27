@@ -4,103 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<header>
-    <nav class="navbar navbar-expand-md fixed-top white-navbar">
-        <div class="container nav-wrapper">
-
-            <!-- Mobile Menu Open Button -->
-            <span id="mobile-nav-open-btn">&#9776;</span>
-
-            <div class="navbar-header">
-                <a href="@Url.Action("Index", "Home", new { @class = "navbar-brand" }, null)">
-                    <img id="logo" class="img-fluid" src="../../images/User-Profile/logo.png" alt="logo">
-                </a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item">
-                        @Html.ActionLink("Search Notes", "SearchNotes", "Home", new { area = "" }, new { @class = "nav-link active" })
-                    </li>
-                    @if (Session["userId"] != null)
-                    {
-                        <li class="nav-item">
-                            @Html.ActionLink("Sell Your Notes", "Dashboard", "User", new { area = "" }, new { @class = "nav-link" })
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            @Html.ActionLink("Sell Your Notes", "Login", "Account", new { area = "" }, new { @class = "nav-link" })
-                        </li>
-                    }
-
-                    @if (Session["userId"] != null)
-                    {
-                        <li class="nav-item">
-                            @Html.ActionLink("Buyer Request", "BuyerRequest", "User", new { area = "" }, new { @class = "nav-link" })
-                        </li>
-                    }
-                    <li class="nav-item">
-                        @Html.ActionLink("FAQ", "FAQ", "Home", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    @if (Session["userId"] != null)
-                    {
-                          
-                        <li>
-                            <div class="dropdown">
-                                <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                   aria-expanded="false">
-                                    <img src="~/images/front/user-img.png" alt="">
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                    @Html.ActionLink("My Profile", "UserProfile", "User", new { area = "" }, new { @class = "dropdown-item" })
-                                    <a class="dropdown-item" href="my-downloads-page.html">My Download</a>
-                                    <a class="dropdown-item" href="my-sold-notes.html">My Sold Notes</a>
-                                    <a class="dropdown-item" href="my-rejected-notes.html">My Rejected Notes</a>
-                                    <a class="dropdown-item" href="#">Change Password</a>
-                                    <a class="dropdown-item logout" href="login-page.html">Logout</a>
-
-                                </div>
-                            </div>
-                        </li>
-                    }
-                    @if (Session["UserId"] != null)
-                    {
-                        <li class="nav-item">
-                            @Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, new { @class = "btn nav-link login-submit-btn" })
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            @Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "btn nav-link login-submit-btn" })
-                        </li>
-                    }
-                </ul>
-            </div>
-
-            <!-- Mobile Menu -->
-            <div id="mobile-nav">
-                <!-- Mobile Menu Close Button -->
-                <span id="mobile-nav-close-btn">&times;</span>
-                <img class="logo" src="~/images/User-Profile/logo.png" alt="">
-                <div id="mobile-nav-content">
-                    <ul class="nav">
-                        <li><a class="link active" href="seacrh-page.html">Search Notes</a></li>
-                        <li><a class="link" href="#">Sell Your Notes</a></li>
-                        <li><a class="link" href="faq-page.html">FAQ</a></li>
-                        <li><a class="link" href="contactUs-page.html">Contact Us</a></li>
-                        <li><a class="btn login-submit-btn link" href="login-page.html">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
+@Html.Partial("_userHeader")
 
 <div class="page-banner">
     <h2 class="page-banner-text">Search Notes</h2>
@@ -187,7 +91,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="heading-sm" id="Total-count">Total @Model.sellerNotes.Count() Notes</h2>
+                    <h2 class="heading-sm" id="Total-count">Total @Model.totalCount Notes</h2>
                 </div>
 
             </div>
@@ -231,13 +135,13 @@
                                                     <span class="university-detail-img text-center">
                                                         <img src="~/images/front/flag.png" alt="">
                                                     </span>
-                                                    <span>5 Users marked this note as inappropriate</span>
+                                                    <span>@note.inappropriateCount Users marked this note as inappropriate</span>
                                                 </li>
                                                 <li>
                                                     <span class="starss">
-                                                        @for (var i = 0; i < 5; i++)
+                                                        @for (var i = 1; i <= 5; i++)
                                                         {
-                                                            if (i < 4)
+                                                            if (i < note.avg)
                                                             {
                                                                 <i class="fa fa-star"></i>
                                                             }
@@ -246,7 +150,8 @@
                                                                 <i class="fa fa-star-o"></i>
                                                             }
                                                         }
-                                                        <p>23 reviews</p>
+                                                     
+                                                        <p>@note.count reviews</p>
                                                     </span>
                                                 </li>
                                             </ul>
@@ -268,17 +173,25 @@
 <nav id="pagination" aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link js-prev" id="prev" href="javascript:void(0)" aria-label="Previous">
                 <span aria-hidden="true"><i class="fa fa-chevron-left"></i></span>
             </a>
         </li>
-        <li class="page-item"><a class="page-link active" href="">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">4</a></li>
-        <li class="page-item"><a class="page-link" href="#">5</a></li>
+        
+        @for (int i = 0; i < Math.Ceiling((float)Model.totalCount / Model.perPageCount); i++)
+        {
+            if (i == 0)
+            {
+                <li class="page-item" id="pagination-@i"><a class="page-link active js-page" id="@i" href="javascript:void(0)">@(i+1)</a></li>
+            }
+            else
+            {
+                <li class="page-item" id="pagination-@i"><a class="page-link  js-page" id="@i" href="javascript:void(0)">@(i+1)</a></li>
+
+            }
+        }
         <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link js-next" id="next" href="javascript:void(0)" aria-label="Next">
                 <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
             </a>
         </li>
@@ -288,36 +201,50 @@
 @section scripts
 {
     <script>
-
+       
         $(document).ready(function () {
+            $("#next").on("click", function (e) {
+
+                var currentPage = $(".js-page.active");
+                var id = $(".js-page.active").attr("id");
 
 
-            $("select").children("option:first-child").val(0);
-            $("select").val(0);
-
-            $("#CategoryId, #TypeId, #CountryId, #UniversityId, #CourseId, #SearchNotess").on("change", function () {
-
-                var Categoryid = $("#CategoryId").val();
-                var Typeid = $("#TypeId").val();
-                var Countryid = $("#CountryId").val();
-                var Universityid = $("#UniversityId").val();
-                var Courseid = $("#CourseId").val();
-                var search = $("#SearchNotess").val();
-
+                if (+id + 1 == @Math.Ceiling((float)Model.totalCount / Model.perPageCount)) {
+                    return;
+                }
                 $.ajax({
-                    method: "POST",
-                    url: "@Url.Action("FilterNote", "User")?searchVal=" + search + "&CategoryId=" + Categoryid + "&TypeId=" + Typeid + "&University=" + Universityid + "&Course=" + Courseid +  "&CountryId=" + Countryid,
+                    method: "GET",
+                    url: "@Url.Action("SearchNotesPagination", "Home")",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    error: function (request) { console.log(request); },
+                    data: { start: (+id+1) * @Model.perPageCount, end: @Model.perPageCount },
                     success: function (notes) {
+                        currentPage.removeClass("active");
+                        currentPage.parent("li").next("li").children("a").addClass("active");
 
                         var main = $("#Main-notes");
                         main.html("");
-                        $("#Total-count").html("");
-                        var count = `Total ${notes.length} Notes`
-                        $("#Total-count").append(count);
-                        notes.forEach(note => {
+
+                        notes.sellerNotes.forEach(note => {
+                            function getstar() {
+
+                                var avgRate = note.avg;
+                                var arr = [];
+                                var i= 0;
+                                for (i = 1; i <= 5; i++){
+                                    if (i < avgRate) {
+                                        arr[i] = '<i class="fa fa-star"></i>';
+                                    }
+                                    else {
+                                        arr[i] = '<i class="fa fa-star-o"></i>';
+                                    }
+                                }
+                                return arr.join(" ");
+                            }
+
+                            var dates = new Date(+note.CreatedDate.slice(6, 19)).toString();
+                            var date = dates.slice(0, 3) + ", " + dates.slice(4, 15);
+
                             var wrapperDiv = `<div  class="col-lg-4 col-md-6 col-sm-6 for-note-detail" onclick="location.href='/User/ViewNote/${note.ID}';" style="cursor: pointer;" data-note-id="${note.ID}">
                             <div class="note-wrapper">
                                 <div class="note-display-img" style="height:253px;margin-bottom:20px;">
@@ -348,7 +275,111 @@
                                                         <span class="university-detail-img text-center">
                                                             <img src="/images/front/date.png" alt="">
                                                         </span>
-                                                        <span>${note.CreatedDate}</span>
+                                                        <span>${ date }</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="university-detail-img text-center">
+                                                            <img src="/images/front/flag.png" alt="">
+                                                        </span>
+                                                        <span>${note.inappropriateCount} Users marked this note as inappropriate</span>
+                                                    </li>
+                                                    <li>
+                                                      <span class="starss">
+                                                            ${getstar()}
+                                                            
+                                                            <p>${note.count} reviews</p>
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>`
+
+                            main.append(wrapperDiv);
+
+
+                        })
+                    }
+                })
+            })
+
+            //previous
+            $("#prev").on("click", function (e) {
+
+                var currentPage = $(".js-page.active");
+                var id = $(".js-page.active").attr("id");
+
+                if (+id + 1 == 1) {
+                    return;
+                }
+                $.ajax({
+                    method: "GET",
+                    url: "@Url.Action("SearchNotesPagination", "Home")",
+                    data: { start: (+id-1) * @Model.perPageCount , end: @Model.perPageCount },
+                    success: function (notes) {
+                        
+
+                        currentPage.removeClass("active");
+                        currentPage.parent("li").prev("li").children("a").addClass("active");
+
+                        var main = $("#Main-notes");
+                        main.html("");
+
+                        notes.sellerNotes.forEach(note => {
+                            function getstar() {
+                                var count = note.count;
+                                var avgRate = note.avg;
+                                var arr = [];
+                                var i = 0;
+                                for (i = 1; i <= 5; i++) {
+                                    if (i < avgRate) {
+                                        arr[i] = '<i class="fa fa-star"></i>';
+                                    }
+                                    else {
+                                        arr[i] = '<i class="fa fa-star-o"></i>';
+                                    }
+                                }
+                                return arr.join(" ");
+                            }
+
+                            var dates = new Date(+note.CreatedDate.slice(6, 19)).toString();
+                            var date = dates.slice(0, 3) + ", " + dates.slice(4, 15);
+
+                            var wrapperDiv = `<div  class="col-lg-4 col-md-6 col-sm-6 for-note-detail" onclick="location.href='/User/ViewNote/${note.ID}';" style="cursor: pointer;" data-note-id="${note.ID}">
+                            <div class="note-wrapper">
+                                <div class="note-display-img" style="height:253px;margin-bottom:20px;">
+                                    <img style="height:100%;object-fit:cover;" src="/Members/${note.SellerID}/${note.ID}/${note.DisplayPicture}" class="img-fluid note-image" alt="">
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="office">
+                                                <div class="heading">
+                                                    <h3 class="heading-sm">
+                                                        ${note.Title}
+                                                    </h3>
+                                                </div>
+                                                <ul class="university-details">
+                                                    <li>
+                                                        <span class="university-detail-img text-center">
+                                                            <img src="/images/front/university.png" alt="">
+                                                        </span><span>${note.UniversityName}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="university-detail-img text-center">
+                                                            <img src="/images/front/pages.png" alt="">
+                                                        </span>
+                                                        <span>${note.NumberOfPages} Pages</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="university-detail-img text-center">
+                                                            <img src="/images/front/date.png" alt="">
+                                                        </span>
+                                                        <span>${date}</span>
                                                     </li>
                                                     <li>
                                                         <span class="university-detail-img text-center">
@@ -358,18 +389,101 @@
                                                     </li>
                                                     <li>
                                                       <span class="starss">
-                                                            @for (var i = 0; i < 5; i++)
-                                                            {
-                                                                if (i < 4)
-                                                                {
-                                                                    <i class="fa fa-star"></i>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <i class="fa fa-star-o"></i>
-                                                                }
-                                                            }
-                                                            <p>23 reviews</p>
+                                                            ${getstar()}
+                                                            <p>${note.count} reviews</p>
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>`
+
+                            main.append(wrapperDiv);
+
+                        })
+                    }
+                })
+            })
+
+            $(".js-page").on("click", function () {
+                var id = $(this).attr("id");
+                pagee = $(this);
+                $(this).parents("li").siblings().children("a").removeClass("active");
+                $.ajax({
+                method: "GET",
+                url: "@Url.Action("SearchNotesPagination", "Home")",
+                data: { start: +id* @Model.perPageCount , count: @Model.perPageCount },
+                    success: function (notes) {
+                        pagee.addClass("active");
+
+                        var main = $("#Main-notes");
+                        main.html("");
+
+                        notes.sellerNotes.forEach(note => {
+                            function getstar() {
+                                var avgRate = note.avg;
+                                var arr = [];
+                                var i = 0;
+                                for (i = 1; i <= 5; i++) {
+                                    if (i < avgRate) {
+                                        arr[i] = '<i class="fa fa-star"></i>';
+                                    }
+                                    else {
+                                        arr[i] = '<i class="fa fa-star-o"></i>';
+                                    }
+                                }
+                                return arr.join(" ");
+                            }
+
+                            var dates = new Date(+note.CreatedDate.slice(6, 19)).toString();
+                            var date = dates.slice(0, 3) + ", " + dates.slice(4, 15);
+
+                            var wrapperDiv = `<div  class="col-lg-4 col-md-6 col-sm-6 for-note-detail" onclick="location.href='/User/ViewNote/${note.ID}';" style="cursor: pointer;" data-note-id="${note.ID}">
+                            <div class="note-wrapper">
+                                <div class="note-display-img" style="height:253px;margin-bottom:20px;">
+                                    <img style="height:100%;object-fit:cover;" src="/Members/${note.SellerID}/${note.ID}/${note.DisplayPicture}" class="img-fluid note-image" alt="">
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="office">
+                                                <div class="heading">
+                                                    <h3 class="heading-sm">
+                                                        ${note.Title}
+                                                    </h3>
+                                                </div>
+                                                <ul class="university-details">
+                                                    <li>
+                                                        <span class="university-detail-img text-center">
+                                                            <img src="/images/front/university.png" alt="">
+                                                        </span><span>${note.UniversityName}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="university-detail-img text-center">
+                                                            <img src="/images/front/pages.png" alt="">
+                                                        </span>
+                                                        <span>${note.NumberOfPages} Pages</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="university-detail-img text-center">
+                                                            <img src="/images/front/date.png" alt="">
+                                                        </span>
+                                                        <span>${ date } </span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="university-detail-img text-center">
+                                                            <img src="/images/front/flag.png" alt="">
+                                                        </span>
+                                                        <span>${note.inappropriateCount} Users marked this note as inappropriate</span>
+                                                    </li>
+                                                    <li>
+                                                      <span class="starss">
+                                                            ${getstar()}
+                                                            <p>${note.count} reviews</p>
                                                         </span>
                                                     </li>
                                                 </ul>
@@ -385,10 +499,458 @@
 
                         })
 
+                },
+                error: function (e) {
+                    alert(e);
+                }
+            })
+            })
+
+
+            $("select").children("option:first-child").val(0);
+            $("select").val(0);
+
+            $("#CategoryId, #TypeId, #CountryId, #UniversityId, #CourseId, #SearchNotess").on("change", function () {
+
+                var Categoryid = $("#CategoryId").val();
+                var Typeid = $("#TypeId").val();
+                var Countryid = $("#CountryId").val();
+                var Universityid = $("#UniversityId").val();
+                var Courseid = $("#CourseId").val();
+                var search = $("#SearchNotess").val();
+
+                $.ajax({
+                    method: "POST",
+                    url: "@Url.Action("FilterNote", "User")?searchVal=" + search + "&CategoryId=" + Categoryid + "&TypeId=" + Typeid + "&University=" + Universityid + "&Course=" + Courseid +  "&CountryId=" + Countryid,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    error: function (request) { console.log(request); },
+                    success: function (notes) {
+
+                        var main = $("#Main-notes");
+                        main.html("");
+                        $("#Total-count").html("");
+                        var count = `Total ${notes.totalCount} Notes`;
+                        $("#Total-count").append(count);
+                        notes.sellerNotes.forEach(note => {
+
+                            function getstar() {
+                                var avgRate = note.avg;
+                                var arr = [];
+                                var i = 0;
+                                for (i = 1; i <= 5; i++) {
+                                    if (i < avgRate) {
+                                        arr[i] = '<i class="fa fa-star"></i>';
+                                    }
+                                    else {
+                                        arr[i] = '<i class="fa fa-star-o"></i>';
+                                    }
+                                }
+                                return arr.join(" ");
+                            }
+
+                            var dates = new Date(+note.CreatedDate.slice(6, 19)).toString();
+                            var date = dates.slice(0, 3) + ", " + dates.slice(4, 15);
+
+                            var wrapperDiv = `<div  class="col-lg-4 col-md-6 col-sm-6 for-note-detail" onclick="location.href='/User/ViewNote/${note.ID}';" style="cursor: pointer;" data-note-id="${note.ID}">
+                            <div class="note-wrapper">
+                                <div class="note-display-img" style="height:253px;margin-bottom:20px;">
+                                    <img style="height:100%;object-fit:cover;" src="/Members/${note.SellerID}/${note.ID}/${note.DisplayPicture}" class="img-fluid note-image" alt="">
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="office">
+                                                <div class="heading">
+                                                    <h3 class="heading-sm">
+                                                        ${note.Title}
+                                                    </h3>
+                                                </div>
+                                                <ul class="university-details">
+                                                    <li>
+                                                        <span class="university-detail-img text-center">
+                                                            <img src="/images/front/university.png" alt="">
+                                                        </span><span>${note.UniversityName}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="university-detail-img text-center">
+                                                            <img src="/images/front/pages.png" alt="">
+                                                        </span>
+                                                        <span>${note.NumberOfPages} Pages</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="university-detail-img text-center">
+                                                            <img src="/images/front/date.png" alt="">
+                                                        </span>
+                                                        <span>${ date }</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="university-detail-img text-center">
+                                                            <img src="/images/front/flag.png" alt="">
+                                                        </span>
+                                                        <span>${note.inappropriateCount} Users marked this note as inappropriate</span>
+                                                    </li>
+                                                    <li>
+                                                      <span class="starss">
+                                                           ${getstar()}
+                                                            <p>${note.count} reviews</p>
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>`
+
+                            main.append(wrapperDiv);
+
+                        })
+
+                        var page = $(".pagination");
+
+                        $(".pagination").html("");
+                        var paginationn1 = `<li class="page-item">
+                                                <a class="page-link ajax-prev" id="prev" href="javascript:void(0)" aria-label="Previous">
+                                                    <span aria-hidden="true"><i class="fa fa-chevron-left"></i></span>
+                                                </a>
+                                            </li>`;
+                        page.append(paginationn1);
+                        var i;
+                        var totalPage;
+                        totalPage = Math.ceil(notes.totalCount / @Model.perPageCount);
+                       
+
+                        for (i = 0; i < totalPage; i++){
+                            if (i == 0) {
+                                var p2 = `<li class="page-item" >
+                                         <a class="page-link  ajax-page active" id="${i}"  href="javascript:void(0)">${i + 1}</a>
+                                      </li>`;
+                            }
+                            else {
+                                var p2 = `<li class="page-item" >
+                                         <a class="page-link  ajax-page" id="${i}"  href="javascript:void(0)">${i + 1}</a>
+                                      </li>`;
+                            }
+                            page.append(p2);
+                        }
+
+
+                        var p3 = `<li class="page-item">
+                                                <a class="page-link ajax-next" id="next" href="javascript:void(0)" aria-label="Next">
+                                                    <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
+                                                </a>
+                                            </li>`;
+                        page.append(p3);
+
+                        $(".ajax-page").on("click", function () {
+                            var id = $(this).attr("id");
+
+                            pagee = $(this);
+                            $(this).parents("li").siblings().children("a").removeClass("active");
+
+                            $.ajax({
+                                method: "Post",
+                                url: "@Url.Action("FilterNotePagination","User")",
+                                data: { searchval: search, CategoryId: Categoryid, TypeId: Typeid, University: Universityid, Course: Courseid, CountryId: Countryid, start: +id * @Model.perPageCount, count: @Model.perPageCount },
+                                success: function (notes) {
+                                    pagee.addClass("active");
+                                    var main = $("#Main-notes");
+                                    main.html("");
+
+                                    notes.sellerNotes.forEach(note => {
+
+                                        function getstar() {
+                                            var avgRate = note.avg;
+                                            var arr = [];
+                                            var i = 0;
+                                            for (i = 1; i <= 5; i++) {
+                                                if (i < avgRate) {
+                                                    arr[i] = '<i class="fa fa-star"></i>';
+                                                }
+                                                else {
+                                                    arr[i] = '<i class="fa fa-star-o"></i>';
+                                                }
+                                            }
+                                            return arr.join(" ");
+                                        }
+
+                                        var dates = new Date(+note.CreatedDate.slice(6, 19)).toString();
+                                        var date = dates.slice(0, 3) + ", " + dates.slice(4, 15);
+
+                                        var wrapperDiv = `<div  class="col-lg-4 col-md-6 col-sm-6 for-note-detail" onclick="location.href='/User/ViewNote/${note.ID}';" style="cursor: pointer;" data-note-id="${note.ID}">
+                                        <div class="note-wrapper">
+                                            <div class="note-display-img" style="height:253px;margin-bottom:20px;">
+                                                <img style="height:100%;object-fit:cover;" src="/Members/${note.SellerID}/${note.ID}/${note.DisplayPicture}" class="img-fluid note-image" alt="">
+                                            </div>
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="office">
+                                                            <div class="heading">
+                                                                <h3 class="heading-sm">
+                                                                    ${note.Title}
+                                                                </h3>
+                                                            </div>
+                                                            <ul class="university-details">
+                                                                <li>
+                                                                    <span class="university-detail-img text-center">
+                                                                        <img src="/images/front/university.png" alt="">
+                                                                    </span><span>${note.UniversityName}</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="university-detail-img text-center">
+                                                                        <img src="/images/front/pages.png" alt="">
+                                                                    </span>
+                                                                    <span>${note.NumberOfPages} Pages</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="university-detail-img text-center">
+                                                                        <img src="/images/front/date.png" alt="">
+                                                                    </span>
+                                                                    <span>${ date }</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="university-detail-img text-center">
+                                                                        <img src="/images/front/flag.png" alt="">
+                                                                    </span>
+                                                                    <span>${note.inappropriateCount} Users marked this note as inappropriate</span>
+                                                                </li>
+                                                                <li>
+                                                                  <span class="starss">
+                                                                        ${getstar()}
+                                                                        <p>${note.count} reviews</p>
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>`
+
+                                        main.append(wrapperDiv);
+
+                                    })
+
+                                },
+                                error: function (e) {
+                                    console.log(e);
+                                    alert("err");
+                                }
+                            })
+                        });
+                        $("#next").on("click", function () {
+                            var id = $(".ajax-page.active").attr("id");
+                            var currentPage = $(".ajax-page.active");
+                            if (+id + 1 == Math.ceil(notes.totalCount / @Model.perPageCount)) {
+                                return;
+                            }
+                            $.ajax({
+                                method: "Post",
+                                url: "@Url.Action("FilterNotePagination","User")",
+                                data: { searchval: search, CategoryId: Categoryid, TypeId: Typeid, University: Universityid, Course: Courseid, CountryId: Countryid, start: (+id + 1) * @Model.perPageCount, count: @Model.perPageCount },
+                                success: function (notes) {
+                                    currentPage.removeClass("active");
+                                    currentPage.parent("li").next("li").children("a").addClass("active");
+                                    var main = $("#Main-notes");
+                                    main.html("");
+
+                                    notes.sellerNotes.forEach(note => {
+
+                                        function getstar() {
+                                            var avgRate = note.avg;
+                                            var arr = [];
+                                            var i = 0;
+                                            for (i = 1; i <= 5; i++) {
+                                                if (i < avgRate) {
+                                                    arr[i] = '<i class="fa fa-star"></i>';
+                                                }
+                                                else {
+                                                    arr[i] = '<i class="fa fa-star-o"></i>';
+                                                }
+                                            }
+                                            return arr.join(" ");
+                                        }
+
+                                        var dates = new Date(+note.CreatedDate.slice(6, 19)).toString();
+                                        var date = dates.slice(0, 3) + ", " + dates.slice(4, 15);
+
+                                        var wrapperDiv = `<div  class="col-lg-4 col-md-6 col-sm-6 for-note-detail" onclick="location.href='/User/ViewNote/${note.ID}';" style="cursor: pointer;" data-note-id="${note.ID}">
+                                        <div class="note-wrapper">
+                                            <div class="note-display-img" style="height:253px;margin-bottom:20px;">
+                                                <img style="height:100%;object-fit:cover;" src="/Members/${note.SellerID}/${note.ID}/${note.DisplayPicture}" class="img-fluid note-image" alt="">
+                                            </div>
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="office">
+                                                            <div class="heading">
+                                                                <h3 class="heading-sm">
+                                                                    ${note.Title}
+                                                                </h3>
+                                                            </div>
+                                                            <ul class="university-details">
+                                                                <li>
+                                                                    <span class="university-detail-img text-center">
+                                                                        <img src="/images/front/university.png" alt="">
+                                                                    </span><span>${note.UniversityName}</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="university-detail-img text-center">
+                                                                        <img src="/images/front/pages.png" alt="">
+                                                                    </span>
+                                                                    <span>${note.NumberOfPages} Pages</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="university-detail-img text-center">
+                                                                        <img src="/images/front/date.png" alt="">
+                                                                    </span>
+                                                                    <span>${ date }</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="university-detail-img text-center">
+                                                                        <img src="/images/front/flag.png" alt="">
+                                                                    </span>
+                                                                    <span>${note.inappropriateCount} Users marked this note as inappropriate</span>
+                                                                </li>
+                                                                <li>
+                                                                  <span class="starss">
+                                                                        ${getstar()}
+                                                                        <p>${note.count} reviews</p>
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>`
+
+                                        main.append(wrapperDiv);
+
+                                    })
+
+                                },
+                                error: function (e) {
+                                    console.log(e);
+                                    alert("err");
+                                }
+                            })
+                        });
+                        $("#prev").on("click", function () {
+                            var id = $(".ajax-page.active").attr("id");
+                            var currentPage = $(".ajax-page.active");
+                             if (+id + 1 == 1) {
+                                 return;
+                             }
+                            $.ajax({
+                                method: "Post",
+                                url: "@Url.Action("FilterNotePagination","User")",
+                                data: { searchval: search, CategoryId: Categoryid, TypeId: Typeid, University: Universityid, Course: Courseid, CountryId: Countryid, start: (+id-1) * @Model.perPageCount, count: @Model.perPageCount },
+                                success: function (notes) {
+                                    currentPage.removeClass("active");
+                                    currentPage.parent("li").prev("li").children("a").addClass("active");
+
+                                    var main = $("#Main-notes");
+                                    main.html("");
+
+                                    notes.sellerNotes.forEach(note => {
+
+                                        function getstar() {
+                                            var avgRate = note.avg;
+                                            var arr = [];
+                                            var i = 0;
+                                            for (i = 1; i <= 5; i++) {
+                                                if (i < avgRate) {
+                                                    arr[i] = '<i class="fa fa-star"></i>';
+                                                }
+                                                else {
+                                                    arr[i] = '<i class="fa fa-star-o"></i>';
+                                                }
+                                            }
+                                            return arr.join(" ");
+                                        }
+
+                                        var dates = new Date(+note.CreatedDate.slice(6, 19)).toString();
+                                        var date = dates.slice(0, 3) + ", " + dates.slice(4, 15);
+
+                                        var wrapperDiv = `<div  class="col-lg-4 col-md-6 col-sm-6 for-note-detail" onclick="location.href='/User/ViewNote/${note.ID}';" style="cursor: pointer;" data-note-id="${note.ID}">
+                                        <div class="note-wrapper">
+                                            <div class="note-display-img" style="height:253px;margin-bottom:20px;">
+                                                <img style="height:100%;object-fit:cover;" src="/Members/${note.SellerID}/${note.ID}/${note.DisplayPicture}" class="img-fluid note-image" alt="">
+                                            </div>
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="office">
+                                                            <div class="heading">
+                                                                <h3 class="heading-sm">
+                                                                    ${note.Title}
+                                                                </h3>
+                                                            </div>
+                                                            <ul class="university-details">
+                                                                <li>
+                                                                    <span class="university-detail-img text-center">
+                                                                        <img src="/images/front/university.png" alt="">
+                                                                    </span><span>${note.UniversityName}</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="university-detail-img text-center">
+                                                                        <img src="/images/front/pages.png" alt="">
+                                                                    </span>
+                                                                    <span>${note.NumberOfPages} Pages</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="university-detail-img text-center">
+                                                                        <img src="/images/front/date.png" alt="">
+                                                                    </span>
+                                                                    <span>${ date }</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="university-detail-img text-center">
+                                                                        <img src="/images/front/flag.png" alt="">
+                                                                    </span>
+                                                                    <span>${note.inappropriateCount} Users marked this note as inappropriate</span>
+                                                                </li>
+                                                                <li>
+                                                                  <span class="starss">
+                                                                        ${getstar()}
+                                                                        <p>${note.count} reviews</p>
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>`
+
+                                        main.append(wrapperDiv);
+
+                                    })
+
+                                },
+                                error: function (e) {
+                                    console.log(e);
+                                    alert("err");
+                                }
+                            })
+                        })
+
                     }
                 })
 
             })
+
         })
     </script>
 }

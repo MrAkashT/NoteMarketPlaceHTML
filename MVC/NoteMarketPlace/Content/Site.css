@@ -21,25 +21,39 @@
 }*/
 /*Data Tables*/
 #Inprogress-notes_wrapper .row:first-child .col-sm-6,
+#my-sold-notes-table_wrapper .row:first-child .col-sm-6,
+#my-download-notes-table_wrapper .row:first-child .col-sm-6,
+#my-rejected-notes-table_wrapper .row:first-child .col-sm-6,
 #buyerReq_wrapper .row:first-child .col-sm-6 {
     display: none;
 }
 #Inprogress-notes_wrapper .row:nth-child(2),
+#my-sold-notes-table_wrapper .row:nth-child(2),
+#my-download-notes-table_wrapper .row:nth-child(2),
+#my-rejected-notes-table_wrapper .row:nth-child(2),
 #buyerReq_wrapper .row:nth-child(2) {
     width: 100%;
 }
 #Inprogress-notes_wrapper .row:nth-child(3),
+#my-sold-notes-table_wrapper .row:nth-child(3),
+#my-download-notes-table_wrapper .row:nth-child(3),
+#my-rejected-notes-table_wrapper .row:nth-child(3),
 #buyerReq_wrapper .row:nth-child(3) {
     justify-content: center;
     width: 100%;
     margin: 30px 0;
 }
 #Inprogress-notes_wrapper .row:nth-child(3) .col-sm-5,
-#buyerReq_wrapper .row:nth-child(3) .col-sm-5
-{
+#my-sold-notes-table_wrapper .row:nth-child(3) .col-sm-5,
+#my-download-notes-table_wrapper .row:nth-child(3) .col-sm-5,
+#my-rejected-notes-table_wrapper .row:nth-child(3) .col-sm-5,
+#buyerReq_wrapper .row:nth-child(3) .col-sm-5 {
     display: none;
 }
 #Inprogress-notes_previous a,
+#my-sold-notes-table_previous a,
+#my-download-notes-table_wrapper_previous a,
+#my-rejected-notes-table_wrapper_previous a,
 #buyerReq_wrapper a {
     border: none;
 }

@@ -7,7 +7,7 @@ namespace NoteMarketPlace.Models
 {
     public class SearchNotes
     {
-        public IEnumerable<SellerNote> sellerNotes { get; set; }
+        public IEnumerable<SearchNoteWrap> sellerNotes { get; set; }
         public IEnumerable<NoteCategory> Categories { get; set; }
         public IEnumerable<Country> Countries { get; set; }
         public IEnumerable<NoteType> Types { get; set; }
@@ -19,5 +19,10 @@ namespace NoteMarketPlace.Models
         public int TypeId { get; set; }
         public int CategoryId { get; set; }
         public int CountryId { get; set; }
+        public int totalCount { get; set; }
+        public int perPageCount { get; set; }
+
+        public List<decimal> AvgRating { get; set; }
+        
     }
 }

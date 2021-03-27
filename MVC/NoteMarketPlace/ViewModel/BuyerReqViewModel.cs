@@ -8,6 +8,7 @@ namespace NoteMarketPlace.ViewModel
 {
     public class BuyerReqViewModel
     {
-        public IEnumerable<BuyerReq> BuyerReq { get; set; }
+        public IEnumerable<MyTable> BuyerReq { get; set; }
+        public string search { get; set; }
     }
 }

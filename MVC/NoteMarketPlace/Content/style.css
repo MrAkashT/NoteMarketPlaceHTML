@@ -410,6 +410,13 @@ ul.navbar-nav a {
     font-weight: 600;
     line-height: 20px;
 }
+ul.navbar-nav .nav-item span {
+    font-family: "Open Sans", sans-serif;
+    color: #333333;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+}
 
 ul.navbar-nav li .dropdown a.nav-link {
     font-size: 16px;
@@ -894,7 +901,8 @@ input[type='radio']:checked:before {
 
 #input-search input,
 #search select,
-#note-search input {
+#note-search input,
+.note-search input {
     font-family: "Open Sans", sans-serif;
     font-size: 16px;
     line-height: 20px;
@@ -1077,7 +1085,7 @@ ul.university-details li:last-child .starss i.fa-star-o {
     margin-right: auto;
 }
 
-.rating.rating2 input {
+/*.rating.rating2 input {
     float: right;
     opacity: 0;
     position: absolute;
@@ -1112,11 +1120,11 @@ ul.university-details li:last-child .starss i.fa-star-o {
 
 .rating2 a {
     float: none
-}
+}*/
 
 /* Codepen rate */
 
-.rate {
+/*.rate {
     float: left;
     height: 46px;
     padding: 0 10px;
@@ -1156,7 +1164,7 @@ ul.university-details li:last-child .starss i.fa-star-o {
 .rate>input:checked~label:hover~label,
 .rate>label:hover~input:checked~label {
     color: #c59b08;
-}
+}*/
 
 /* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
 
@@ -1291,7 +1299,10 @@ ul.pagination {
     color: #333333;
     margin-bottom: 25px;
 }
-
+#customer-reviews {
+    overflow:scroll;
+    height: 460px;
+}
 #customer-reviews hr {
     margin: 10px 0 20px 0;
 }
@@ -1595,6 +1606,21 @@ ul.pagination {
     line-height: 22px;
 }
 
+.note-search {
+    float: right;
+    margin-bottom: 20px;
+}
+
+.note-search .search-icon {
+    left: 1.8%;
+}
+
+.note-search input {
+    margin: 0;
+    width: 322px !important;
+    padding: 0 9%;
+}
+
 /* Tabless */
 .table {
     border: 1px solid #d1d1d1;
@@ -1619,9 +1645,6 @@ ul.pagination {
     text-align: center;
 }
 
-#dashboard .table tbody tr:nth-child(2) {
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
-}
 
 table th,
 table tr {
@@ -1678,6 +1701,10 @@ a#dropdownMenuButton {
 td .dropdown .dropdown-item:focus {
     background-color: #6255a5;
     color: #fff;
+}
+.table td .dropdown .dropdown-item.js-note:focus {
+    background-color: #6255a5 !important;
+    color: #fff !important;
 }
 
 .white-navbar .dropdown .dropdown-item.active,
@@ -1739,19 +1766,15 @@ ul.navbar-nav .dropdown .dropdown-menu a:last-child:focus {
     text-align: center;
 }
 
-#my-download-page .table tr td:nth-child(2),
-#my-sold-notes-page .table tr td:nth-child(2),
-#my-rejected-notes-page .table tr td:nth-child(2),
-#my-rejected-notes-page .table tr td:nth-child(5),
+#my-download-page .table tr td:nth-child(2) a,
+#my-sold-notes-page .table tr td:nth-child(2) a,
+#my-rejected-notes-page .table tr td:nth-child(2) a,
+#my-rejected-notes-page .table tr td:nth-child(6),
 #buyer-req-page .table tr td:nth-child(2) {
     color: #6255a5;
+    text-decoration: none;
 }
 
-#my-download-page .table tbody tr:nth-child(2),
-#my-sold-notes-page .table tbody tr:nth-child(2),
-#my-rejected-notes-page .table tbody tr:nth-child(2) {
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
-}
 
 td i {
     color: #8a8a8a;
@@ -1810,14 +1833,6 @@ td a.dropdown-item {
     padding: 0 4px 0 0;
 }
 
-#add-review-content .rating {
-    margin-bottom: 60px;
-}
-
-#add-review-content .ratings span {
-    font-size: 45px;
-    margin-right: 30px;
-}
 
 #add-review .login-submit-btn {
     margin-top: 14px;
@@ -1922,6 +1937,73 @@ td a.dropdown-item {
     height: 100%;
 }
 
-.shadow {
+.shadowss {
     box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
 }
+
+/*==============*/
+
+
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+fieldset, label {
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    font-size: 1.5em;
+    margin: 10px;
+}
+
+/****** Style Star Rating Widget *****/
+.rate-wrapper{
+    margin-bottom: 50px;
+    width: 100%;
+    height: 50px;
+}
+.rating {
+    border: none;
+    float: left;
+}
+fieldset.rating{
+    margin-bottom: 0;
+}
+
+    .rating > input {
+        display: none;
+    }
+
+    .rating > label:before {
+        margin: 5px;
+        font-size: 45px;
+        font-family: FontAwesome;
+        display: inline-block;
+        content: "\f005";
+    }
+
+    .rating > .half:before {
+        content: "\f089";
+        position: absolute;
+    }
+
+    .rating > label {
+        color: #ddd;
+        float: right;
+    }
+
+    /***** CSS Magic to Highlight Stars on Hover *****/
+
+    .rating > input:checked ~ label, /* show gold star when clicked */
+    .rating:not(:checked) > label:hover, /* hover current star */
+    .rating:not(:checked) > label:hover ~ label {
+        color: #FFD700;
+    }
+        /* hover previous stars in list */
+
+        .rating > input:checked + label:hover, /* hover current star when changing rating */
+        .rating > input:checked ~ label:hover,
+        .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+        .rating > input:checked ~ label:hover ~ label {
+            color: #FFED85;
+        } 

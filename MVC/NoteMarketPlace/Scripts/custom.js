@@ -3,6 +3,33 @@
 ===========================================================================*/
 
 $(function () {
+
+    setNavigation();
+});
+
+function setNavigation() {
+    var path = window.location.pathname;
+    path = path.replace(/\/$/, "");
+    path = decodeURIComponent(path);
+   
+    $(".nav a").each(function () {
+        var hreff = $(this).attr('href');
+        //var l = hreff.length;
+        if (path === hreff) {
+            $(this).closest('li a').addClass('active');
+        }
+    });
+
+    //$("#mobile-nav-content .nav a").each(function () {
+    //    var href = $(this).attr('href');
+    //    if (path.substring(0, href.length) === href) {
+    //        $(this).closest('li .dropdown-menu a').addClass('active');
+    //    }
+    //});
+}
+
+
+$(function () {
     // For Login Page
     //$("#eye-password").on("click", function () {
     //    $(this).toggleClass("fa-eye fa-eye-slash");
@@ -73,12 +100,19 @@ $(function () {
     });
 
 });
+//$(document).ready(function () {
+//    $("#logout").on("click", function () {
+        
+//        window.history.forward();
+//        window.onunload = function () { null };
+//    })
+//})
 /*=========================================
                 Navigation Bar
 ============================================*/
 // Show And Hide White Navigation Bar
 $(function() {
-
+   
     // Show / Hide Nav On Page Load
     showHideNav();
 
@@ -305,3 +339,9 @@ for (var i = 0; i < btns.length; i++) {
         this.className += " active";
     });
 }
+
+$(document).ready(function () {
+    $("tr").click(function () {
+        $(this).addClass("shadowss").siblings().removeClass("shadowss");
+    })
+})

@@ -156,6 +156,9 @@
     #note-search input {
         width: 240px;
     }
+    .note-search input {
+        width: 240px !important;
+    }
     #note-search .login-submit-btn {
         width: 100px;
     }
@@ -511,8 +514,8 @@
         padding: 13px 13px;
     }
     /* for admin dash */
-    #note-search input {
-        width: 220px;
+    .note-search input {
+        width: 220px !important;
     }
     #note-search .login-submit-btn {
         width: 90px;
@@ -907,8 +910,12 @@
         width: 90px;
     }
     /* for admin dash */
-    #note-search input {
-        width: 180px;
+    .note-search {
+        float:left;
+    }
+    .note-search input {
+        width: 220px !important;
+        height: 40px;
     }
     #note-search .login-submit-btn {
         width: 80px;
@@ -917,6 +924,13 @@
         height: 50px;
         width: 70px;
         font-size: 14px;
+    }
+    .note-search #month {
+        height: 40px;
+        width: 100px;
+    }
+    .search-btn {
+        height: 40px;
     }
     .admin-dash p{
         font-size: 12px;
@@ -1342,6 +1356,18 @@
         width: 180px;
         padding: 0 10%
     }
+    .note-search input {
+        font-size: 14px;
+        height: 40px;
+        width: 180px !important;
+        padding: 0 10%
+    }
+    .search-btn {
+        margin-left: 4px;
+        font-size: 15px;
+        height: 40px;
+        width: 100px;
+    }
     #note-search .login-submit-btn {
         margin-left: 4px;
         font-size: 13px;
@@ -1352,12 +1378,12 @@
         width: 15px;
         left: 1.8%;
     }
-    #admin-published-note #note-search {
+    #admin-published-note .note-search {
         margin-top: 15px;
         float: left;
     }
-    #admin-published-note #note-search input {
-        width: 200px;
+    #admin-published-note .note-search input {
+        width: 200px !important;
     }
     #admin-published-note #note-search .login-submit-btn {
         width: 90px;
@@ -1620,9 +1646,25 @@
         height: 40px;
         width: 200px;
         padding: 0 10%
+    } 
+    .note-search {
+        margin-top: 25px;
+        float: left;
+    }
+    .note-search input {
+        font-size: 14px;
+        height: 40px;
+        width: 200px !important;
+        padding: 0 10%
     }
     #note-search .btn-height.btn {
         padding: 8px 8px;
+    }
+    .search-btn {
+        margin-left: 4px;
+      
+        font-size: 14px;
+        width: 90px;
     }
     #note-search .login-submit-btn {
         margin-left: 10px;
@@ -1891,15 +1933,22 @@
     #note-search input {
         width: 180px;
     }
+    .note-search input {
+        width: 170px !important;
+    }
+    .search-btn {
+        width: 75px;
+    }
     #note-search .login-submit-btn {
         width: 80px;
     }
     #admin-published-note .heading-sm,
-    #admin-published-note #note-search {
+    #admin-published-note .note-search {
         text-align: center;
     }
-    #admin-published-note #note-search input {
-        width: 130px;
+    #admin-published-note .note-search input {
+        width: 125px !important;
+        padding-right: 10px;
     }
     #admin-published-note #note-search .login-submit-btn {
         width: 70px;

@@ -11,8 +11,8 @@ namespace NoteMarketPlace
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.min.js",
-                        "~/Scripts/bootstrap.min.js",
                         "~/Scripts/popper.min.js",
+                        "~/Scripts/bootstrap.min.js",
                         "~/Scripts/datatables/jquery.datatables.js",
                         "~/Scripts/datatables/datatables.bootstrap.js",
                         "~/Scripts/custom.js"
@@ -34,6 +34,16 @@ namespace NoteMarketPlace
                       //"~/Content/datatables/css/jquery.datatables.css",
                       "~/Content/site.css",
                       "~/Content/style.css",
+                      "~/Content/responsiveDemo.css"));
+
+            bundles.Add(new StyleBundle("~/Content/admincss").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/css/font-awesome.min.css",
+                      "~/Content/datatables/css/datatables.bootstrap.css",
+                      //"~/Content/datatables/css/jquery.datatables.css",
+                      "~/Content/site.css",
+                      "~/Content/style.css",
+                      "~/Content/adminStyle.css",
                       "~/Content/responsiveDemo.css"));
         }
     }

@@ -132,6 +132,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Country.cs">
@@ -156,14 +157,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EntityModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\BuyerReq.cs" />
+    <Compile Include="Filter\AdminAuthFilter.cs" />
+    <Compile Include="Models\AdminPublishedNotes.cs" />
+    <Compile Include="Models\ChangePassValidation.cs" />
+    <Compile Include="Models\ChangePassword.cs" />
+    <Compile Include="Models\MyTable.cs" />
     <Compile Include="Models\ContactUs.cs" />
     <Compile Include="Models\DashBoard.cs" />
     <Compile Include="Models\ForgotPassword.cs" />
     <Compile Include="Models\ForPreviewValidation.cs" />
     <Compile Include="Models\ForPriceValidation.cs" />
+    <Compile Include="Models\NewPassValidation.cs" />
     <Compile Include="Models\SearchNotes.cs" />
+    <Compile Include="Models\SearchNoteWrap.cs" />
     <Compile Include="Models\SingleNoteDetail.cs" />
+    <Compile Include="Models\SingleReview.cs" />
     <Compile Include="MyDBContext\MyDbContext.cs" />
     <Compile Include="Filter\NoCache.cs" />
     <Compile Include="Filter\UserAuthFilter.cs" />
@@ -209,12 +217,17 @@
     <Compile Include="UserRole.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AdminDashboardViewModel.cs" />
     <Compile Include="ViewModel\BuyerReqViewModel.cs" />
     <Compile Include="ViewModel\DashBoardViewModel.cs" />
+    <Compile Include="ViewModel\MyDownloadsViewModel.cs" />
+    <Compile Include="ViewModel\MyRejectedNotesViewModel.cs" />
+    <Compile Include="ViewModel\MySoldNotesViewModel.cs" />
     <Compile Include="ViewModel\NoteDetailsViewModel.cs" />
     <Compile Include="ViewModel\UserProfileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\adminStyle.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
@@ -694,6 +707,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jQuery.paginate.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -728,6 +742,21 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\User\NoteDetails.cshtml" />
     <Content Include="Views\User\BuyerRequest.cshtml" />
+    <Content Include="Views\User\MyDownloads.cshtml" />
+    <Content Include="Views\Shared\_userHeader.cshtml" />
+    <Content Include="Views\User\MySoldNotes.cshtml" />
+    <Content Include="Views\User\MyRejectedNotes.cshtml" />
+    <Content Include="Views\Account\ChangeUserPassword.cshtml" />
+    <Content Include="Views\Admin\Dashboard.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Shared\_adminHeader.cshtml" />
+    <Content Include="Views\Shared\_adminFooter.cshtml" />
+    <Content Include="Views\Admin\NotesUnderReview.cshtml" />
+    <Content Include="Views\Admin\PublishedNotes.cshtml" />
+    <Content Include="Views\Admin\DownloadedNotes.cshtml" />
+    <Content Include="Views\Admin\RejectedNotes.cshtml" />
+    <Content Include="Views\Admin\Members.cshtml" />
+    <Content Include="Views\Admin\Reports.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

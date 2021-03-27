@@ -1,5 +1,3 @@
-D:\ASP.NET Projects\NoteMarketPlace\obj\Debug\NoteMarketPlace.csprojAssemblyReference.cache
-D:\ASP.NET Projects\NoteMarketPlace\obj\Debug\NoteMarketPlace.csproj.CoreCompileInputs.cache
 D:\ASP.NET Projects\NoteMarketPlace\bin\NoteMarketPlace.dll.config
 D:\ASP.NET Projects\NoteMarketPlace\bin\NoteMarketPlace.dll
 D:\ASP.NET Projects\NoteMarketPlace\bin\NoteMarketPlace.pdb
@@ -53,6 +51,8 @@ D:\ASP.NET Projects\NoteMarketPlace\bin\roslyn\vbc.rsp
 D:\ASP.NET Projects\NoteMarketPlace\bin\roslyn\VBCSCompiler.exe
 D:\ASP.NET Projects\NoteMarketPlace\bin\roslyn\VBCSCompiler.exe.config
 D:\ASP.NET Projects\NoteMarketPlace\bin\Antlr3.Runtime.dll
+D:\ASP.NET Projects\NoteMarketPlace\bin\EntityFramework.dll
+D:\ASP.NET Projects\NoteMarketPlace\bin\EntityFramework.SqlServer.dll
 D:\ASP.NET Projects\NoteMarketPlace\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\ASP.NET Projects\NoteMarketPlace\bin\Microsoft.Web.Infrastructure.dll
 D:\ASP.NET Projects\NoteMarketPlace\bin\Newtonsoft.Json.dll
@@ -64,7 +64,8 @@ D:\ASP.NET Projects\NoteMarketPlace\bin\System.Web.WebPages.Deployment.dll
 D:\ASP.NET Projects\NoteMarketPlace\bin\System.Web.WebPages.dll
 D:\ASP.NET Projects\NoteMarketPlace\bin\System.Web.WebPages.Razor.dll
 D:\ASP.NET Projects\NoteMarketPlace\bin\WebGrease.dll
-D:\ASP.NET Projects\NoteMarketPlace\bin\EntityFramework.dll
+D:\ASP.NET Projects\NoteMarketPlace\bin\EntityFramework.xml
+D:\ASP.NET Projects\NoteMarketPlace\bin\EntityFramework.SqlServer.xml
 D:\ASP.NET Projects\NoteMarketPlace\bin\System.Web.Helpers.xml
 D:\ASP.NET Projects\NoteMarketPlace\bin\System.Web.Mvc.xml
 D:\ASP.NET Projects\NoteMarketPlace\bin\System.Web.Optimization.xml
@@ -75,9 +76,8 @@ D:\ASP.NET Projects\NoteMarketPlace\bin\System.Web.WebPages.Razor.xml
 D:\ASP.NET Projects\NoteMarketPlace\bin\Newtonsoft.Json.xml
 D:\ASP.NET Projects\NoteMarketPlace\bin\Antlr3.Runtime.pdb
 D:\ASP.NET Projects\NoteMarketPlace\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\ASP.NET Projects\NoteMarketPlace\bin\EntityFramework.xml
+D:\ASP.NET Projects\NoteMarketPlace\obj\Debug\NoteMarketPlace.csproj.CoreCompileInputs.cache
 D:\ASP.NET Projects\NoteMarketPlace\obj\Debug\NoteMarketPlace.csproj.CopyComplete
 D:\ASP.NET Projects\NoteMarketPlace\obj\Debug\NoteMarketPlace.dll
 D:\ASP.NET Projects\NoteMarketPlace\obj\Debug\NoteMarketPlace.pdb
-D:\ASP.NET Projects\NoteMarketPlace\bin\EntityFramework.SqlServer.dll
-D:\ASP.NET Projects\NoteMarketPlace\bin\EntityFramework.SqlServer.xml
+D:\ASP.NET Projects\NoteMarketPlace\obj\Debug\NoteMarketPlace.csprojAssemblyReference.cache

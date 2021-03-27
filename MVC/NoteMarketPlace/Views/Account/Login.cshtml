@@ -61,6 +61,7 @@
                         <button type="submit" class="btn btn-general">Login</button>
                     }
                     <input type="hidden" id="err" value="@ViewBag.err" />
+                    <input type="hidden" id="logout-val" value="@ViewBag.logout" />
                     <div class="text-center">
                         <p id="signup-text">Don't have an account? <span>@Html.ActionLink("Sign Up", "SignUp", "Account")</span></p>
                     </div>
@@ -73,7 +74,13 @@
 
 @section scripts {
     <script>
+       
+       
         $(document).ready(function () {
+            function disableBack() { window.history.forward() }
+
+            window.onload = disableBack();
+            window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
 
             var err = $("#err").val();
             if (err == "error") {

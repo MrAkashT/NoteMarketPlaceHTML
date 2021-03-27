@@ -3,96 +3,8 @@
     ViewBag.Title = "BuyerRequest";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@Html.Partial("_userHeader")
 
-<header>
-    <nav class="navbar navbar-expand-md fixed-top white-navbar">
-        <div class="container nav-wrapper">
-
-            <!-- Mobile Menu Open Button -->
-            <span id="mobile-nav-open-btn">&#9776;</span>
-
-            <div class="navbar-header">
-                <a href="@Url.Action("Index", "Home",new { area=""})" class="navbar-brand">
-                    <img id="logo" class="img-fluid" src="~/images/User-Profile/logo.png" alt="logo">
-                </a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item">
-                        @Html.ActionLink("Search Notes", "SearchNotes", "Home", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Sell Your Notes", "Dashboard", "User", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Buyer Request", "BuyerRequest", "User", new { area = "" }, new { @class = "nav-link active" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("FAQ", "FAQ", "Home", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li>
-                        <div class="dropdown">
-                            <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                               aria-expanded="false">
-                                <img src="~/images/front/user-img.png" alt="">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                @Html.ActionLink("My Profile", "UserProfile", "User", new { area = "" }, new { @class = "dropdown-item" })
-                                <a class="dropdown-item" href="my-downloads-page.html">My Download</a>
-                                <a class="dropdown-item" href="my-sold-notes.html">My Sold Notes</a>
-                                <a class="dropdown-item" href="my-rejected-notes.html">My Rejected Notes</a>
-                                <a class="dropdown-item" href="#">Change Password</a>
-                                <a class="dropdown-item logout" href="login-page.html">Logout</a>
-
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, new { @class = "btn nav-link login-submit-btn" })
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Mobile Menu -->
-            <div id="mobile-nav">
-                <!-- Mobile Menu Close Button -->
-                <span id="mobile-nav-close-btn">&times;</span>
-                <img class="logo" src="~/images/User-Profile/logo.png" alt="">
-                <div id="mobile-nav-content">
-                    <ul class="nav">
-
-                        <li><a class="link" href="seacrh-page.html">Search Notes</a></li>
-                        <li><a class="link" href="#">Sell Your Notes</a></li>
-                        <li><a class="link" href="buyer-requests.html">Buyer Request</a></li>
-                        <li><a class="link" href="faq-page.html">FAQ</a></li>
-                        <li><a class="link" href="contactUs-page.html">Contact Us</a></li>
-                        <li>
-                            <div class="dropdown">
-                                <button type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    <img src="~/images/front/user-img.png" alt="">
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">My Profile</a>
-                                    <a class="dropdown-item" href="my-downloads-page.html">My Download</a>
-                                    <a class="dropdown-item" href="my-sold-notes.html">My Sold Notes</a>
-                                    <a class="dropdown-item" href="my-rejected-notes.html">My Rejected Notes</a>
-                                    <a class="dropdown-item" href="#">Change Password</a>
-                                    <a class="dropdown-item logout" href="login-page.html">Logout</a>
-
-                                </div>
-                            </div>
-                        </li>
-                        <li><a class="btn login-submit-btn link" href="login-page.html">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
 
 <section id="buyer-req-page" class="for-footer-at-bottom">
     <div class="content-box">
@@ -102,11 +14,16 @@
                     <h2 class="heading-md">Buyer Request</h2>
                 </div>
                 <div class="col-md-6 col-sm-6">
-                    <div class="form-inline relative" id="note-search">
-                        <input type="text" class="form-control" placeholder="Search">
-                        <img class="search-icon" src="~/images/Dashboard/search.jpg" alt="">
-                        <a href="" class="btn login-submit-btn btn-height" role="button">Search</a>
-                    </div>
+                    @using (@Html.BeginForm("BuyerRequest", "User", FormMethod.Post, new { id = "buyerReqForm" }))
+                    {
+                        <div class="form-inline relative" id="note-search">
+                            @Html.TextBoxFor(m => m.search, new { @class = "form-control", placeholder = "Search" })
+
+                            <img class="search-icon" src="~/images/Dashboard/search.jpg" alt="">
+                            <a href="javascript:$('#buyerReqForm').submit();" class="btn login-submit-btn btn-height" role="button">Search</a>
+                        </div>
+                    }
+                  
                 </div>
             </div>
 
@@ -127,7 +44,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if(Model.BuyerReq.Count() == 0)
+                        @if (Model.BuyerReq.Count() == 0)
                         {
                             <tr>
                                 <td colspan="10">No Records Found</td>
@@ -135,7 +52,7 @@
                         }
                         @{ int i = 1; }
                         @foreach (var note in Model.BuyerReq)
-                        {   
+                        {
                             <tr style="min-height: 85px!important;">
                                 <td scope="row">@i</td>
                                 <td>@note.Title</td>
@@ -144,7 +61,7 @@
                                 <td>@note.code @note.PhoneNo</td>
                                 <td>@note.SellType</td>
                                 <td>$@note.Price</td>
-                                <td>@note.downloadDate</td>
+                                <td>@note.downloadDate.ToString("dd MMM yyyy, HH:mm:ss")</td>
                                 <td>
                                     <a style="cursor:pointer;" href="@Url.Action("ViewNote", "User", new { id = note.NoteId })">
                                         <img src="~/images/Dashboard/eye.png" alt="view">
@@ -158,7 +75,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right"
                                              aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Allow Download</a>
+                                            <a class="dropdown-item allow" id="@note.DownloadId" href="">Allow Download</a>
                                         </div>
                                     </div>
                                 </td>
@@ -181,11 +98,26 @@
 {
     <script>
         $(document).ready(function () {
+
+            $(".allow").on("click", function () {
+                var id = $(this).attr("id");
+                $.ajax({
+                    method: "POSt",
+                    url: "@Url.Action("SellerAllowDownload", "User")?id=" + id,
+                    error: function () {
+                        alert("error")
+                    },
+                    success: function () {
+                        window.location.href = "/User/BuyerRequest"
+                    }
+                });
+            });
+
             $("#buyerReq").DataTable({
                 pagingtype: "simple_numbers",
                 columndefs: [
                     {
-                        orderable: false, targets: 4,
+                        orderable: false, targets: 4
                     },
                     {
                         type: "date", targets: 7
@@ -197,9 +129,8 @@
                         previous: '<i class="fa fa-chevron-left"></i>'
                     }
                 },
-               order: [[7, "desc"]]
-
+                order: [[7, "desc"]]
             });
         })
-    </script>   
+    </script>
 }

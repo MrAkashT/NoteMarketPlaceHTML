@@ -26,10 +26,14 @@ namespace NoteMarketPlace.Models
         public string ForPreview { get; set; }
 
         [Display(Name = "Display Picture")]
-        public string DisplayPicture { get; set; }
+        [RegularExpression(@"^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))(.jpg|.JPG|.jpeg|.JPEG)$", ErrorMessage = "Please Upload Jpg or Jpeg File.")]
+
+        public HttpPostedFileBase DisplayPicture { get; set; }
 
         [Required]
         [Display(Name = "Upload Notes *")]
+       // [RegularExpression(@"^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))(.pdf|.PDF)$", ErrorMessage = "Please Upload Pdf File.")]
+
         public HttpPostedFileBase NotePdf{ get; set; }
 
         [Display(Name = "Type")]
@@ -68,9 +72,11 @@ namespace NoteMarketPlace.Models
         [Display(Name = "Sell Price *")]
         public decimal? SellPrice { get; set; }
 
-        [ForPreviewValidation]
+        
         [Display(Name = "Note Preview")]
-        public string NotePreview { get; set; }
+        [RegularExpression(@"^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))(.pdf|.PDF)$", ErrorMessage = "Please Upload Pdf File.")]
+
+        public HttpPostedFileBase NotePreview { get; set; }
 
         public int Status { get; set; }
     }

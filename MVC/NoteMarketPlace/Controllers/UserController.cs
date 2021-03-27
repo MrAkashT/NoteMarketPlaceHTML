@@ -99,6 +99,24 @@ namespace NoteMarketPlace.Controllers
         public ActionResult Save(UserProfileDetails user, HttpPostedFileBase ProfilePic)
         {
             int id = (int)Session["userId"];
+            if (ProfilePic != null)
+            {
+                string pic = Path.GetExtension(ProfilePic.FileName);
+                if (pic.ToLower() != ".jpg" && pic.ToLower() != ".jpeg")
+                {
+                    var countries = userRepo.GetCountries();
+                    var gender = userRepo.GetGender();
+                    UserProfileViewModel userViewModel = new UserProfileViewModel
+                    {
+                        User = user,
+                        Countries = countries,
+                        Gender = gender
+                    };
+                    ModelState.AddModelError("img format", "Please upload .jpg or .jpeg file.");
+                    return View("UserProfile", userViewModel);
+                }
+
+            }
             if (!ModelState.IsValid)
             {
                 var countries = userRepo.GetCountries();
@@ -220,7 +238,6 @@ namespace NoteMarketPlace.Controllers
                     
                 }
 
-               
                 loginuser.FirstName = user.FirstName;
                 loginuser.LastName = user.LastName;
                 loginuser.EmailID = user.Email;
@@ -238,6 +255,7 @@ namespace NoteMarketPlace.Controllers
                 getUserProfile.University = user.University;
                 getUserProfile.College = user.College;
                 userRepo.UpdateUserProfile();
+                Session["img"] = getUserProfile.ProfilePicture;
                 return RedirectToAction("SearchNotes", "Home");
                
             }
@@ -251,17 +269,32 @@ namespace NoteMarketPlace.Controllers
             int id = (int)Session["userId"];
             var sellerNotes = userRepo.GetSellerDraftNoteBySellerId(id);
             var publishednote = userRepo.GetSellerPublishedNoteBySellerId(id);
-          
-            BuyerReqViewModel model = new BuyerReqViewModel
+
+            
+            int buyercount = userRepo.GetBuyerReqData(id).Count();
+
+            int rejectedCount = userRepo.GetRejectedNotes(id).Count();
+
+            int myDownloadCount = userRepo.GetMyDownloadsNotes(id).Count();
+
+            var soldnotes = userRepo.GetMySoldNotes(id);
+
+            decimal sum = 0;
+            foreach (var note in soldnotes)
             {
-                BuyerReq = userRepo.GetBuyerReqData(id)
-            };
-            int count = model.BuyerReq.Count();
+                if (note.isPaid)
+                    sum = (decimal)(sum + note.Price);
+            }
+
             DashBoardViewModel AllNotes = new DashBoardViewModel
             {
                 Notes = sellerNotes,
                 publishedNotes = publishednote,
-                BuyerCount = count
+                BuyerCount = buyercount,
+                RejectedCount = rejectedCount,
+                MyDownload = myDownloadCount,
+                NumberOfSold = soldnotes.Count(),
+                MoneyEarned = sum
             };
             foreach (var note in AllNotes.publishedNotes)
             {
@@ -285,7 +318,21 @@ namespace NoteMarketPlace.Controllers
             int id = (int)Session["userId"];
             var sellerNotes = userRepo.GetSellerDraftNoteBySellerId(id);
             var publishednote = userRepo.GetSellerPublishedNoteBySellerId(id);
-            if(Request.Form["Name"] == "Inprogress")
+            int buyercount = userRepo.GetBuyerReqData(id).Count();
+
+            int rejectedCount = userRepo.GetRejectedNotes(id).Count();
+
+            int myDownloadCount = userRepo.GetMyDownloadsNotes(id).Count();
+
+            var soldnotes = userRepo.GetMySoldNotes(id);
+
+            decimal sum = 0;
+            foreach (var note in soldnotes)
+            {
+                if (note.isPaid)
+                    sum = (decimal)(sum + note.Price);
+            }
+            if (Request.Form["Name"] == "Inprogress")
             {
                 if(m.SearchPublishNote == null)
                 {
@@ -293,7 +340,12 @@ namespace NoteMarketPlace.Controllers
                     {
                         Notes = userRepo.GetSearchedDraftNotes(m.SearchDraftNote, id),
                         publishedNotes = publishednote,
-                        SearchDraftNote = m.SearchDraftNote
+                        SearchDraftNote = m.SearchDraftNote,
+                        BuyerCount = buyercount,
+                        RejectedCount = rejectedCount,
+                        MyDownload = myDownloadCount,
+                        NumberOfSold = soldnotes.Count(),
+                        MoneyEarned = sum
                     };
 
                     return View(model);
@@ -306,7 +358,12 @@ namespace NoteMarketPlace.Controllers
                         Notes = userRepo.GetSearchedDraftNotes(m.SearchDraftNote, id),
                         publishedNotes = userRepo.GetSearchedPublishedNotes(m.SearchPublishNote, id),
                         SearchDraftNote = m.SearchDraftNote,
-                        SearchPublishNote = m.SearchPublishNote
+                        SearchPublishNote = m.SearchPublishNote,
+                        BuyerCount = buyercount,
+                        RejectedCount = rejectedCount,
+                        MyDownload = myDownloadCount,
+                        NumberOfSold = soldnotes.Count(),
+                        MoneyEarned = sum
                     };
                     return View(model);
                 }
@@ -319,7 +376,12 @@ namespace NoteMarketPlace.Controllers
                     {
                         Notes = sellerNotes,
                         publishedNotes = userRepo.GetSearchedPublishedNotes(m.SearchPublishNote, id),
-                        SearchPublishNote = m.SearchPublishNote
+                        SearchPublishNote = m.SearchPublishNote,
+                        BuyerCount = buyercount,
+                        RejectedCount = rejectedCount,
+                        MyDownload = myDownloadCount,
+                        NumberOfSold = soldnotes.Count(),
+                        MoneyEarned = sum
                     };
                     foreach (var note in model.publishedNotes)
                     {
@@ -341,7 +403,12 @@ namespace NoteMarketPlace.Controllers
                         Notes = userRepo.GetSearchedDraftNotes(m.SearchDraftNote, id),
                         publishedNotes = userRepo.GetSearchedPublishedNotes(m.SearchPublishNote, id),
                         SearchDraftNote = m.SearchDraftNote,
-                        SearchPublishNote = m.SearchPublishNote
+                        SearchPublishNote = m.SearchPublishNote,
+                        BuyerCount = buyercount,
+                        RejectedCount = rejectedCount,
+                        MyDownload = myDownloadCount,
+                        NumberOfSold = soldnotes.Count(),
+                        MoneyEarned = sum
                     };
                     foreach (var note in model.publishedNotes)
                     {
@@ -392,7 +459,7 @@ namespace NoteMarketPlace.Controllers
                 NoteId = noteInDb.ID,
                 Title = noteInDb.Title,
                 CategoryId = noteInDb.Category,
-                DisplayPicture = noteInDb.DisplayPicture,
+                //DisplayPicture = noteInDb.DisplayPicture,
                 NoteTypeId = noteInDb.NoteType,
                 NumberOfPages = noteInDb.NumberOfPages,
                 Description = noteInDb.Description,
@@ -403,7 +470,7 @@ namespace NoteMarketPlace.Controllers
                 Professor = noteInDb.Professor,
                 SellFor = noteSellForId,
                 SellPrice = noteInDb.SellingPrice,
-                NotePreview = noteInDb.NotesPreview
+               // NotePreview = noteInDb.NotesPreview
             };
 
             NoteDetailsViewModel NoteDetails = new NoteDetailsViewModel
@@ -426,6 +493,115 @@ namespace NoteMarketPlace.Controllers
         [UserAuthFilter]
         public ActionResult SaveNote(NoteDetails noteDetails,string publish, HttpPostedFileBase DisplayPic, HttpPostedFileBase NotePdf, HttpPostedFileBase PreviewNote)
         {
+            var sellMode = userRepo.GetSellingModeById(noteDetails.SellFor);
+           
+            if (sellMode == "paid")
+            {
+               if(PreviewNote == null)
+                {
+                    NoteDetailsViewModel model = new NoteDetailsViewModel
+                    {
+                        NoteDetails = noteDetails,
+                        Categories = userRepo.GetCategories(),
+                        Countries = userRepo.GetCountries(),
+                        SellingMode = userRepo.GetSellingModes(),
+                        Types = userRepo.GetTypes()
+                    };
+                    if (publish != null)
+                    {
+                        ViewBag.publish = "publish";
+                    }
+                    var SellerNote = userRepo.GetSellerNoteByNoteId(noteDetails.NoteId);
+                    if (SellerNote != null)
+                    {
+                        ViewBag.publish = "publish";
+                    }
+                    ModelState.AddModelError("preview", "Note Preview Required For Paid Notes");
+                    return View("AddNote", model);
+                }
+            }
+            if (DisplayPic != null)
+            {
+                string pic = Path.GetExtension(DisplayPic.FileName);
+                if(pic.ToLower() != ".jpg" && pic.ToLower() != ".jpeg")
+                {
+                    NoteDetailsViewModel model = new NoteDetailsViewModel
+                    {
+                        NoteDetails = noteDetails,
+                        Categories = userRepo.GetCategories(),
+                        Countries = userRepo.GetCountries(),
+                        SellingMode = userRepo.GetSellingModes(),
+                        Types = userRepo.GetTypes()
+                    };
+                    if (publish != null)
+                    {
+                        ViewBag.publish = "publish";
+                    }
+                    var SellerNote = userRepo.GetSellerNoteByNoteId(noteDetails.NoteId);
+                    if (SellerNote != null)
+                    {
+                        ViewBag.publish = "publish";
+                    }
+                    ModelState.AddModelError("pic format", "please upload .jpg or .jpeg file.");
+                    return View("AddNote", model);
+                }
+
+            }
+
+            if (noteDetails.NotePdf != null)
+            {
+                string pdf = Path.GetExtension(noteDetails.NotePdf.FileName);
+                if (pdf.ToLower() != ".pdf")
+                {
+                    NoteDetailsViewModel model = new NoteDetailsViewModel
+                    {
+                        NoteDetails = noteDetails,
+                        Categories = userRepo.GetCategories(),
+                        Countries = userRepo.GetCountries(),
+                        SellingMode = userRepo.GetSellingModes(),
+                        Types = userRepo.GetTypes()
+                    };
+                    if (publish != null)
+                    {
+                        ViewBag.publish = "publish";
+                    }
+                    var SellerNote = userRepo.GetSellerNoteByNoteId(noteDetails.NoteId);
+                    if (SellerNote != null)
+                    {
+                        ViewBag.publish = "publish";
+                    }
+                    ModelState.AddModelError("pdf format", "please upload .pdf file.");
+                    return View("AddNote", model);
+                }
+            }
+
+            if (PreviewNote != null)
+            {
+                string pdf = Path.GetExtension(PreviewNote.FileName);
+                if (pdf.ToLower() != ".pdf")
+                {
+                    NoteDetailsViewModel model = new NoteDetailsViewModel
+                    {
+                        NoteDetails = noteDetails,
+                        Categories = userRepo.GetCategories(),
+                        Countries = userRepo.GetCountries(),
+                        SellingMode = userRepo.GetSellingModes(),
+                        Types = userRepo.GetTypes()
+                    };
+                    if (publish != null)
+                    {
+                        ViewBag.publish = "publish";
+                    }
+                    var SellerNote = userRepo.GetSellerNoteByNoteId(noteDetails.NoteId);
+                    if (SellerNote != null)
+                    {
+                        ViewBag.publish = "publish";
+                    }
+                    ModelState.AddModelError("preview pdf format", "please upload .pdf file.");
+                    return View("AddNote", model);
+                }
+            }
+
             if (!ModelState.IsValid)
             {
                 NoteDetailsViewModel model = new NoteDetailsViewModel
@@ -436,7 +612,12 @@ namespace NoteMarketPlace.Controllers
                     SellingMode = userRepo.GetSellingModes(),
                     Types = userRepo.GetTypes()
                 };
-                if(publish != null)
+                var SellerNote = userRepo.GetSellerNoteByNoteId(noteDetails.NoteId);
+                if(SellerNote != null)
+                {
+                    ViewBag.publish = "publish";
+                }
+                if (publish != null)
                 {
                     ViewBag.publish = "publish";
                 }
@@ -453,6 +634,7 @@ namespace NoteMarketPlace.Controllers
                 if (DisplayPic != null)
                 {
                     noteDetails.ForDisplay = "DP_" + Path.GetFileName(DisplayPic.FileName);
+                   
                 }
 
                 if (noteDetails.NotePdf != null)
@@ -870,10 +1052,19 @@ namespace NoteMarketPlace.Controllers
         }
         public ActionResult ViewNote(int id)
         {
-            int uid = (int)Session["userId"];
+            
             SingleNoteDetail noteModel = userRepo.GetSingleNoteDetail(id);
+            noteModel.avg = userRepo.GetAvgRatingByNoteId(noteModel.Id);
+            noteModel.count = userRepo.GetRatingCount(noteModel.Id);
+            noteModel.Reviews = userRepo.GetNotesReview(noteModel.Id);
+            noteModel.inappropriateCount = userRepo.GetNotesReportedIssueCount(noteModel.Id);
+
             var country = userRepo.GetCountryNameById(id);
-            noteModel.BuyerName = userRepo.GetUserNameById(uid);
+            if(Session["userId"] != null)
+            {
+                int uid = (int)Session["userId"];
+                noteModel.BuyerName = userRepo.GetUserNameById(uid);
+            }
             noteModel.Country = country;
             return View("NoteDetails", noteModel);
         }
@@ -882,7 +1073,42 @@ namespace NoteMarketPlace.Controllers
         public ActionResult FilterNote(string searchVal, int CategoryId, int TypeId, string University, string Course, int CountryId)
         {
             var notes = userRepo.GetNotesByFilter(searchVal, CategoryId, TypeId, University, Course, CountryId);
-            return Json(notes, JsonRequestBehavior.AllowGet);
+
+            SearchNotes model = new SearchNotes
+            {
+                sellerNotes = notes.Skip(0).Take(6),
+                totalCount = notes.Count()
+            };
+            foreach(var note in model.sellerNotes)
+            {
+                note.avg = userRepo.GetAvgRatingByNoteId(note.ID);
+                note.count = userRepo.GetRatingCount(note.ID);
+                note.inappropriateCount = userRepo.GetNotesReportedIssueCount(note.ID);
+            }
+           
+
+            return Json( model , JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpPost]//startcount
+        public ActionResult FilterNotePagination(string searchVal, int CategoryId, int TypeId, string University, string Course, int CountryId, int start, int count)
+        {
+            var notes = userRepo.GetNotesByFilter(searchVal, CategoryId, TypeId, University, Course, CountryId);
+            
+            SearchNotes model = new SearchNotes
+            {
+                sellerNotes = notes.Skip(start).Take(count),
+                totalCount = notes.Count()
+            };
+
+            foreach (var note in model.sellerNotes)
+            {
+                note.avg = userRepo.GetAvgRatingByNoteId(note.ID);
+                note.count = userRepo.GetRatingCount(note.ID);
+                note.inappropriateCount = userRepo.GetNotesReportedIssueCount(note.ID);
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
 
         }
         [HttpPost]
@@ -893,53 +1119,65 @@ namespace NoteMarketPlace.Controllers
             var downloader = userRepo.GetUser(downloaderId);
             var note = userRepo.GetSellerNoteByNoteId(id);
             var seller = userRepo.GetUser(note.SellerID);
+
+            var alreadyAdded = userRepo.CheckDownloadEntry(note.ID, note.SellerID, downloaderId);
             string categoryName = userRepo.GetCategoryNameById(note.Category);
-            Download buyerReq = new Download
-            {
-                NoteID = note.ID,
-                Seller = note.SellerID,
-                Downloader = downloaderId,
-                IsSellerasAllowedDownload = false,
-                IsAttachmentDownload = false,
-                IsPaid = note.IsPaid,
-                PurchasedPrice = note.SellingPrice,
-                NoteTitle = note.Title,
-                NoteCategory = categoryName,
-                CreatedDate = DateTime.Now,
-                ModifiedDate = DateTime.Now
-            };
-            userRepo.AddDownload(buyerReq);
 
-            var fromEmail = new MailAddress("akashthakar008@gmail.com", "NoteMarketPlace");
-            var toEmail = new MailAddress(seller.EmailID);
-            var fromEmailPassword = "8460566920";
-            string sub = downloader.FirstName + " wants to purchase your notes";
-            string body = "Hello " + seller.FirstName + ",<br/><br/>" +
-                "We would like to inform you that, <Buyer name> wants to purchase your notes. Please see" +
-                "Buyer Requests tab and allow download access to Buyer if you have received the payment from him  < br/><br/>" +
-                "Regards, <br/>" +
-                "Notes MarketPlace";
-
-            var smtp = new SmtpClient
+            if (alreadyAdded == null)
             {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
-            };
+                Download buyerReq = new Download
+                {
+                    NoteID = note.ID,
+                    Seller = note.SellerID,
+                    Downloader = downloaderId,
+                    IsSellerasAllowedDownload = false,
+                    IsAttachmentDownload = false,
+                    IsPaid = note.IsPaid,
+                    PurchasedPrice = note.SellingPrice,
+                    NoteTitle = note.Title,
+                    NoteCategory = categoryName,
+                    CreatedDate = DateTime.Now,
+                    ModifiedDate = DateTime.Now
+                };
+                userRepo.AddDownload(buyerReq);
 
-            using (var message = new MailMessage(fromEmail, toEmail)
-            {
-                Subject = sub,
-                Body = body,
-                IsBodyHtml = true
-            })
+                var fromEmail = new MailAddress("akashthakar008@gmail.com", "NoteMarketPlace");
+                var toEmail = new MailAddress(seller.EmailID);
+                var fromEmailPassword = "8460566920";
+                string sub = downloader.FirstName + " wants to purchase your notes";
+                string body = "Hello " + seller.FirstName + ",<br/><br/>" +
+                    "We would like to inform you that, "+ downloader.FirstName + " wants to purchase your notes. Please see" +
+                    "Buyer Requests tab and allow download access to Buyer if you have received the payment from him  < br/><br/>" +
+                    "Regards, <br/>" +
+                    "Notes MarketPlace";
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+                };
+
+                using (var message = new MailMessage(fromEmail, toEmail)
+                {
+                    Subject = sub,
+                    Body = body,
+                    IsBodyHtml = true
+                })
 
                 smtp.Send(message);
 
-            return Json(note.ID, JsonRequestBehavior.AllowGet);
+                return Json("entry", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("already exist", JsonRequestBehavior.AllowGet);
+            }
+
+            
         }
 
         [UserAuthFilter]
@@ -964,7 +1202,131 @@ namespace NoteMarketPlace.Controllers
             return View(model);
         }
 
-      
+        [UserAuthFilter]
+        [HttpPost]
+        public ActionResult BuyerRequest(BuyerReqViewModel m)
+        {
+
+            int id = (int)Session["userId"];
+            BuyerReqViewModel model = new BuyerReqViewModel
+            {
+                BuyerReq = userRepo.GetBuyerReqSearchData(id, m.search),
+                search = m.search
+            };
+            foreach (var note in model.BuyerReq)
+            {
+                if (note.isPaid)
+                {
+                    note.SellType = "Paid";
+                }
+                else
+                {
+                    note.SellType = "Free";
+                }
+            }
+            return View("BuyerRequest", model);
+        }
+
+        [UserAuthFilter]
+        [HttpPost]
+        public void SellerAllowDownload(int id)
+        {
+            var download = userRepo.GetFromDownload(id);
+            download.IsSellerasAllowedDownload = true;
+            download.ModifiedDate = DateTime.Now;
+            download.ModifiedBy = download.Seller;
+            userRepo.UpdateUp();
+
+            var downloader = userRepo.GetUser(download.Downloader);
+            var seller = userRepo.GetUser(download.Seller);
+            var fromEmail = new MailAddress("akashthakar008@gmail.com", "NoteMarketPlace");
+            var toEmail = new MailAddress(downloader.EmailID);
+            var fromEmailPassword = "8460566920";
+            string sub = seller.FirstName + " Allows you to download a note";
+            string body = "Hello " + downloader.FirstName + ",<br/><br/>" +
+                "We would like to inform you that, "+ seller.FirstName + " allows you to download a note.<br/> Please " +
+                "login and see My Download tabs to download particular note. <br/> <br/>" +
+                "Regards, <br/>" +
+                "Notes MarketPlace";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+            };
+
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = sub,
+                Body = body,
+                IsBodyHtml = true
+            })
+
+            smtp.Send(message);
+
+        }
+
+        [HttpPost]
+        [UserAuthFilter]
+        public string AddDownloadEntry(int id)
+        {
+            var note = userRepo.GetSellerNoteByNoteId(id);
+            var attachment = userRepo.GetAttachmentByNoteId(id);
+            string fullName = attachment.FilePath;
+
+            int downloaderId = (int)Session["userId"];
+
+            string categoryName = userRepo.GetCategoryNameById(note.Category);
+
+            var alreadyAdded = userRepo.CheckDownloadEntry(note.ID, note.SellerID, downloaderId);
+
+            if (alreadyAdded == null)
+            {
+                Download buyerReq = new Download
+                {
+                    NoteID = note.ID,
+                    Seller = note.SellerID,
+                    Downloader = downloaderId,
+                    IsSellerasAllowedDownload = true,
+                    IsAttachmentDownload = true,
+                    IsPaid = note.IsPaid,
+                    PurchasedPrice = note.SellingPrice,
+                    NoteTitle = note.Title,
+                    NoteCategory = categoryName,
+                    CreatedDate = DateTime.Now,
+                    ModifiedDate = DateTime.Now
+                };
+                int downloadId = userRepo.AddDownload(buyerReq);
+                var data = userRepo.GetFromDownload(downloaderId);
+                data.AttachmentDownloadedDate = DateTime.Now;
+                userRepo.UpdateUp();
+                return "Allow";
+            }
+            else 
+            {
+                if (alreadyAdded.IsSellerasAllowedDownload == true)
+                {
+                    alreadyAdded.IsAttachmentDownload = true;
+                    alreadyAdded.ModifiedDate = DateTime.Now;
+                    alreadyAdded.ModifiedBy = note.SellerID;
+                    alreadyAdded.AttachmentDownloadedDate = DateTime.Now;
+                    userRepo.UpdateUp();
+                    return "Allow";
+                }
+                else
+                {
+                    return "Not Allow";
+                }
+            }
+          
+
+
+        }
+
         public ActionResult DownloadFile(int id)
         {
             var note = userRepo.GetSellerNoteByNoteId(id);
@@ -974,24 +1336,12 @@ namespace NoteMarketPlace.Controllers
             int downloaderId = (int)Session["userId"];
            
             string categoryName = userRepo.GetCategoryNameById(note.Category);
-            Download buyerReq = new Download
-            {
-                NoteID = note.ID,
-                Seller = note.SellerID,
-                Downloader = downloaderId,
-                IsSellerasAllowedDownload = true,
-                IsAttachmentDownload = true,
-                IsPaid = note.IsPaid,
-                PurchasedPrice = note.SellingPrice,
-                NoteTitle = note.Title,
-                NoteCategory = categoryName,
-                CreatedDate = DateTime.Now,
-                ModifiedDate = DateTime.Now
-            };
-            userRepo.AddDownload(buyerReq);
+
             byte[] fileBytes = GetFile(fullName);
             return File(
                 fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, attachment.FileName);
+
+
         }
 
         byte[] GetFile(string s)
@@ -1002,6 +1352,212 @@ namespace NoteMarketPlace.Controllers
             if (br != fs.Length)
                 throw new System.IO.IOException(s);
             return data;
+        }
+
+        [UserAuthFilter]
+        public ActionResult MyDownloads()
+        {
+            int id = (int)Session["userId"];
+            MyDownloadsViewModel model = new MyDownloadsViewModel
+            {
+                MyDownloads = userRepo.GetMyDownloadsNotes(id)
+            };
+            foreach (var note in model.MyDownloads)
+            {
+                if (note.isPaid)
+                {
+                    note.SellType = "Paid";
+                }
+                else
+                {
+                    note.SellType = "Free";
+                }
+            }
+
+            return View(model);
+        }
+
+
+        [UserAuthFilter]
+        [HttpPost]
+        public ActionResult MyDownloads(MyDownloadsViewModel m)
+        {
+            int id = (int)Session["userId"];
+            MyDownloadsViewModel model = new MyDownloadsViewModel
+            {
+                MyDownloads = userRepo.GetMyDownloadsSearchedNotes(id, m.search)
+            };
+            foreach (var note in model.MyDownloads)
+            {
+                if (note.isPaid)
+                {
+                    note.SellType = "Paid";
+                }
+                else
+                {
+                    note.SellType = "Free";
+                }
+            }
+
+            return View(model);
+        }
+
+        [UserAuthFilter]
+        [HttpPost]
+        public void AddReview(int downloadId, string comments, decimal rating = 0)
+        {
+            int id = (int)Session["userId"];
+
+            var download = userRepo.GetFromDownload(downloadId);
+            SellerNotesReview model = new SellerNotesReview
+            {
+                NoteID = download.NoteID,
+                ReviewedByID = id,
+                AgainstDownloadsID = download.ID,
+                Ratings = rating,
+                Comments = comments,
+                CreatedDate = DateTime.Now,
+                CreatedBy = id,
+                ModifiedDate = DateTime.Now,
+                ModifiedBy = id,
+                IsActive = true
+            };
+
+            userRepo.AddReview(model);
+        }
+
+
+        [UserAuthFilter]
+        [HttpPost]
+        public void MarkAsInAppropriate(int downloadId, string remark)
+        {
+            int id = (int)Session["userId"];
+
+            var download = userRepo.GetFromDownload(downloadId);
+            SellerNotesReportedIssue inAppropriate = new SellerNotesReportedIssue
+            {
+                NoteID = download.NoteID,
+                ReportedByID = id,
+                AgainstDownloadsID = download.ID,
+                Remarks = remark,
+                CreatedDate = DateTime.Now,
+                CreatedBy = id,
+                ModifiedDate = DateTime.Now,
+                ModifiedBy = id
+            };
+            userRepo.addReportedIsuue(inAppropriate);
+
+        }
+
+
+        [UserAuthFilter]
+        public ActionResult MySoldNotes()
+        {
+            int id = (int)Session["userId"];
+            MySoldNotesViewModel model = new MySoldNotesViewModel
+            {
+                MySoldNotes = userRepo.GetMySoldNotes(id)
+            };
+            foreach (var note in model.MySoldNotes)
+            {
+                if (note.isPaid)
+                {
+                    note.SellType = "Paid";
+                }
+                else
+                {
+                    note.SellType = "Free";
+                }
+            }
+            return View(model);
+        }
+
+        [UserAuthFilter]
+        [HttpPost]
+        public ActionResult MySoldNotes(MySoldNotesViewModel m)
+        {
+            int id = (int)Session["userId"];
+            MySoldNotesViewModel model = new MySoldNotesViewModel
+            {
+                MySoldNotes = userRepo.GetMySoldSearchedNotes(id, m.search)
+            };
+            foreach (var note in model.MySoldNotes)
+            {
+                if (note.isPaid)
+                {
+                    note.SellType = "Paid";
+                }
+                else
+                {
+                    note.SellType = "Free";
+                }
+            }
+            return View(model);
+        }
+
+
+        [UserAuthFilter]
+        public ActionResult MyRejectedNotes()
+        {
+            int id = (int)Session["userId"];
+            MyRejectedNotesViewModel model = new MyRejectedNotesViewModel
+            {
+                RejectedNotes = userRepo.GetRejectedNotes(id)
+            };
+
+            return View(model);
+
+        }
+
+        [UserAuthFilter]
+        [HttpPost]
+        public ActionResult MyRejectedNotes(MyRejectedNotesViewModel m)
+        {
+            int id = (int)Session["userId"];
+            MyRejectedNotesViewModel model = new MyRejectedNotesViewModel
+            {
+                RejectedNotes = userRepo.GetRejectedSearchedNotes(id, m.search),
+                search = m.search
+            };
+
+            return View(model);
+
+        }
+
+        [HttpPost]
+        [UserAuthFilter]
+        public void CloneNotes(int Noteid)
+        {
+            int id = (int)Session["userId"];
+            var note = userRepo.GetSellerNoteByNoteId(Noteid);
+            var status = userRepo.GetStatusId("draft");
+
+            SellerNote clone = new SellerNote
+            {
+                SellerID = note.SellerID,
+                Status = status,
+                Title = note.Title,
+                Category = note.Category,
+                DisplayPicture = note.DisplayPicture,
+                NoteType = note.NoteType,
+                NumberOfPages = note.NumberOfPages,
+                Description = note.Description,
+                UniversityName = note.UniversityName,
+                Country = note.Country,
+                Course = note.Course,
+                CourseCode = note.CourseCode,
+                Professor = note.Professor,
+                IsPaid = note.IsPaid,
+                SellingPrice = note.SellingPrice,
+                NotesPreview = note.NotesPreview,
+                CreatedDate = DateTime.Now,
+                CreatedBy = id,
+                ModifiedDate = DateTime.Now,
+                ModifiedBy = id,
+                IsActive = true
+            };
+            userRepo.AddSellerNote(clone);
+           
         }
     }
 }
