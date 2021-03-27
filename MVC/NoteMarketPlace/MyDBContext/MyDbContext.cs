@@ -348,7 +348,8 @@ namespace NoteMarketPlace.DbContext
                         DisplayPicture = note.DisplayPicture,
                         NumberOfPages = note.NumberOfPages,
                         Title = note.Title,
-                        UniversityName = note.UniversityName
+                        UniversityName = note.UniversityName,
+                        CountryName = note.Country1.Name
                     }
                     ).ToList();
         }
@@ -393,7 +394,8 @@ namespace NoteMarketPlace.DbContext
                              Category = note.Category,
                              NoteType = note.NoteType,
                              Country = note.Country,
-                             Course = note.Course
+                             Course = note.Course,
+                             CountryName = note.Country1.Name
                          }
                          ).ToList();
             if(rate != "0")

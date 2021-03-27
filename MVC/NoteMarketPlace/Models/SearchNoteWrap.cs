@@ -18,6 +18,7 @@ namespace NoteMarketPlace.Models
         public int? NoteType { get; set; }
         public string Course { get; set; }
         public int? Country { get; set; }
+        public string CountryName { get; set; }
         public decimal rate { get; set; }
         public decimal avg { get; set; }
         public int count { get; set; }

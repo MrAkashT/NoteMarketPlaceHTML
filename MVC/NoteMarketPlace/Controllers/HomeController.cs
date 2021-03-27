@@ -110,6 +110,7 @@ namespace NoteMarketPlace.Controllers
                 totalCount = notes.Count(),
                 perPageCount = 6
             };
+           
             foreach (var note in model.sellerNotes)
             {
                 note.avg = _context.GetAvgRatingByNoteId(note.ID);
