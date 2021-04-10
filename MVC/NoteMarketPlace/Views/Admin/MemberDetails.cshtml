@@ -1,0 +1,185 @@
+﻿@model NoteMarketPlace.ViewModel.MemberDetailsViewModel
+@{
+    ViewBag.Title = "MemberDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("_adminHeader")
+<div id="member-detail" class="top-margin for-footer-at-bottom">
+    <div class="container">
+        <div class="content-box">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="heading-md">Member Details</h2>
+                </div>
+            </div>
+            <div class="row" id="member-detail-wrapper">
+                <div class="col-xl-6 col-lg-7 col-md-12 col-sm-12 col-12">
+
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12  col-12" id="member-photo">
+                            @if (Model.Member.DisplayPic != null)
+                            {
+                                <img src="~/Members/@Model.Member.Id/@Model.Member.DisplayPic" class="img-fluid" alt="member photo">
+                            }
+                            else
+                            {
+                                <img src="~/DefaultImages/@ViewBag.defaultPic" class="img-fluid" alt="member photo">
+                            }
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12" id="detail1">
+                            <div class="row">
+                                <div class="col-xl-5 col-lg-5 col-md-4 col-sm-4 col-5">
+                                    <ul id="detail">
+                                        <li>First Name:</li>
+                                        <li>Last Name:</li>
+                                        <li>Email: </li>
+                                        <li>DOB:</li>
+                                        <li>Phone Number</li>
+                                        <li>College / University:</li>
+                                    </ul>
+                                </div>
+                                <div class="col-xl-7 col-lg-7 col-md-8 col-sm-8 col-7">
+                                    <ul id="detail-value">
+                                        <li>@Model.Member.FirstName</li>
+                                        <li>@Model.Member.LastName</li>
+                                        <li>@Model.Member.Email</li>
+                                        @if (Model.Member.Dob != null)
+                                        {
+                                            var date = (DateTime)Model.Member.Dob;
+                                            <li>@date.ToString("dd-MM-yyyy")</li>
+                                        }
+                                        else
+                                        {
+                                            <li>&nbsp;</li>
+                                        }
+                                        <li>@Model.Member.PhoneNumber</li>
+                                        <li>@Model.Member.College</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-5 col-md-12 col-sm-12 col-12" id="detail2">
+                    <div class="row">
+
+                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-5">
+                            <ul id="detail">
+                                <li>Address 1:</li>
+                                <li>Address 2:</li>
+                                <li>City:</li>
+                                <li>State:</li>
+                                <li>Country:</li>
+                                <li>Zip Code:</li>
+                            </ul>
+                        </div>
+                        <div class="col-xl-9 col-lg-8 col-md-8 col-sm-8 col-7">
+                            <ul id="detail-value">
+                                <li>@Model.Member.Address1</li>
+                                <li>@Model.Member.Address2</li>
+                                <li>@Model.Member.City</li>
+                                <li>@Model.Member.State</li>
+                                <li>@Model.Member.Country</li>
+                                <li>@Model.Member.ZipCode</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="heading-sm">Notes</h2>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table" id="member-details">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">SR NO.</th>
+                        <th scope="col">NOTE TITLE</th>
+                        <th scope="col">CATEGORY</th>
+                        <th scope="col">STATUS</th>
+                        <th scope="col" class="text-center">DOWNLOADED NOTES</th>
+                        <th scope="col" CLASS="text-center">TOTAL EARNINGS</th>
+                        <th scope="col">DATE ADDED</th>
+                        <th scope="col">PUBLISHED DATE</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ var i = 1;}
+                    @foreach (var note in Model.MemberNotes)
+                    {
+                        <tr>
+                            <td scope="row" class="text-center">@i</td>
+                            <td style="cursor:pointer;" onclick="window.location.href='@Url.Action("ViewNote", "User", new { id = note.Id })'"
+                                >@note.Title</td>
+                            <td>@note.Category</td>
+                            <td>@note.Status</td>
+                            <td class="text-center" style="cursor:pointer;" 
+                                    onclick="window.location='@Url.Action("DownloadedNotes", "Admin", new { note=note.Title})'">@note.DownloadedNotes</td>
+                            <td class="text-center">$@note.TotalEarning</td>
+                            <td  data-order="@note.DateAdded.ToString("MMddyyyyHHmmss")"
+                                >@note.DateAdded.ToString("dd-MM-yyyy, HH:mm")</td>
+                            @if (note.PublishedDate == null)
+                            {
+                                <td>NA</td>
+                            }
+                            else
+                            {
+                                <td>@note.PublishedDate.Value.ToString("dd-MM-yyyy, HH:mm")</td>
+                            }
+                            <td>
+                                <div class="dropdown">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                       aria-expanded="false">
+                                        <img src="~/images/admin/dots.png" alt="">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item download-btn" id ="@note.Id" href="javascript:void(0)">Download Note</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                   
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+@Html.Partial("_adminFooter")
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#member-details").DataTable({
+                pagingtype: "simple_numbers",
+                columndefs: [
+                    {
+                        orderable: false, targets: 10
+                    },
+                    {
+                        type: "datetime", targets: 6
+                    }
+                ],
+                language: {
+                    paginate: {
+                        next: '<i class="fa fa-chevron-right"></i>',
+                        previous: '<i class="fa fa-chevron-left"></i>'
+                    }
+                },
+                order: [[6, "asc"]]
+            });
+
+            $(".download-btn").on("click", function () {
+                var noteid = $(this).attr("id");
+                window.location = "/User/DownloadFile?id=" + noteid;
+            });
+        })
+    </script>
+}

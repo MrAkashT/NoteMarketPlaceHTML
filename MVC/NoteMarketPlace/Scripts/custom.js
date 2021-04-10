@@ -341,7 +341,7 @@ for (var i = 0; i < btns.length; i++) {
 }
 
 $(document).ready(function () {
-    $("tr").click(function () {
+    $("tr:not(:first-child)").click(function () {
         $(this).addClass("shadowss").siblings().removeClass("shadowss");
     })
 })

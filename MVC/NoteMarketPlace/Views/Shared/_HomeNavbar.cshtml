@@ -22,14 +22,14 @@
                         <li class="nav-item">
                             @Html.ActionLink("Sell Your Notes", "Login", "Account", new { area = "" }, new { @class = "nav-link" })
                         </li>
-                        
+
                         <li class="nav-item">
                             @Html.ActionLink("FAQ", "FAQ", "Home", new { area = "" }, new { @class = "nav-link" })
                         </li>
                         <li class="nav-item">
                             @Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
                         </li>
-                       
+
                         <li class="nav-item">
                             @Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "btn nav-link login-submit-btn" })
                         </li>
@@ -62,12 +62,12 @@
                             </li>
 
                             @*<li><a class="link" href="seacrh-page.html">Search Notes</a></li>
-                            <li><a class="link" href="#">Sell Your Notes</a></li>
-                            <li><a class="link" href="faq-page.html">FAQ</a></li>
-                            <li>@Html.ActionLink("Contact Us", "Contact", "Home", new { @class = "link" }, null)</li>
-                            <li>
-                                @Html.ActionLink("Login", "Index", "Login", new { @class = "btn login-submit-btn" }, null)
-                            </li>*@
+                                <li><a class="link" href="#">Sell Your Notes</a></li>
+                                <li><a class="link" href="faq-page.html">FAQ</a></li>
+                                <li>@Html.ActionLink("Contact Us", "Contact", "Home", new { @class = "link" }, null)</li>
+                                <li>
+                                    @Html.ActionLink("Login", "Index", "Login", new { @class = "btn login-submit-btn" }, null)
+                                </li>*@
                         </ul>
                     </div>
                 </div>
@@ -77,7 +77,8 @@
 }
 else
 {
-
+    int uid = (int)Session["userId"];
+    string imgg = (string)Session["img"];
     <header id="home-page-header">
         <nav class="navbar navbar-expand-md fixed-top" id="home-page-nav">
             <div class="container nav-wrapper">
@@ -86,7 +87,7 @@ else
                 <span id="mobile-nav-open-btn">&#9776;</span>
 
                 <div class="navbar-header">
-                    <a href="@Url.Action("Index", "Home",new { area=""})" class="navbar-brand">
+                    <a href="@Url.Action("Index", "Home",new { area="", @class="navbar-brand" })" >
                         <img id="logo" class="img-fluid" src="~/images/login/top-logo.png" alt="logo">
                     </a>
                 </div>
@@ -113,7 +114,16 @@ else
                             <div class="dropdown">
                                 <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                    aria-expanded="false">
-                                    <img src="~/images/front/user-img.png" alt="">
+                                    @if (Session["defaultImg"] != null && Session["img"] == null)
+                                    {
+                                        string defaultimg = (string)Session["defaultImg"];
+                                        <img src="~/DefaultImages/@defaultimg" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Members/@uid/@imgg" alt="">
+                                    }
+                                  
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                     @Html.ActionLink("My Profile", "UserProfile", "User", new { area = "" }, new { @class = "dropdown-item" })
@@ -179,12 +189,12 @@ else
                             </li>
 
                             @*<li><a class="link" href="seacrh-page.html">Search Notes</a></li>
-                            <li><a class="link" href="#">Sell Your Notes</a></li>
-                            <li><a class="link" href="faq-page.html">FAQ</a></li>
-                            <li>@Html.ActionLink("Contact Us", "Contact", "Home", new { @class = "link" }, null)</li>
-                            <li>
-                                @Html.ActionLink("Login", "Index", "Login", new { @class = "btn login-submit-btn" }, null)
-                            </li>*@
+                                <li><a class="link" href="#">Sell Your Notes</a></li>
+                                <li><a class="link" href="faq-page.html">FAQ</a></li>
+                                <li>@Html.ActionLink("Contact Us", "Contact", "Home", new { @class = "link" }, null)</li>
+                                <li>
+                                    @Html.ActionLink("Login", "Index", "Login", new { @class = "btn login-submit-btn" }, null)
+                                </li>*@
                         </ul>
                     </div>
                 </div>

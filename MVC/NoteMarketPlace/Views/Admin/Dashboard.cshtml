@@ -66,14 +66,14 @@
                     @using (Html.BeginForm("Dashboard", "Admin", FormMethod.Post))
                     {
                         <div class="form-inline relative note-search">
-                            @Html.TextBoxFor(m => m.searchNote, new { @class="form-control", placeholder="Search"})
+                            @Html.TextBoxFor(m => m.searchNote, new { @class = "form-control", placeholder = "Search" })
                             @*<input type="text" class="form-control" placeholder="Search notes here...">*@
                             <img class="search-icon" src="~/images/Dashboard/search.jpg" alt="">
 
-                            <button type="submit" class="btn search-btn">Search</button>
-                            @Html.DropDownListFor(m => m.month, new SelectList(Model.LastSixMonth), Model.month, new { 
-                                @class="relative remove-arrow form-control input-box"
-                            } )
+                            <button type="button" id="search-btnn" class="btn search-btn">Search</button>
+                            @Html.DropDownListFor(m => m.month, new SelectList(Model.LastSixMonth), "Select month", new {
+                           @class = "relative remove-arrow form-control input-box"
+                       })
                            
                         </div>
                     }
@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="admin-published-notes">
                     <thead>
                         <tr>
                             <th scope="col" class="text-center">SR NO.</th>
@@ -97,18 +97,22 @@
                         </tr>
                     </thead>
                     <tbody>
+
+                        @{ var i = 1; }
                         @foreach (var note in Model.PublishedNotes)
                         {
                             <tr>
-                                <td scope="row" class="text-center">1</td>
-                                <td>@note.Title</td>
+                                <td scope="row" class="text-center">@i</td>
+                                <td style="cursor:pointer;" onclick="window.location.href='@Url.Action("ViewNote", "User", new { id = note.Id })'">@note.Title</td>
                                 <td>@note.Category</td>
                                 <td class="text-center">@note.AttachmentSize</td>
                                 <td class="text-center">@note.SellType</td>
                                 <td>$@note.Price</td>
                                 <td>@note.Publisher</td>
-                                <td>@note.PublishedDate</td>
-                                <td class="text-center">10</td>
+                                <td>@note.PublishedDate.ToString("dd-MM-yyyy, HH:mm")</td>
+                                <td class="text-center" style="cursor: pointer;"
+                                    onclick="window.location='@Url.Action("DownloadedNotes", "Admin", new { note=note.Title})'"
+                                    >@note.NumberOfDownloads</td>
                                 <td>
                                     <div class="dropdown">
                                         <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -117,66 +121,23 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right"
                                              aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Download Note</a>
-                                            <a href="#" class="dropdown-item">View More Details</a>
-                                            <a class="dropdown-item" href="#">Unpublish</a>
+                                            <a class="dropdown-item" id="download-btn" data-id="@note.Id" href="javascript:void(0)">Download Note</a>
+                                            <a href="@Url.Action("ViewNote", "User", new { id = note.Id})" class="dropdown-item">View More Details</a>
+                                            <a class="dropdown-item unpublish" data-id="@note.Id" data-name="@note.Title" href="javascript:void(0)">Unpublish</a>
 
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-                            }
-                        <tr>
-                            <td scope="row" class="text-center">1</td>
-                            <td>Data Science</td>
-                            <td>Science</td>
-                            <td class="text-center">10 KB</td>
-                            <td class="text-center">Free</td>
-                            <td>$0</td>
-                            <td>Pritesh Panchal</td>
-                            <td>09-10-2020, 10:10</td>
-                            <td class="text-center">10</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="options">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Download Note</a>
-                                        <a href="#" class="dropdown-item">View More Details</a>
-                                        <a class="dropdown-item" href="#">Unpublish</a>
+                            i++;
+                        }
 
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
 
             </div>
 
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true"><i class="fa fa-chevron-left"></i><span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link active" href="">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
+           
         </div>
 
     </div>
@@ -189,13 +150,113 @@
     <script>
         $(document).ready(function () {
             //var value = $("select").children("option:first-child").html();
-            
+
             //$("select").children("option:first-child").val(value);
+
+            $("#admin-published-notes").DataTable({
+                pagingtype: "simple_numbers",
+                columndefs: [
+                    {
+                        orderable: false, targets: 4
+                    },
+                    {
+                        type: "date", targets: 7
+                    }
+                ],
+                language: {
+                    paginate: {
+                        next: '<i class="fa fa-chevron-right"></i>',
+                        previous: '<i class="fa fa-chevron-left"></i>'
+                    }
+                },
+                order: [[7, "desc"]]
+            });
 
             $("#month").on("change", function () {
                 var month = $(this).val();
-                alert(month);
+                var search = $("#searchNote").val();
+                window.location.href = "/Admin/dashboard?search="+search+"&month="+month;
             })
+            $("#search-btnn").on("click", function () {
+                var month = $("#month").val();
+                var search = $("#searchNote").val();
+                window.location.href = "/Admin/dashboard?search=" + search + "&month=" + month;
+            })
+
+            $("#download-btn").on("click", function () {
+                var noteid = $(this).attr("data-id");
+                window.location = "/User/DownloadFile?id=" + noteid;
+            });
+
+            $("#dashboard").on("click", ".unpublish", function () {
+                var id = $(this).attr("data-id");
+                var name = $(this).attr("data-name");
+                var modal = `<!-- Modal -->
+                        <div class="modal fade" id="unpublish" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                             aria-hidden="true">
+                            <div class="modal-dialog " role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button id="close-btn" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true"><img src="/images/Notes Details/close.png" alt=""></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" id="add-review-content">
+                                        <h2 class="heading-sm">${name}</h2><br/>
+
+                                        <div class="form-group">
+                                            <label for="remark">Remarks *</label>
+                                            <textarea id="remark" class="form-control" style="color:#000;" placeholder="Remarks ..."></textarea>
+                                        </div>
+                                        <div style="margin-bottom:20px;">
+                                            <button class="btn btn-danger" data-id="${id}" id="unpublish-btn">Unpublish</button>
+                                            <button class="btn btn-primary" id="cancel-btn" style="border:none;background-color:grey;">Cancel</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                $("#dashboard").append(modal);
+                $("#unpublish").modal("show");
+            }).on("click", "#unpublish-btn", function () {
+                    var id = $(this).attr("data-id");
+                    var remark = $("#remark").val();
+
+                if (!remark) {
+                    $("<p id='remark-validation' style='color: red;'>Remarks is Required.</p>").insertAfter("#remark")
+                }
+                else {
+                    if (confirm("Are you sure you want to Unpublish this note.")) {
+                        $("#remark").val("");
+                        $("#unpublish").modal("hide");
+                        $.ajax({
+                            method: "POST",
+                            url: "@Url.Action("UnpublishNote", "Admin")?NoteId=" + id + "&remark=" + remark,
+                            error: function () {
+                                alert("err")
+                            },
+                            success: function () {
+                                window.location.reload();
+                            }
+                        });
+                    }
+
+                }
+
+            }).on("click", "#cancel-btn", function () {
+              
+                $("#remark").val("");
+                $("#remark-validation").remove();
+                $("#unpublish").modal("hide");
+
+            }).on("click","#close-btn", function () {
+                $("#remark").val("");
+                $("#remark-validation").remove();
+            });
+
+            $("ul.nav.navbar-nav li a").removeClass("active");
+            $("ul.nav.navbar-nav li:first-child a ").addClass("active");
         })
     </script>
 }

@@ -1,0 +1,47 @@
+﻿@model NoteMarketPlace.Models.AddCategory
+@{
+    ViewBag.Title = "AddCategory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("_adminHeader")
+<section id="add-category-page" class="top-margin for-footer-at-bottom">
+    <div class="content-box">
+        <div class="container">
+            @using (Html.BeginForm("SaveCategory", "Admin", FormMethod.Post))
+            {
+                <div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <h2 class="heading-md">Add Category</h2>
+
+                            <div class="form-group box-grp">
+                                @Html.LabelFor(m => m.CategoryName)
+                                @Html.TextBoxFor(m => m.CategoryName, new
+                                {
+                                    @class = "form-control input-box",
+                                    placeholder = "Enter Your Category"
+                                })
+                                @Html.ValidationMessageFor(m => m.CategoryName)
+                            </div>
+
+                            <div class="form-group box-grp">
+                                @Html.LabelFor(m => m.Description)
+                                @Html.TextAreaFor(m => m.Description, new
+                                {
+                                    @class = "form-control",
+                                    rows = "5",
+                                    placeholder = "Enter Your Description"
+                                })
+                                @Html.ValidationMessageFor(m => m.Description)
+                            </div>
+                            @Html.HiddenFor(m => m.cId) 
+                            <button type="submit" class="btn submit-btn">Submit</button>
+                           
+                        </div>
+                    </div>
+                </div>
+            }
+            </div>
+    </div>
+</section>
+@Html.Partial("_adminFooter")

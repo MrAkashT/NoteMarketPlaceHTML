@@ -1,4 +1,4 @@
-﻿
+﻿@model NoteMarketPlace.ViewModel.AdminNotesViewModel
 @{
     ViewBag.Title = "PublishedNotes";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -15,26 +15,22 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="seller">Seller</label>
-                        <select id="seller" class="form-control remove-arrow admin-select">
-                            <option value="">Khyati</option>
-                            <option value="">Rahil</option>
-                            <option value="">Suman</option>
-                        </select>
+                        @Html.LabelFor(m => m.Seller, new { style = "margin-bottom: 10px;" })
+                        @Html.DropDownListFor(m => m.Seller, new SelectList(Model.Sellers, "ID", "FirstName"), "Select Seller", new { @class = "form-control remove-arrow admin-select" })
+
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="form-inline form-group relative note-search">
-                        <label for=""></label>
-                        <input type="text" class="form-control" placeholder="Search">
-                        <img class="search-icon" src="images/Dashboard/search.jpg" alt="">
+                        @Html.TextBoxFor(m => m.Search, new { @class = "form-control", placeholder = "Search" })
+                        <img class="search-icon" src="~/images/Dashboard/search.jpg" alt="">
                         <button class="btn search-btn">Search</button>
                     </div>
                 </div>
             </div>
 
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="admin-published-notes-table">
                     <thead>
                         <tr>
                             <th scope="col" class="text-center">SR NO.</th>
@@ -51,166 +47,158 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="row" class="text-center">1</td>
-                            <td>Software Development</td>
-                            <td>IT</td>
-                            <td>Paid</td>
-                            <td>$145</td>
-                            <td>Rahul Shah</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>25-11-2020, 11:08</td>
-                            <td>Raj Sheth</td>
-                            <td class="text-center">75</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="dropdown-dots-menu">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
-                                        <a class="dropdown-item" href="#">Unpublish</a>
+                        @{ var i = 1;}
+                        @foreach(var note in Model.PublishedNotes)
+                        {
+                            <tr>
+                                <td scope="row" class="text-center">@i</td>
+                                <td style="cursor:pointer;" onclick="window.location.href='@Url.Action("ViewNote", "User", new { id = note.Id })'">@note.Title</td>
+                                <td>@note.Category</td>
+                                <td>@note.SellType</td>
+                                <td>$@note.Price</td>
+                                <td>@note.Seller</td>
+                                <td><img src="~/images/admin/eye.png" alt=""></td>
+                                <td data-order="@note.PublishedDate.ToString("MMddyyyyHHmmss")"
+                                    >@note.PublishedDate.ToString("dd-MM-yyyy, HH:mm")</td>
+                                <td>@note.ApproveBy</td>
+                                <td class="text-center">@note.NumberOfDownloads</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            <img src="~/images/admin/dots.png" alt="options">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                             aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" id="download-btn" data-id="@note.Id" href="javascript:void(0)">Download Note</a>
+                                            <a href="@Url.Action("ViewNote", "User", new { id = note.Id})" class="dropdown-item">View More Details</a>
+                                            <a class="dropdown-item unpublish" data-id="@note.Id" data-name="@note.Title" href="javascript:void(0)">Unpublish</a>
 
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row" class="text-center">2</td>
-                            <td>Computer Basics</td>
-                            <td>Computer</td>
-                            <td>Free</td>
-                            <td>$0</td>
-                            <td>Rahul Shah</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>10-10-2020, 12:30</td>
-                            <td>Khyati Patel</td>
-                            <td class="text-center">38</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="dropdown-dots-menu">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
-                                        <a class="dropdown-item" href="#">Unpublish</a>
-
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row" class="text-center">3</td>
-                            <td>Human Body</td>
-                            <td>Science</td>
-                            <td>Paid</td>
-                            <td>$204</td>
-                            <td>Rahul Shah</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>08-11-2020, 04:07</td>
-                            <td>Raj Sheth</td>
-                            <td class="text-center">48</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="dropdown-dots-menu">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
-                                        <a class="dropdown-item" href="#">Unpublish</a>
-
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row" class="text-center">1</td>
-                            <td>World War 2</td>
-                            <td>History</td>
-                            <td>Paid</td>
-                            <td>$58</td>
-                            <td>Rahul Shah</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>17-10-2020, 12:30</td>
-                            <td>Raj Sheth</td>
-                            <td class="text-center">25</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="dropdown-dots-menu">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
-                                        <a class="dropdown-item" href="#">Unpublish</a>
-
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row" class="text-center">5</td>
-                            <td>Accounting</td>
-                            <td>Account</td>
-                            <td>Free</td>
-                            <td>$0</td>
-                            <td>Rahul Shah</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>12-12-2020, 17:45</td>
-                            <td>Niya Patel</td>
-                            <td class="text-center">8</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="dropdown-dots-menu">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
-                                        <a class="dropdown-item" href="#">Unpublish</a>
-
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                      
                     </tbody>
                 </table>
             </div>
-
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true"><i class="fa fa-chevron-left"></i><span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link active" href="">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
+            
         </div>
     </div>
 </section>
+@Html.Partial("_adminFooter")
+
+@section scripts 
+{
+    <script>
+        $(document).ready(function () {
+
+            $("#admin-published-notes-table").DataTable({
+                pagingtype: "simple_numbers",
+                columndefs: [
+                    {
+                        orderable: false, targets: 4
+                    },
+                    {
+                        type: "date", targets: 7
+                    }
+                ],
+                language: {
+                    paginate: {
+                        next: '<i class="fa fa-chevron-right"></i>',
+                        previous: '<i class="fa fa-chevron-left"></i>'
+                    }
+                },
+                order: [[7, "desc"]]
+            });
+
+            $("#Seller").on("change", function () {
+                var name = $(this).val();
+                var search = $("#Search").val()
+                window.location.href = "/Admin/PublishedNotes?search=" + search + "&name=" + name;
+            })
+
+            $(".search-btn").on("click", function () {
+                var name = $("#Seller").val();
+                var search = $("#Search").val()
+                window.location.href = "/Admin/PublishedNotes?name=" + name + "&search=" + search;
+            });
+
+            $("#download-btn").on("click", function () {
+                var noteid = $(this).attr("data-id");
+                window.location = "/User/DownloadFile?id=" + noteid;
+            });
+
+            $("#admin-published-notes").on("click", ".unpublish", function () {
+                var id = $(this).attr("data-id");
+                var name = $(this).attr("data-name");
+                var modal = `<!-- Modal -->
+                        <div class="modal fade" id="unpublish" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                             aria-hidden="true">
+                            <div class="modal-dialog " role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button id="close-btn" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true"><img src="/images/Notes Details/close.png" alt=""></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" id="add-review-content">
+                                        <h2 class="heading-sm">${name}</h2>
+
+                                        <div class="form-group">
+                                            <label for="remark">Remarks *</label>
+                                            <textarea id="remark" class="form-control" style="color:#000;" placeholder="Remarks ..."></textarea>
+                                        </div>
+                                        <div style="margin-bottom:20px;">
+                                            <button class="btn btn-danger" data-id="${id}" id="unpublish-btn">Unpublish</button>
+                                            <button class="btn btn-primary" id="cancel-btn" style="border:none;background-color:grey;">Cancel</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                $("#admin-published-notes").append(modal);
+                $("#unpublish").modal("show");
+            }).on("click", "#unpublish-btn", function () {
+                    var id = $(this).attr("data-id");
+                    var remark = $("#remark").val();
+
+                if (!remark) {
+                    $("<p id='remark-validation' style='color: red;'>Remarks is Required.</p>").insertAfter("#remark")
+                }
+                else {
+                    if (confirm("Are you sure you want to Unpublish this note.")) {
+                        $("#remark").val("");
+                        $("#unpublish").modal("hide");
+                        $.ajax({
+                            method: "POST",
+                            url: "@Url.Action("UnpublishNote", "Admin")?NoteId=" + id + "&remark=" + remark,
+                            error: function () {
+                                alert("err")
+                            },
+                            success: function () {
+                                alert("success");
+                                window.location.reload();
+                            }
+                        });
+                    }
+
+                }
+
+            }).on("click", "#cancel-btn", function () {
+
+                $("#remark").val("");
+                $("#remark-validation").remove();
+                $("#unpublish").modal("hide");
+
+            }).on("click","#close-btn", function () {
+                $("#remark").val("");
+                $("#remark-validation").remove();
+            });
+
+        })
+    </script>
+}

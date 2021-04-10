@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label for="comments">Comments *</label>
-                    <textarea id="comments" class="form-control" placeholder="Comments..."></textarea>
+                    <textarea id="comments" style="color:#000;" class="form-control" placeholder="Comments..."></textarea>
                 </div>
                 <a href="javascript:void(0)" id="add-review-btn" class="btn login-submit-btn btn-height" role="button">Submit</a>
 
@@ -236,7 +236,7 @@
 
                                         <div class="form-group">
                                             <label for="remark">Remarks *</label><br><br>
-                                            <textarea id="remark" class="form-control" placeholder="Remarks ..."></textarea>
+                                            <textarea id="remark" style="color:#000;" class="form-control" placeholder="Remarks ..."></textarea>
                                         </div>
                                         <div style="margin-bottom:20px;">
                                             <button class="btn btn-danger" data-id="${id}" id="issue-btn">Report an issue</button>
@@ -253,7 +253,7 @@
 
 
             }).on("click", "#issue-btn", function () {
-                alert("isuuue foound")
+               
                     var id = $(this).attr("data-id");
                     var remark = $("#remark").val();
 
@@ -269,7 +269,6 @@
                                 alert("err")
                             },
                             success: function () {
-                                alert("succcess");
                                 $("#remark").val("");
                                 $("#inappropriate").modal("hide");
                             }
@@ -280,7 +279,6 @@
                 }
 
             }).on("click", "#cancel-issue", function () {
-                alert("cancel")
                 $("#remark").val("");
                 $("#remark-validation").remove();
                 $("#inappropriate").modal("hide");

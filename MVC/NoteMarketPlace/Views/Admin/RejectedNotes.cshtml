@@ -1,4 +1,4 @@
-﻿
+﻿@model NoteMarketPlace.ViewModel.AdminNotesViewModel
 @{
     ViewBag.Title = "RejectedNotes";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -15,26 +15,21 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="seller">Seller</label>
-                        <select id="seller" class="form-control remove-arrow admin-select">
-                            <option value="">Rahul Shah</option>
-                            <option value="">Rahil</option>
-                            <option value="">Suman</option>
-                        </select>
+                        @Html.LabelFor(m => m.Seller, new { style = "margin-bottom: 10px;" })
+                        @Html.DropDownListFor(m => m.Seller, new SelectList(Model.Sellers, "ID", "FirstName"), "Select Seller", new { @class = "form-control remove-arrow admin-select" })
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="form-inline form-group relative note-search">
-                        <label for=""></label>
-                        <input type="text" class="form-control" placeholder="Search notes here...">
-                        <img class="search-icon" src="images/Dashboard/search.jpg" alt="">
+                        @Html.TextBoxFor(m => m.Search, new { @class = "form-control", placeholder = "Search" })
+                        <img class="search-icon" src="~/images/Dashboard/search.jpg" alt="">
                         <button class="btn search-btn">Search</button>
                     </div>
                 </div>
             </div>
 
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="admin-rejected-notes-table">
                     <thead>
                         <tr>
                             <th scope="col" class="text-center">SR NO.</th>
@@ -49,154 +44,109 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="row" class="text-center">1</td>
-                            <td>Software Development</td>
-                            <td>IT</td>
-                            <td>Khyati Patel</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>09-10-2020, 10:10</td>
-                            <td>Raj Sheth</td>
-                            <td>Loerm ipsum is dummy text printing industry.</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="dropdown-dots-menu">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Approve</a>
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
+                        @{ var i = 1; }
+                        @foreach (var note in Model.RejectedNotes)
+                        {
+                            <tr>
+                                <td scope="row" class="text-center">@i</td>
+                                <td style="cursor:pointer;" onclick="window.location.href='@Url.Action("ViewNote", "User", new { id = note.Id })'">@note.Title</td>
+                                <td>@note.Category</td>
+                                <td>@note.Seller</td>
+                                <td><img src="images/admin/eye.png" alt=""></td>
+                                <td data-order="@note.DateAdded.ToString("MMddyyyyHHmmss")"
+                                    >@note.DateAdded.ToString("dd-MM-yyyy, HH:mm")</td>
+                                <td>@note.RejectBy</td>
+                                <td>@note.Remark</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            <img src="~/images/admin/dots.png" alt="dropdown-dots-menu">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                             aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item approve" id="@note.Id" href="javascript:void(0)">Approve</a>
+                                            <a class="dropdown-item" id="download-btn" data-id="@note.Id" href="javascript:void(0)">Download Note</a>
+                                            <a href="@Url.Action("ViewNote", "User", new { id = note.Id})" class="dropdown-item">View More Details</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row" class="text-center">2</td>
-                            <td>Computer Basics</td>
-                            <td>Computer</td>
-                            <td>Khyati Patel</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>10-10-2020, 11:25</td>
-                            <td>Khyati Patel</td>
-                            <td>Lorem ipsum is dummy text printing industry.</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="dropdown-dots-menu">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Approve</a>
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row" class="text-center">3</td>
-                            <td>Human Body</td>
-                            <td>Science</td>
-                            <td>Khyati Patel</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>11-10-2020, 01:00</td>
-                            <td>Raj Sheth</td>
-                            <td>Lorem ipsum is dummy text printing industry.</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="dropdown-dots-menu">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Approve</a>
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row" class="text-center">4</td>
-                            <td>World War 2</td>
-                            <td>History</td>
-                            <td>Khyati Patel</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>12-10-2020, 10:10</td>
-                            <td>Raj Sheth</td>
-                            <td>Lorem ipsum is dummy text printing industry.</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="dropdown-dots-menu">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Approve</a>
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
-
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row" class="text-center">5</td>
-                            <td>Accounting</td>
-                            <td>Account</td>
-                            <td>Khyati Patel</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>13-10-2020, 11:25</td>
-                            <td>Niya Patel</td>
-                            <td>Lorem ipsum is dummy text printing industry</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="dropdown-dots-menu">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Approve</a>
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
-
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                            i++;
+                        }
 
                     </tbody>
                 </table>
             </div>
 
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true"><i class="fa fa-chevron-left"></i><span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link active" href="">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
+            
         </div>
     </div>
 </section>
+@Html.Partial("_adminFooter")
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            $("#admin-rejected-notes-table").DataTable({
+                pagingtype: "simple_numbers",
+                columndefs: [
+                    {
+                        orderable: false, targets: 7
+                    },
+                    {
+                        type: "date", targets: 4
+                    }
+                ],
+                language: {
+                    paginate: {
+                        next: '<i class="fa fa-chevron-right"></i>',
+                        previous: '<i class="fa fa-chevron-left"></i>'
+                    }
+                },
+                order: [[4, "desc"]]
+            });
+
+            $("#Seller").on("change", function () {
+                var Seller = $(this).val();
+                var Buyer = $("#Buyer").val();
+                var Note = $("#Note").val();
+                var search = $("#Search").val();
+                window.location.href = "/Admin/RejectedNotes?search=" + search + "&seller=" + Seller;
+            })
+
+            $(".search-btn").on("click", function () {
+                var Seller = $("#Seller").val();
+                var Buyer = $("#Buyer").val();
+                var Note = $("#Note").val();
+                var search = $("#Search").val();
+                window.location.href = "/Admin/RejectedNotes?search=" + search + "&seller=" + Seller;
+            });
+
+            $("#download-btn").on("click", function () {
+                var noteid = $(this).attr("data-id");
+                window.location = "/User/DownloadFile?id=" + noteid;
+            });
+
+             $(".approve").on("click", function () {
+                var id = $(this).attr("id");
+                if (confirm("If you approve the notes – System will publish the notes over portal.Please press ok to continue."))
+                {
+                     $.ajax({
+                        method: "POST",
+                        url: "@Url.Action("Approve", "Admin")",
+                        data: { noteId: id },
+                        success: function () {
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    })
+                }
+            });
+        });
+    </script>
+}
 

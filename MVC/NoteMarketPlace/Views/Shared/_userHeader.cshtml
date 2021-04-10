@@ -70,8 +70,7 @@
     </header>
 }
 else
-{
-    
+{   
     int uid = (int)Session["userId"]; 
     string imgg = (string)Session["img"];
     <header>
@@ -107,7 +106,15 @@ else
                             <div class="dropdown">
                                 <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                    aria-expanded="false">
-                                    <img src="~/Members/@uid/@imgg" alt="">
+                                    @if (Session["defaultImg"] != null && Session["img"] == null)
+                                    {
+                                        string defaultimg = (string)Session["defaultImg"];
+                                        <img src="~/DefaultImages/@defaultimg" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Members/@uid/@imgg" alt="">
+                                    }
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                     @Html.ActionLink("My Profile", "UserProfile", "User", new { area = "" }, new { @class = "dropdown-item" })
@@ -147,6 +154,31 @@ else
                             </li>
                             <li>
                                 @Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "link" })
+                            </li>
+                            <li>
+                                <div class="dropdown">
+                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                       aria-expanded="false">
+                                        @if (Session["defaultImg"] != null && Session["img"] == null)
+                                        {
+                                            string defaultimg = (string)Session["defaultImg"];
+                                            <img src="~/DefaultImages/@defaultimg" alt="">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Members/@uid/@imgg" alt="">
+                                        }
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                        @Html.ActionLink("My Profile", "UserProfile", "User", new { area = "" }, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("My Download", "MyDownloads", "User", new { area = "" }, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("My Sold Notes", "MySoldNotes", "User", new { area = "" }, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("My Rejected Notes", "MyRejectedNotes", "User", new { area = "" }, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Change Password", "ChangeUserPassword", "Account", new { area = "" }, new { @class = "dropdown-item" })
+                                        
+                                        @Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, new { @class = "dropdown-item logout" })
+                                    </div>
+                                </div>
                             </li>
                             <li>
                                 @Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, new { @class = "btn link login-submit-btn" })

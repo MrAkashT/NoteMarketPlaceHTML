@@ -1,4 +1,4 @@
-﻿
+﻿@model NoteMarketPlace.ViewModel.SpamReportViewModel
 @{
     ViewBag.Title = "Reports";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -14,15 +14,15 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="form-inline relative note-search">
-                        <input type="text" class="form-control" placeholder="Search">
-                        <img class="search-icon" src="images/Dashboard/search.jpg" alt="">
+                        @Html.TextBoxFor(m => m.Search, new { @class = "form-control", placeholder = "Search" })
+                        <img class="search-icon" src="~/images/Dashboard/search.jpg" alt="">
                         <button class="btn search-btn">Search</button>
                     </div>
                 </div>
             </div>
 
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="spam-report">
                     <thead>
                         <tr>
                             <th scope="col" class="text-center">SR NO.</th>
@@ -36,147 +36,98 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="row" class="text-center">1</td>
-                            <td>Khyati Patel</td>
-                            <td>Software Development</td>
-                            <td>IT</td>
-                            <td>09-10-2020, 10:10</td>
-                            <td>Lorem ipsum is simply dummy text</td>
-                            <td class="text-center"><img src="images/admin/delete.png" alt=""></td>
-                            <td class="text-center">
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="options">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
+                        @{ var i = 1;}
+                        @foreach (var note in Model.Reports)
+                        {
+                            <tr>
+                                <td scope="row" class="text-center">@i</td>
+                                <td>@note.ReportedBy</td>
+                                <td style="cursor: pointer;" onclick="window.location.href='@Url.Action("ViewNote", "User", new { id = note.Id })'"
+                                    >@note.Title</td>
+                                <td>@note.Category</td>
+                                <td  data-order="@note.DateAdded.ToString("MMddyyyyHHmmss")"
+                                    >@note.DateAdded.ToString("dd-MM-yyyy, HH:ss")</td>
+                                <td>@note.Remark</td>
+                                <td class="text-center">
+                                   <img style="cursor: pointer;" class="dlt-btn" id="@note.reportId" src="~/images/admin/delete.png" alt="">
+                                </td>
+                                <td class="text-center">
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            <img src="~/images/admin/dots.png" alt="options">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                             aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item download-btn" id="@note.Id" href="javascript:void(0)">Download Notes</a>
+                                            <a class="dropdown-item" href="@Url.Action("ViewNote", "User", new { id = note.Id })">View More Details</a>
 
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center" scope="row">2</td>
-                            <td>Rahul Shah</td>
-                            <td>Computer Basics</td>
-                            <td>Computer</td>
-                            <td>10-10-2020, 11:25   </td>
-                            <td>Lorem ipsum is simply dummy text</td>
-                            <td class="text-center"><img src="images/admin/delete.png" alt=""></td>
-                            <td class="text-center">
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="options">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
-
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center" scope="row">3</td>
-                            <td>Suman Trivedi</td>
-                            <td>Human Body</td>
-                            <td>Science</td>
-                            <td>11-10-2020, 01:00</td>
-                            <td>Lorem ipsum is simply dummytext</td>
-                            <td class="text-center"><img src="images/admin/delete.png" alt=""></td>
-                            <td class="text-center">
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="options">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
-
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center" scope="row">4</td>
-                            <td>Raj Malhotra</td>
-                            <td>World War 2</td>
-                            <td>History</td>
-                            <td>12-10-2020, 10:10</td>
-                            <td>Lorem ipsum is simply dummy text</td>
-                            <td class="text-center"><img src="images/admin/delete.png" alt=""></td>
-                            <td class="text-center">
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="options">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
-
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center" scope="row">5</td>
-                            <td>Niya Patel</td>
-                            <td>Accounting</td>
-                            <td>Account</td>
-                            <td>13-10-2020, 11:25</td>
-                            <td>Lorem ipsum is simply dummy text</td>
-                            <td class="text-center"><img src="images/admin/delete.png" alt=""></td>
-                            <td class="text-center">
-                                <div class="dropdown">
-                                    <a type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/admin/dots.png" alt="options">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Download Notes</a>
-                                        <a class="dropdown-item" href="#">View More Details</a>
-
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                            i++;
+                        }
 
                     </tbody>
                 </table>
             </div>
 
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true"><i class="fa fa-chevron-left"></i><span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link active" href="">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
         </div>
     </div>
 </section>
 
+@Html.Partial("_adminFooter")
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#spam-report").DataTable({
+                pagingtype: "simple_numbers",
+                columndefs: [
+                    {
+                        orderable: false, targets: 6
+                    },
+                    {
+                        type: "datetime", targets: 4
+                    }
+                ],
+                language: {
+                    paginate: {
+                        next: '<i class="fa fa-chevron-right"></i>',
+                        previous: '<i class="fa fa-chevron-left"></i>'
+                    }
+                },
+                order: [[4, "desc"]]
+            });
+
+            $(".search-btn").on("click", function () {
+                var search = $("#Search").val();
+                window.location.href = "/Admin/Reports?search=" + search;
+            })
+
+            $(".download-btn").on("click", function () {
+                var noteid = $(this).attr("id");
+                window.location = "/User/DownloadFile?id=" + noteid;
+            });
+            $(".dlt-btn").on("click", function () {
+                if (confirm("Are you sure you want to delete reported issue?")) {
+                    var id = $(this).attr("id");
+                    $.ajax({
+                        method: "POST",
+                        url: "@Url.Action("RemoveIssue","Admin")",
+                        data: { id: id },
+                        success: function () {
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    })
+                }
+                
+            });
+        });
+    </script>
+}

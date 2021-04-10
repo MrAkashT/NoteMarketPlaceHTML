@@ -1,0 +1,118 @@
+﻿@model NoteMarketPlace.ViewModel.MyProfileViewModel
+@{
+    ViewBag.Title = "UpdateProfile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("_adminHeader")
+<section id="my-profile-page" class="top-margin for-footer-at-bottom">
+    <div class="content-box">
+        <div class="container">
+            @using (Html.BeginForm("UpdateAdminProfile", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                <!-- Basic Profile Details -->
+                <div id="my-profile-details">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2 class="heading-md">My Profile</h2>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Admin.FirstName)
+                                @Html.TextBoxFor(m => m.Admin.FirstName, new
+                                {
+                                    @class = "form-control input-box",
+                                    placeholder = "Enter Your First Name"
+                                })
+                                @Html.ValidationMessageFor(m => m.Admin.FirstName)
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Admin.LastName)
+                                @Html.TextBoxFor(m => m.Admin.LastName, new
+                                {
+                                    @class = "form-control input-box",
+                                    placeholder = "Enter Your First Name"
+                                })
+                                @Html.ValidationMessageFor(m => m.Admin.LastName)
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Admin.Email)
+                                @Html.TextBoxFor(m => m.Admin.Email, new
+                                {
+                                    @class = "form-control input-box",
+                                    placeholder = "Enter Your Email Address",
+                                    @readonly = "readonly"
+                                })
+                                @Html.ValidationMessageFor(m => m.Admin.Email)
+                                @Html.ValidationMessage("Exist")
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Admin.SecondaryEmail)
+                                @Html.TextBoxFor(m => m.Admin.SecondaryEmail, new
+                                {
+                                    @class = "form-control input-box",
+                                    placeholder = "Enter Your Email Address"
+                                })
+                                @Html.ValidationMessageFor(m => m.Admin.SecondaryEmail)
+                                @Html.ValidationMessage("Exist")
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Admin.CountryCodeId) &nbsp;
+                                @Html.ValidationMessageFor(m => m.Admin.CountryCodeId)
+                                @Html.ValidationMessageFor(m => m.Admin.PhoneNumber)
+
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-3" id="select-country-code">
+                                        @Html.DropDownListFor(m => m.Admin.CountryCodeId, new SelectList(Model.Countries, "CountryCode", "CountryCode"),
+                                                                "Code", new { @class = "form-control input-box remove-arrow", style = "margin:0;" })
+
+                                        <img src="../../images/User-Profile/down-arrow.png" class="down-arrow" alt="">
+                                    </div>
+                                    <div class="col-lg-10 col-md-9 col-sm-9 col-9">
+                                        @Html.TextBoxFor(m => m.Admin.PhoneNumber, new
+                                        {
+                                            type = "tel",
+                                            @class = "form-control input-box",
+                                            placeholder = "Enter Your Phone Number",
+                                            style = "margin:0;"
+                                        })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group relative">
+                                @Html.LabelFor(m => m.Admin.AdminImage)
+                                <div class="file-upload-box" id="note-preview-box">
+
+                                    @Html.TextBoxFor(m => m.Admin.AdminImage, new
+                                    {
+                                       @class = "form-control input-box relative",
+                                       type = "file"
+                                    })
+                                    @Html.ValidationMessageFor(m => m.Admin.AdminImage)
+                                    @Html.ValidationMessage("user pic format")
+
+                                </div>
+                                <div class="text-center for-upload-center">
+                                    <img src="~/images/User-Profile/upload.png" alt="">
+                                    <p>Upload a Picture</p>
+                                </div>
+                            </div>
+
+                            @Html.HiddenFor(m => m.Admin.Id)
+                            <button type="submit" class="btn submit-btn">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_adminFooter")

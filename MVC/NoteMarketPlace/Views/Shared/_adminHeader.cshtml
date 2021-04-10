@@ -1,122 +1,211 @@
-﻿
-<header>
-    <nav class="navbar navbar-expand-md fixed-top white-navbar">
-        <div class="container nav-wrapper">
+﻿@if (Session["admin"] == null)
+{
+    <header>
+        <nav class="navbar navbar-expand-md fixed-top white-navbar">
+            <div class="container nav-wrapper">
 
-            <!-- Mobile Menu Open Button -->
-            <span id="mobile-nav-open-btn">&#9776;</span>
+                <!-- Mobile Menu Open Button -->
+                <span id="mobile-nav-open-btn">&#9776;</span>
 
-            <div class="navbar-header">
-                <a href="#" class="navbar-brand">
-                    <img id="logo" class="img-fluid" src="~/images/User-Profile/logo.png" alt="logo">
-                </a>
-            </div>
-
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav ml-auto">
-                    @*<li class="nav-item"><a class="nav-link active" href="dashboard-page.html">Dashboard</a></li>*@
-                    <li class="nav-item">
-                        @Html.ActionLink("Dashboard", "Dashboard", "Admin", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <span type="button" id="dropdownMenuButton" class="nav-link" data-toggle="dropdown" aria-haspopup="true"
-                               aria-expanded="false">Notes</span>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                @Html.ActionLink("Notes Under Review", "NotesUnderReview", "Admin", new { area = "" }, new { @class = "dropdown-item" })
-                                @Html.ActionLink("Published Notes", "PublishedNotes", "Admin", new { area = "" }, new { @class = "dropdown-item" })
-                                @Html.ActionLink("Downloaded Notes", "DownloadedNotes", "Admin", new { area = "" }, new { @class = "dropdown-item" })
-                                @Html.ActionLink("Rejected Notes", "RejectedNotes", "Admin", new { area = "" }, new { @class = "dropdown-item" })
-                                @*<a class="dropdown-item" href="notesUnderReview-page.html">Notes Under Review</a>
-                    <a class="dropdown-item" href="published-notes-page.html">Published Notes</a>
-                    <a class="dropdown-item" href="download-notes-page.html">Downloaded Notes</a>
-                    <a class="dropdown-item" href="rejected-notes-page.html">Rejected Notes</a>*@
-
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Members", "Members", "Admin", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Reports", "Reports", "Admin", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    @*<li class="nav-item"><a class="nav-link" href="#">Settings</a></li>*@
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <span type="button" id="dropdownMenuButton" class="nav-link" data-toggle="dropdown" aria-haspopup="true"
-                               aria-expanded="false">Settings</span>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                @Html.ActionLink("Manage System Configuration", "ManageSystem", "Admin", new { area = "" }, new { @class = "dropdown-item" })
-                                @Html.ActionLink("Manage Administartor", "ManageAdministrator", "Admin", new { area = "" }, new { @class = "dropdown-item" })
-                                @Html.ActionLink("Manage Category", "ManageCategory", "Admin", new { area = "" }, new { @class = "dropdown-item" })
-                                @Html.ActionLink("Manage Type", "ManageTye", "Admin", new { area = "" }, new { @class = "dropdown-item" })
-                                @Html.ActionLink("Manage Countries", "ManageCountries", "Admin", new { area = "" }, new { @class = "dropdown-item" })
-                            
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="dropdown">
-                            <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                               aria-expanded="false">
-                                <img src="~/images/admin/user-img.png" alt="">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Update Profile</a>
-                                <a class="dropdown-item" href="#">Change Password</a>
-                                <a class="dropdown-item logout" href="login-page.html">Logout</a>
-
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item"><a href="login-page.html" class="btn nav-link login-submit-btn">Logout</a></li>
-                </ul>
-            </div>
-
-            <!-- Mobile Menu -->
-            <div id="mobile-nav">
-                <!-- Mobile Menu Close Button -->
-                <span id="mobile-nav-close-btn">&times;</span>
-                <img class="logo" src="~/images/User-Profile/logo.png" alt="logo">
-                <div id="mobile-nav-content">
-                    <ul class="nav">
-                        <li><a class="link active" href="dashboard-page.html">Dashboard</a></li>
-                        <li>
-                            <div class="dropdown" style="width: 60px;">
-                                <button type="button" id="dropdownMenuButton" class="nav-link" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false" role="button">
-                                    Notes
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="notesUnderReview-page.html">Notes Under Review</a>
-                                    <a class="dropdown-item" href="published-notes-page.html">Published Notes</a>
-                                    <a class="dropdown-item" href="download-notes-page.html">Downloaded Notes</a>
-                                    <a class="dropdown-item" href="rejected-notes-page.html">Rejected Notes</a>
-
-                                </div>
-                            </div>
+                <div class="navbar-header">
+                    <a href="@Url.Action("Index", "Home", new { @class = "navbar-brand" }, null)">
+                        <img id="logo" class="img-fluid" src="~/images/User-Profile/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            @Html.ActionLink("Search Notes", "SearchNotes", "Home", new { area = "" }, new { @class = "nav-link" })
                         </li>
-                        <li><a class="link" href="member-page.html">Members</a></li>
-                        <li><a class="link" href="spamReport-page.html">Reports</a></li>
-                        <li><a class="link" href="#">Setting</a></li>
-                        <li>
-                            <div class="dropdown" style="width:50px;">
-                                <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                    <img class="user" src="~/images/admin/user-img.png" alt="">
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Update Profile</a>
-                                    <a class="dropdown-item" href="#">Change Password</a>
-                                    <a class="dropdown-item logout" href="login-page.html">Logout</a>
-                                </div>
-                            </div>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Sell Your Notes", "Login", "Account", new { area = "" }, new { @class = "nav-link" })
                         </li>
-                        <li><a class="btn login-submit-btn link" href="login-page.html">Logout</a></li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("FAQ", "FAQ", "Home", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "btn nav-link login-submit-btn" })
+                        </li>
+
                     </ul>
                 </div>
+
+                <!-- Mobile Menu -->
+                <div id="mobile-nav">
+                    <!-- Mobile Menu Close Button -->
+                    <span id="mobile-nav-close-btn">&times;</span>
+                    <img class="logo" src="~/images/User-Profile/logo.png" alt="">
+                    <div id="mobile-nav-content">
+                        <ul class="nav">
+
+                            <li>
+                                @Html.ActionLink("Search Notes", "SearchNotes", "Home", new { area = "" }, new { @class = "link" })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Sell Your Notes", "Login", "Account", new { area = "" }, new { @class = "link" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink("FAQ", "FAQ", "Home", new { area = "" }, new { @class = "link" })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "link" })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "btn link login-submit-btn" })
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
+}
+else
+{
+    int uid = (int)Session["admin"];
+    string imgg = (string)Session["AdminImg"];
+    <header>
+        <nav class="navbar navbar-expand-md fixed-top white-navbar">
+            <div class="container nav-wrapper">
+
+                <!-- Mobile Menu Open Button -->
+                <span id="mobile-nav-open-btn">&#9776;</span>
+
+                <div class="navbar-header">
+                    <a href="" class="navbar-brand">
+                        <img id="logo" class="img-fluid" src="~/images/User-Profile/logo.png" alt="logo">
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav ml-auto">
+                        @*<li class="nav-item"><a class="nav-link active" href="dashboard-page.html">Dashboard</a></li>*@
+                        <li class="nav-item">
+                            @Html.ActionLink("Dashboard", "Dashboard", "Admin", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <span type="button" id="dropdownMenuButton" class="nav-link" data-toggle="dropdown" aria-haspopup="true"
+                                      aria-expanded="false">Notes</span>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    @Html.ActionLink("Notes Under Review", "NotesUnderReview", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+                                    @Html.ActionLink("Published Notes", "PublishedNotes", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+                                    @Html.ActionLink("Downloaded Notes", "DownloadedNotes", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+                                    @Html.ActionLink("Rejected Notes", "RejectedNotes", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Members", "Members", "Admin", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <span type="button" id="dropdownMenuButton" class="nav-link" data-toggle="dropdown" aria-haspopup="true"
+                                      aria-expanded="false">Reports</span>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    @Html.ActionLink("Spam Report", "Reports", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <span type="button" id="dropdownMenuButton" class="nav-link" data-toggle="dropdown" aria-haspopup="true"
+                                      aria-expanded="false">Settings</span>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    @if (Session["super admin"] != null)
+                                    {
+                                        @Html.ActionLink("Manage System Configuration", "ManageSystemConfiguration", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Manage Administartor", "ManageAdministrator", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+
+                                    }
+                                    @Html.ActionLink("Manage Category", "ManageCategory", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+                                    @Html.ActionLink("Manage Type", "ManageType", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+                                    @Html.ActionLink("Manage Countries", "ManageCountries", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dropdown">
+                                <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    @if (Session["defaultImg"] != null && Session["AdminImg"] == null)
+                                    {
+                                        string defaultimg = (string)Session["defaultImg"];
+                                        <img src="~/DefaultImages/@defaultimg" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Members/@uid/@imgg" alt="">
+                                    }
+                                    
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="@Url.Action("UpdateProfile", "Admin")">Update Profile</a>
+                                    <a class="dropdown-item" href="@Url.Action("ChangeUserPassword", "Account")">Change Password</a>
+                                    <a class="dropdown-item logout" href="@Url.Action("Logout", "Account")">Logout</a>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a href="@Url.Action("Logout", "Account")" class="btn nav-link login-submit-btn">Logout</a></li>
+                    </ul>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div id="mobile-nav">
+                    <!-- Mobile Menu Close Button -->
+                    <span id="mobile-nav-close-btn">&times;</span>
+                    <img class="logo" src="~/images/User-Profile/logo.png" alt="logo">
+                    <div id="mobile-nav-content">
+                        <ul class="nav">
+                            <li><a class="link active" href="dashboard-page.html">Dashboard</a></li>
+                            <li>
+                                <div class="dropdown" style="width: 60px;">
+                                    <button type="button" id="dropdownMenuButton" class="nav-link" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false" role="button">
+                                        Notes
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        @Html.ActionLink("Manage System Configuration", "ManageSystemConfiguration", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Manage Administartor", "ManageAdministrator", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Manage Category", "ManageCategory", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Manage Type", "ManageType", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Notes Under Review", "NotesUnderReview", "Admin", new { area = "" }, new { @class = "dropdown-item" })
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="link" href="member-page.html">Members</a></li>
+                            <li><a class="link" href="spamReport-page.html">Reports</a></li>
+                            <li><a class="link" href="#">Setting</a></li>
+                            <li>
+                                <div class="dropdown" style="width:50px;">
+                                    <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        <img class="user" src="~/images/admin/user-img.png" alt="">
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="@Url.Action("UpdateProfile", "Admin")">Update Profile</a>
+                                        <a class="dropdown-item" href="@Url.Action("ChangeUserPassword", "Account")">Change Password</a>
+                                        <a class="dropdown-item logout" href="@Url.Action("Logout", "Account")">Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="btn login-submit-btn link" href="@Url.Action("Logout", "Account")">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+}

@@ -1,4 +1,10 @@
-﻿
+﻿@using NoteMarketPlace.DbContext;
+@{ 
+    MyDbContext _context = new MyDbContext();
+    var fb = _context.GetIconUrl("facebook url");
+    var twitter = _context.GetIconUrl("twitter url");
+    var linkedin = _context.GetIconUrl("linkedin url");
+}
 <footer>
     <div class="content-box-sm">
         <div class="container">
@@ -6,9 +12,9 @@
                 <div class="col-md-12 footer-elements">
                     <p>Copyright &copy; Tatvasoft All rights reserved.</p>
                     <ul class="social-icons text-center ml-auto">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="@fb"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="@twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="@linkedin"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
             </div>

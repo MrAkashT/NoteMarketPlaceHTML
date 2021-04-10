@@ -1,0 +1,119 @@
+﻿@model NoteMarketPlace.ViewModel.ManageViewModel
+@{
+    ViewBag.Title = "ManageCountries";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.Partial("_adminHeader")
+<section id="manage-country" class="top-margin manage for-footer-at-bottom">
+    <div class="content-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <h2 class="heading-md">Manage Country</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <button class="btn admin-add-btn" onclick="window.location.href = '@Url.Action("AddCountries", "Admin")'"
+                            >Add Country</button>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-inline relative note-search">
+                        @Html.TextBoxFor(m => m.Search, new { @class = "form-control", placeholder = "Search" })
+                        <img class="search-icon" src="~/images/Dashboard/search.jpg" alt="">
+                        <button class="btn search-btn">Search</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table" id="manage-countries">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">SR NO.</th>
+                            <th scope="col">COUNTRY NAME</th>
+                            <th scope="col" class="text-center">COUNTRY CODE</th>
+                            <th scope="col">DATE ADDED</th>
+                            <th scope="col">ADDED BY</th>
+                            <th scope="col" class="text-center">ACTIVE</th>
+                            <th scope="col" class="text-center">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var i = 1; }
+                        @foreach (var country in Model.Manages)
+                        {
+                            <tr>
+                                <td scope="row" class="text-center">@i</td>
+                                <td>@country.Name</td>
+                                <td class="text-center">@country.CountryCode</td>
+                                <td data-order="@country.DateAdded.ToString("MMddyyyyHHmmss")">
+                                    @country.DateAdded.ToString("dd-MM-yyyy, HH:mm")</td>
+                                <td>@country.AddedBy</td>
+                                <td class="text-center">@country.Active</td>
+                                <td class="text-center">
+                                    <img style="cursor:pointer"
+                                         onclick="window.location.href='@Url.Action("UpdateCountry", "Admin", new { id = country.Id })'"
+                                         src="~/images/admin/edit.png" alt="edit">&nbsp;&nbsp;
+                                    <img style="cursor:pointer" class="delete" id="@country.Id"
+                                         src="~/images/admin/delete.png" alt="dlt">
+                                </td>
+                            </tr>
+                            i++;
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</section>
+@Html.Partial("_adminFooter")
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#manage-countries").DataTable({
+                pagingtype: "simple_numbers",
+                columndefs: [
+                    {
+                        orderable: false, targets: 6
+                    },
+                    {
+                        type: "datetime", targets: 3
+                    }
+                ],
+                language: {
+                    paginate: {
+                        next: '<i class="fa fa-chevron-right"></i>',
+                        previous: '<i class="fa fa-chevron-left"></i>'
+                    }
+                },
+                order: [[3, "desc"]]
+            });
+
+            $(".search-btn").on("click", function () {
+                var search = $("#Search").val();
+                window.location = "/Admin/ManageCountries?search=" + search;
+            })
+
+            $(".delete").on("click", function () {
+                var id = $(this).attr("id");
+                if (confirm("Are you sure you want to make this country inactive?")) {
+                    $.ajax({
+                        method: "POSt",
+                        url: "@Url.Action("DeleteCountry", "Admin")",
+                        data: { id: id },
+                        success: function () {
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    })
+                }
+            });
+        })
+    </script>
+}

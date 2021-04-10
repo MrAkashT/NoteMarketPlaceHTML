@@ -24,6 +24,18 @@
 #my-sold-notes-table_wrapper .row:first-child .col-sm-6,
 #my-download-notes-table_wrapper .row:first-child .col-sm-6,
 #my-rejected-notes-table_wrapper .row:first-child .col-sm-6,
+#admin-published-notes_wrapper .row:first-child .col-sm-6,
+#under-review_wrapper .row:first-child .col-sm-6,
+#admin-published-notes-table_wrapper .row:first-child .col-sm-6,
+#admin-downloaded-notes-table_wrapper .row:first-child .col-sm-6,
+#admin-rejected-notes-table_wrapper .row:first-child .col-sm-6,
+#members_wrapper .row:first-child .col-sm-6,
+#member-details_wrapper .row:first-child .col-sm-6,
+#spam-report_wrapper .row:first-child .col-sm-6,
+#manage-categories_wrapper .row:first-child .col-sm-6,
+#manage-types_wrapper .row:first-child .col-sm-6,
+#manage-countries_wrapper .row:first-child .col-sm-6,
+#manage-admins_wrapper .row:first-child .col-sm-6,
 #buyerReq_wrapper .row:first-child .col-sm-6 {
     display: none;
 }
@@ -31,6 +43,18 @@
 #my-sold-notes-table_wrapper .row:nth-child(2),
 #my-download-notes-table_wrapper .row:nth-child(2),
 #my-rejected-notes-table_wrapper .row:nth-child(2),
+#admin-published-notes_wrapper .row:nth-child(2),
+#under-review_wrapper .row:nth-child(2),
+#admin-published-notes-table_wrapper .row:nth-child(2),
+#admin-downloaded-notes-table_wrapper .row:nth-child(2),
+#admin-rejected-notes-table_wrapper .row:nth-child(2),
+#members_wrapper .row:nth-child(2),
+#member-details_wrapper .row:nth-child(2),
+#spam-report_wrapper .row:nth-child(2),
+#manage-categories_wrapper .row:nth-child(2),
+#manage-types_wrapper .row:nth-child(2),
+#manage-countries_wrapper .row:nth-child(2),
+#manage-admins_wrapper .row:nth-child(2),
 #buyerReq_wrapper .row:nth-child(2) {
     width: 100%;
 }
@@ -38,6 +62,18 @@
 #my-sold-notes-table_wrapper .row:nth-child(3),
 #my-download-notes-table_wrapper .row:nth-child(3),
 #my-rejected-notes-table_wrapper .row:nth-child(3),
+#admin-published-notes_wrapper .row:nth-child(3),
+#under-review_wrapper .row:nth-child(3),
+#admin-published-notes-table_wrapper .row:nth-child(3),
+#admin-downloaded-notes-table_wrapper .row:nth-child(3),
+#admin-rejected-notes-table_wrapper .row:nth-child(3),
+#members_wrapper .row:nth-child(3),
+#member-details_wrapper .row:nth-child(3),
+#spam-report_wrapper .row:nth-child(3),
+#manage-categories_wrapper .row:nth-child(3),
+#manage-types_wrapper .row:nth-child(3),
+#manage-countries_wrapper .row:nth-child(3),
+#manage-admins_wrapper .row:nth-child(3),
 #buyerReq_wrapper .row:nth-child(3) {
     justify-content: center;
     width: 100%;
@@ -47,6 +83,18 @@
 #my-sold-notes-table_wrapper .row:nth-child(3) .col-sm-5,
 #my-download-notes-table_wrapper .row:nth-child(3) .col-sm-5,
 #my-rejected-notes-table_wrapper .row:nth-child(3) .col-sm-5,
+#admin-published-notes_wrapper .row:nth-child(3) .col-sm-5,
+#under-review_wrapper .row:nth-child(3) .col-sm-5,
+#admin-published-notes-table_wrapper .row:nth-child(3) .col-sm-5,
+#admin-downloaded-notes-table_wrapper .row:nth-child(3) .col-sm-5,
+#admin-rejected-notes-table_wrapper .row:nth-child(3) .col-sm-5,
+#members_wrapper .row:nth-child(3) .col-sm-5,
+#member-details_wrapper .row:nth-child(3) .col-sm-5,
+#spam-report_wrapper .row:nth-child(3) .col-sm-5,
+#manage-categories_wrapper .row:nth-child(3) .col-sm-5,
+#manage-types_wrapper .row:nth-child(3) .col-sm-5,
+#manage-countries_wrapper .row:nth-child(3) .col-sm-5,
+#manage-admins_wrapper .row:nth-child(3) .col-sm-5,
 #buyerReq_wrapper .row:nth-child(3) .col-sm-5 {
     display: none;
 }
@@ -54,6 +102,18 @@
 #my-sold-notes-table_previous a,
 #my-download-notes-table_wrapper_previous a,
 #my-rejected-notes-table_wrapper_previous a,
+#admin-published-notes_wrapper_previous a,
+#under-review_wrapper_previous a,
+#admin-published-notes-table_wrapper_previous a,
+#admin-downloaded-notes-table_wrapper_previous a,
+#admin-rejected-notes-table_wrapper_previous a,
+#members_wrapper_previous a,
+#member-details_wrapper_previous a,
+#spam-report_wrapper_previous a,
+#manage-categories_wrapper_previous a,
+#manage-types_wrapper_previous a,
+#manage-countries_wrapper_previous a,
+#manage-admins_wrapper_previous a,
 #buyerReq_wrapper a {
     border: none;
 }

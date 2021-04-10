@@ -1,4 +1,4 @@
-﻿
+﻿@model NoteMarketPlace.ViewModel.NotesUnderReviewViewModel
 @{
     ViewBag.Title = "NotesUnderReview";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -15,26 +15,24 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="seller">Seller</label>
-                        <select id="seller" class="form-control remove-arrow admin-select">
-                            <option value="">Khyati</option>
-                            <option value="">Rahil</option>
-                            <option value="">Suman</option>
-                        </select>
+                        @Html.LabelFor(m => m.Seller, new { style="margin-bottom: 10px;"})
+                        @Html.DropDownListFor(m => m.Seller, new SelectList(Model.Sellers, "ID", "FirstName"), "Select Seller", new { @class = "form-control remove-arrow admin-select" })
+                       
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="form-inline form-group relative note-search">
-                        <label for=""></label>
-                        <input type="text" class="form-control" placeholder="Search">
-                        <img class="search-icon" src="images/Dashboard/search.jpg" alt="">
+                        @Html.TextBoxFor(m => m.Search, new { @class="form-control", placeholder = "Search"})
+                        @*<label for=""></label>
+                        <input type="text" class="form-control" placeholder="Search">*@
+                        <img class="search-icon" src="~/images/Dashboard/search.jpg" alt="">
                         <button class="btn search-btn">Search</button>
                     </div>
                 </div>
             </div>
 
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="under-review">
                     <thead>
                         <tr>
                             <th scope="col" class="text-center">SR NO.</th>
@@ -49,107 +47,179 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="row" class="text-center">1</td>
-                            <td>Software Engineer</td>
-                            <td>IT</td>
-                            <td>Khyati Patel</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>09-10-2020, 10:10</td>
-                            <td>inReview</td>
-                            <td class="text-center">
-                                <button class="btn btn-success">Approve</button>
-                                <button class="btn btn-danger">Reject</button>
-                                <button class="btn btn-secondary">inReview</button>
-                            </td>
-                            <td><img src="images/admin/dots.png" alt="dropdown-dots-menu"></td>
-                        </tr>
-                        <tr>
-                            <td scope="row" class="text-center">2</td>
-                            <td>Computer Basics</td>
-                            <td>Computer</td>
-                            <td>Khyati Patel</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>10-10-2020, 11:25</td>
-                            <td>Submitted for Review</td>
-                            <td class="text-center">
-                                <button class="btn btn-success">Approve</button>
-                                <button class="btn btn-danger">Reject</button>
-                                <button class="btn btn-secondary">inReview</button>
-                            </td>
-                            <td><img src="images/admin/dots.png" alt="dropdown-dots-menu"></td>
-                        </tr>
-                        <tr>
-                            <td scope="row" class="text-center">3</td>
-                            <td>Human Body</td>
-                            <td>Science</td>
-                            <td>Khyati Patel</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>11-10-2020, 01:00</td>
-                            <td>inReview</td>
-                            <td class="text-center">
-                                <button class="btn btn-success">Approve</button>
-                                <button class="btn btn-danger">Reject</button>
-                                <button class="btn btn-secondary">inReview</button>
-                            </td>
-                            <td><img src="images/admin/dots.png" alt="dropdown-dots-menu"></td>
-                        </tr>
-                        <tr>
-                            <td scope="row" class="text-center">4</td>
-                            <td>World War 2</td>
-                            <td>History</td>
-                            <td>Khyati Patel</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>12-10-2020, 10:10</td>
-                            <td>inReview</td>
-                            <td class="text-center">
-                                <button class="btn btn-success">Approve</button>
-                                <button class="btn btn-danger">Reject</button>
-                                <button class="btn btn-secondary">inReview</button>
-                            </td>
-                            <td><img src="images/admin/dots.png" alt="dropdown-dots-menu"></td>
-                        </tr>
-                        <tr>
-                            <td scope="row" class="text-center">5</td>
-                            <td>Accounting</td>
-                            <td>Account</td>
-                            <td>Khyati Patel</td>
-                            <td><img src="images/admin/eye.png" alt=""></td>
-                            <td>13-10-2020, 11:25</td>
-                            <td>inReview</td>
-                            <td class="text-center">
-                                <button class="btn btn-success">Approve</button>
-                                <button class="btn btn-danger">Reject</button>
-                                <button class="btn btn-secondary">inReview</button>
-                            </td>
-                            <td><img src="images/admin/dots.png" alt="dropdown-dots-menu"></td>
-                        </tr>
+                       
+                        @{ var i = 1;}
+                        @foreach (var note in Model.UnderReviewNotes)
+                        {
+                            <tr>
+                                <td scope="row" class="text-center">@i</td>
+                                <td style="cursor:pointer;" onclick="window.location.href='@Url.Action("ViewNote", "User", new { id = note.Id })'">@note.Title</td>
+                                <td>@note.Category</td>
+                                <td>@note.Seller</td>
+                                <td><img src="~/images/admin/eye.png" alt=""></td>
+                                <td data-order="@note.DateAdded.ToString("MMddyyyyHHmmss")"
+                                    >@note.DateAdded.ToString("dd-MM-yyyy, HH:mm")</td>
+                                <td>@note.Status</td>
+                                <td class="text-center">
+                                    <button class="btn btn-success approve" id="@note.Id">Approve</button>
+                                    <button class="btn btn-danger reject" id="@note.Id" data-title="@note.Title" data-cat="@note.Category">Reject</button>
+                                    <button class="btn btn-secondary inreview" id="@note.Id">inReview</button>
+                                </td>
+                                <td><img src="~/images/admin/dots.png" alt="dropdown-dots-menu"></td>
+                            </tr>
+                            i++;
+                        }
 
                     </tbody>
                 </table>
             </div>
 
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true"><i class="fa fa-chevron-left"></i><span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link active" href="">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
+           
         </div>
     </div>
 </section>
+@Html.Partial("_adminFooter")
+@section scripts 
+{
+    <script>
+        $(document).ready(function () {
 
+            $("#under-review").DataTable({
+                pagingtype: "simple_numbers",
+                columndefs: [
+                    {
+                        orderable: false, targets: 4
+                    },
+                    {
+                        type: "date", targets: 5
+                    } 
+                ],
+                language: {
+                    paginate: {
+                        next: '<i class="fa fa-chevron-right"></i>',
+                        previous: '<i class="fa fa-chevron-left"></i>'
+                    }
+                },
+                order: [[5, "asc"]]
+            });
+
+
+            $("#Seller").on("change", function () {
+                var name = $(this).val();
+                var search = $("#Search").val()
+                window.location.href = "/Admin/NotesUnderReview?search=" + search + "&name=" + name;
+            })
+
+            $(".search-btn").on("click", function () {
+                var name = $("#Seller").val();
+                var search = $("#Search").val()
+                window.location.href = "/Admin/NotesUnderReview?name=" + name + "&search=" + search;
+            });
+
+            $(".approve").on("click", function () {
+                var id = $(this).attr("id");
+                if (confirm("If you approve the notes – System will publish the notes over portal.Please press ok to continue."))
+                {
+                     $.ajax({
+                        method: "POST",
+                        url: "@Url.Action("Approve", "Admin")",
+                        data: { noteId: id },
+                        success: function () {
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    })
+                }
+            });
+            $(".inreview").on("click", function () {
+                var id = $(this).attr("id");
+                if (confirm("Via marking the note In Review – System will let user know that review process has been initiated.Please press yes to continue."))
+                {
+                     $.ajax({
+                        method: "POST",
+                        url: "@Url.Action("InReview", "Admin")",
+                        data: { noteId: id },
+                        success: function () {
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    })
+                }
+            });
+            $("#notes-under-review").on("click", ".reject", function () {
+                var id = $(this).attr("id");
+                var name = $(this).attr("data-title");
+              
+                var category = $(this).attr("data-cat");
+                var modal = `<!-- Modal -->
+                        <div class="modal fade" id="reject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                             aria-hidden="true">
+                            <div class="modal-dialog " role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button id="close-btn" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true"><img src="/images/Notes Details/close.png" alt=""></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" id="add-review-content">
+                                        <h2 class="heading-sm">${name}-${category}</h2>
+
+                                        <div class="form-group">
+                                            <label for="remark">Remarks *</label><br><br>
+                                            <textarea id="remark" style="color:#000;" class="form-control" placeholder="Write Remarks ..."></textarea>
+                                        </div>
+                                        <div style="margin-bottom:20px;">
+                                            <button class="btn btn-danger" data-id="${id}" id="reject-btn">Reject</button>
+                                            <button class="btn btn-primary" id="cancel-btn" style="border:none;background-color:grey";;>Cancel</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                $("#notes-under-review").append(modal);
+                $("#reject").modal("show");
+              
+            }).on("click", "#reject-btn", function () {
+
+                    var id = $(this).attr("data-id");
+                    var remark = $("#remark").val();
+
+                if (!remark) {
+                    $("<p id='remark-validation' style='color: red;'>Remarks is Required.</p>").insertAfter("#remark")
+                }
+                else {
+                    if (confirm("Are you sure you want to reject seller request?")) {
+                       $.ajax({
+                        method: "POST",
+                        url: "@Url.Action("Reject", "Admin")",
+                        data: { noteId: id, remark: remark },
+                        success: function () {
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    })
+                    }
+
+                }
+
+            }).on("click", "#cancel-btn", function () {
+                $("#remark").val("");
+                $("#remark-validation").remove();
+                $("#reject").modal("hide");
+
+            }).on("click","#close-btn", function () {
+                $("#remark").val("");
+                $("#remark-validation").remove();
+            });
+
+
+        });
+    </script>
+}

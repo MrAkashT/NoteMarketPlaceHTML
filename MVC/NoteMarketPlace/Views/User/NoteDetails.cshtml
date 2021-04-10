@@ -177,7 +177,12 @@
                                             <img src="~/Members/@review.SellerId/@review.pic" alt="">
                                         </div>
                                         <div class="col-md-11 col-sm-11 col-10">
-                                            <h4 class="heading-sm">@review.Name</h4>
+                                            <h4 class="heading-sm">@review.Name
+                                            @if (Session["admin"] != null)
+                                            {
+                                                <img src="~/images/admin/delete.png" class="dlt-btn" id="@review.Id" alt="delete-btn">
+                                            }
+                                            </h4>
                                             <span class="starss">
                                                 @for (int i = 1; i <= 5; i++)
                                                 {
@@ -265,7 +270,24 @@
                         });
                     }
                 }
-            })
+            });
+
+            $(".dlt-btn").on("click", function () {
+                 if (confirm("Are you sure you want to delete this review?")) {
+                    var id = $(this).attr("id");
+                    $.ajax({
+                        method: "POST",
+                        url: "@Url.Action("RemoveReview", "User")",
+                        data: { id: id },
+                        success: function () {
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    })
+                }
+            });
         });
     </script>
 }

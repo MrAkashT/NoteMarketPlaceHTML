@@ -158,9 +158,19 @@
       <DependentUpon>EntityModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Filter\AdminAuthFilter.cs" />
+    <Compile Include="Models\AddAdministrator.cs" />
+    <Compile Include="Models\AddCategory.cs" />
+    <Compile Include="Models\AddCountries.cs" />
+    <Compile Include="Models\AddType.cs" />
     <Compile Include="Models\AdminPublishedNotes.cs" />
+    <Compile Include="Models\AdminTable.cs" />
     <Compile Include="Models\ChangePassValidation.cs" />
     <Compile Include="Models\ChangePassword.cs" />
+    <Compile Include="Models\Manage.cs" />
+    <Compile Include="Models\ManageSystemConfiguration.cs" />
+    <Compile Include="Models\MemberDetails.cs" />
+    <Compile Include="Models\Members.cs" />
+    <Compile Include="Models\MyProfile.cs" />
     <Compile Include="Models\MyTable.cs" />
     <Compile Include="Models\ContactUs.cs" />
     <Compile Include="Models\DashBoard.cs" />
@@ -217,13 +227,21 @@
     <Compile Include="UserRole.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AddAdministratorViewModel.cs" />
     <Compile Include="ViewModel\AdminDashboardViewModel.cs" />
+    <Compile Include="ViewModel\AdminNotesViewModel.cs" />
+    <Compile Include="ViewModel\ManageViewModel.cs" />
+    <Compile Include="ViewModel\MemberDetailsViewModel.cs" />
+    <Compile Include="ViewModel\MembersViewModel.cs" />
+    <Compile Include="ViewModel\MyProfileViewModel.cs" />
+    <Compile Include="ViewModel\NotesUnderReviewViewModel.cs" />
     <Compile Include="ViewModel\BuyerReqViewModel.cs" />
     <Compile Include="ViewModel\DashBoardViewModel.cs" />
     <Compile Include="ViewModel\MyDownloadsViewModel.cs" />
     <Compile Include="ViewModel\MyRejectedNotesViewModel.cs" />
     <Compile Include="ViewModel\MySoldNotesViewModel.cs" />
     <Compile Include="ViewModel\NoteDetailsViewModel.cs" />
+    <Compile Include="ViewModel\SpamReportViewModel.cs" />
     <Compile Include="ViewModel\UserProfileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -757,9 +775,21 @@
     <Content Include="Views\Admin\RejectedNotes.cshtml" />
     <Content Include="Views\Admin\Members.cshtml" />
     <Content Include="Views\Admin\Reports.cshtml" />
+    <Content Include="Views\Admin\MemberDetails.cshtml" />
+    <Content Include="Views\Admin\ManageSystemConfiguration.cshtml" />
+    <Content Include="Views\Admin\ManageAdministrator.cshtml" />
+    <Content Include="Views\Admin\ManageCategory.cshtml" />
+    <Content Include="Views\Admin\ManageType.cshtml" />
+    <Content Include="Views\Admin\ManageCountries.cshtml" />
+    <Content Include="Views\Admin\AddCategory.cshtml" />
+    <Content Include="Views\Admin\AddType.cshtml" />
+    <Content Include="Views\Admin\AddCountries.cshtml" />
+    <Content Include="Views\Admin\UpdateProfile.cshtml" />
+    <Content Include="Views\Admin\AddAdministrator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DefaultImages\" />
     <Folder Include="Members\" />
     <Folder Include="UploadedFiles\" />
   </ItemGroup>

@@ -459,7 +459,7 @@ namespace NoteMarketPlace.Controllers
                 NoteId = noteInDb.ID,
                 Title = noteInDb.Title,
                 CategoryId = noteInDb.Category,
-                //DisplayPicture = noteInDb.DisplayPicture,
+                
                 NoteTypeId = noteInDb.NoteType,
                 NumberOfPages = noteInDb.NumberOfPages,
                 Description = noteInDb.Description,
@@ -470,7 +470,7 @@ namespace NoteMarketPlace.Controllers
                 Professor = noteInDb.Professor,
                 SellFor = noteSellForId,
                 SellPrice = noteInDb.SellingPrice,
-               // NotePreview = noteInDb.NotesPreview
+               
             };
 
             NoteDetailsViewModel NoteDetails = new NoteDetailsViewModel
@@ -1068,6 +1068,12 @@ namespace NoteMarketPlace.Controllers
             noteModel.Country = country;
             return View("NoteDetails", noteModel);
         }
+        [UserAuthFilter]
+        [HttpPost]
+        public void RemoveReview(int id)
+        {
+            userRepo.RemoveCustomerReview(id);
+        }
 
         [HttpPost]
         public ActionResult FilterNote(string searchVal, int CategoryId, int TypeId, string University, string Course, int CountryId, string rate)
@@ -1293,17 +1299,20 @@ namespace NoteMarketPlace.Controllers
                     Downloader = downloaderId,
                     IsSellerasAllowedDownload = true,
                     IsAttachmentDownload = true,
+                    AttachmentDownloadedDate = DateTime.Now,
                     IsPaid = note.IsPaid,
                     PurchasedPrice = note.SellingPrice,
                     NoteTitle = note.Title,
                     NoteCategory = categoryName,
                     CreatedDate = DateTime.Now,
-                    ModifiedDate = DateTime.Now
+                    CreatedBy = downloaderId,
+                    ModifiedDate = DateTime.Now,
+                    ModifiedBy = downloaderId
                 };
                 int downloadId = userRepo.AddDownload(buyerReq);
-                var data = userRepo.GetFromDownload(downloaderId);
-                data.AttachmentDownloadedDate = DateTime.Now;
-                userRepo.UpdateUp();
+                //var data = userRepo.GetFromDownload(downloaderId);
+                //data.AttachmentDownloadedDate = DateTime.Now;
+               // userRepo.UpdateUp();
                 return "Allow";
             }
             else 
@@ -1323,8 +1332,6 @@ namespace NoteMarketPlace.Controllers
                 }
             }
           
-
-
         }
 
         public ActionResult DownloadFile(int id)

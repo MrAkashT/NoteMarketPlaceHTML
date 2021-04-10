@@ -99,12 +99,43 @@ namespace NoteMarketPlace.Controllers
                     var role = userRepo.GetRoles(userInDb.RoleID);
                     if(role == "admin")
                     {
+                        var adminDetails = userRepo.GetUserProfileDetails(userInDb.ID);
+                        if (adminDetails.ProfilePicture == null)
+                        {
+                            var img = userRepo.GetDefaultUserPic("default image for user");
+                            Session["defaultImg"] = img;
+                        }
+                        else
+                        {
+                            Session["AdminImg"] = adminDetails.ProfilePicture;
+                        }
+
                         Session["admin"] = userInDb.ID;
                         return RedirectToAction("Dashboard", "Admin");
                     }
                     else if(role == "super admin")
-                    {  
+                    {
+                        var adminDetails = userRepo.GetUserProfileDetails(userInDb.ID);
+                        if(adminDetails != null)
+                        {
+                            if (adminDetails.ProfilePicture == null)
+                            {
+                                var img = userRepo.GetDefaultUserPic("default image for user");
+                                Session["defaultImg"] = img;
+                            }
+                            else
+                            {
+                                Session["AdminImg"] = adminDetails.ProfilePicture;
+                            }
+                        }
+                        else
+                        {
+                            var img = userRepo.GetDefaultUserPic("default image for user");
+                            Session["defaultImg"] = img;
+                        }
+
                         Session["admin"] = userInDb.ID;
+                        Session["super admin"] = userInDb.ID;
                         return RedirectToAction("Dashboard", "Admin");
                     }
                     else
@@ -112,10 +143,22 @@ namespace NoteMarketPlace.Controllers
                         var userFeelProfileDetails = userRepo.GetUserProfileInfo(userInDb.ID);
 
                         if (userFeelProfileDetails == null)
+                        {
+                            var img = userRepo.GetDefaultUserPic("default image for user");
+                            Session["defaultImg"] = img;
                             return RedirectToAction("UserProfile", "User");
+                        }  
                         else
                         {
-                            Session["img"] = userFeelProfileDetails.ProfilePicture;
+                            if (userFeelProfileDetails.ProfilePicture == null)
+                            {
+                                var img = userRepo.GetDefaultUserPic("default image for user");
+                                Session["defaultImg"] = img;
+                            }
+                            else 
+                            {
+                                Session["img"] = userFeelProfileDetails.ProfilePicture;
+                            }
                             return RedirectToAction("SearchNotes", "Home");
                         }
                     }
@@ -175,7 +218,6 @@ namespace NoteMarketPlace.Controllers
             };
             
             userModel.Id = userRepo.AddUser(createuser);
-
 
             var verifyUrl = "/Account/EmailVerify/" + userModel.Id;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
@@ -292,7 +334,7 @@ namespace NoteMarketPlace.Controllers
             }
                 
         }
-
+        [UserAuthFilter]
         public ActionResult ChangeUserPassword()
         {
             return View();

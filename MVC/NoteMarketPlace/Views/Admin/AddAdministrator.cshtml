@@ -1,0 +1,84 @@
+﻿@model NoteMarketPlace.ViewModel.AddAdministratorViewModel
+@{
+    ViewBag.Title = "AddAdministrator";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@Html.Partial("_adminHeader")
+<section id="add-administrator" class="top-margin for-footer-at-bottom">
+    <div class="content-box">
+        <div class="container">
+            @using (Html.BeginForm("SaveAdmin", "Admin", FormMethod.Post))
+            {
+                <!-- Basic Profile Details -->
+                <div id="profile-details">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <h2 class="heading-md">Add Administrator</h2>
+
+                            <div class="form-group box-grp">
+                                @Html.LabelFor(m => m.AddAdmin.FirstName)
+                                @Html.TextBoxFor(m => m.AddAdmin.FirstName, new { @class= "form-control input-box",
+                                    placeholder="Enter Your First Name"})
+                                @Html.ValidationMessageFor(m => m.AddAdmin.FirstName)
+                            </div>
+
+
+                            <div class="form-group box-grp">
+                                @Html.LabelFor(m => m.AddAdmin.LastName)
+                                @Html.TextBoxFor(m => m.AddAdmin.LastName, new
+                                {
+                                    @class = "form-control input-box",
+                                    placeholder = "Enter Your Last Name"
+                                })
+                                @Html.ValidationMessageFor(m => m.AddAdmin.LastName)
+                            </div>
+
+                            <div class="form-group box-grp">
+                                @Html.LabelFor(m => m.AddAdmin.Email)
+                                @Html.TextBoxFor(m => m.AddAdmin.Email, new
+                                {
+                                    @class = "form-control input-box",
+                                    placeholder = "Enter Your Email Address"
+                                })
+                                @Html.ValidationMessageFor(m => m.AddAdmin.Email)
+                                @Html.ValidationMessage("Exist")
+                            </div>
+
+                            <div class="form-group box-grp">
+                                @Html.LabelFor(m => m.AddAdmin.CountryCodeId) &nbsp;
+                                @Html.ValidationMessageFor(m => m.AddAdmin.CountryCodeId)
+                                @Html.ValidationMessageFor(m => m.AddAdmin.PhoneNumber)
+
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-3" id="select-country-code">
+
+                                        @Html.DropDownListFor(m => m.AddAdmin.CountryCodeId, new SelectList(Model.Countries, "CountryCode", "CountryCode"),
+                                                                "Code", new { @class = "form-control input-box remove-arrow",
+                                                                style="margin:0;"  })
+
+                                        <img src="../../images/User-Profile/down-arrow.png" class="down-arrow" alt="">
+                                    </div>
+                                    <div class="col-lg-10 col-md-9 col-sm-9 col-9">
+                                        @Html.TextBoxFor(m => m.AddAdmin.PhoneNumber, new
+                                        {
+                                            type = "tel",
+                                            @class = "form-control input-box",
+                                            placeholder = "Enter Your Phone Number",
+                                            style="margin:0;" 
+                                        })
+
+                                    </div>
+                                </div>
+                            </div>
+                            @Html.HiddenFor(m => m.AddAdmin.Id)
+                            <button type="submit" class="btn submit-btn">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+@Html.Partial("_adminFooter")

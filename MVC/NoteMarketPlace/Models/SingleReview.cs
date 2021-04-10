@@ -7,6 +7,7 @@ namespace NoteMarketPlace.Models
 {
     public class SingleReview
     {
+        public int Id { get; set; }
         public string pic { get; set; }
         public int SellerId { get; set; }
         public string Name { get; set; }
